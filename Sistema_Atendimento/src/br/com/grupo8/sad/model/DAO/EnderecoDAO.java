@@ -43,4 +43,9 @@ public class EnderecoDAO implements DAO<EnderecoPO> {
 		
 	}
 
+	public List<EnderecoPO> listaTodos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

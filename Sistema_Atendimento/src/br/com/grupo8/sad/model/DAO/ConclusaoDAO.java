@@ -43,4 +43,9 @@ public class ConclusaoDAO implements DAO<ConclusaoPO> {
 		
 	}
 
+	public List<ConclusaoPO> listaTodos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

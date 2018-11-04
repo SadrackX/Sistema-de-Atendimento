@@ -2,7 +2,10 @@ package br.com.grupo8.sad.model.PO;
 
 import java.io.Serializable;
 import java.lang.String;
+import java.util.Calendar;
+
 import javax.persistence.*;
+
 
 @Entity(name="usuario")
 @Table(name="usuario")
@@ -18,6 +21,18 @@ public class UsuarioPO implements Serializable {
 	private String senha;
 	private String email;
 	private String telefone;
+	
+	private Character status;
+	
+	@Column(name="data_criacao", nullable= false)
+    @Temporal(TemporalType.TIMESTAMP)
+	private Calendar dataCriacao;
+	@Column(name="data_inativacao")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar dataInativacao;
+	@Column(name="data_exclusao")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar dataExclusao;
 	
 	@Column(name="tipo_user")
 	private Character tipo_user;
@@ -67,4 +82,35 @@ public class UsuarioPO implements Serializable {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
+	
+	public Character getStatus() {
+		return status;
+	}
+	public void setStatus(Character status) {
+		this.status = status;
+	}
+
+	public Character getTipo() {
+		return tipo_user;
+	}
+	
+	public Calendar getDataCriacao() {
+		return dataCriacao;
+	}
+	public void setDataCriacao(Calendar dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+	public Calendar getDataInativacao() {
+		return dataInativacao;
+	}
+	public void setDataInativacao(Calendar dataInativacao) {
+		this.dataInativacao = dataInativacao;
+	}
+	public Calendar getDataExclusao() {
+		return dataExclusao;
+	}
+	public void setDataExclusao(Calendar dataExclusao) {
+		this.dataExclusao = dataExclusao;
+	}
+
 }

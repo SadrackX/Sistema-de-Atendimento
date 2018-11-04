@@ -43,4 +43,9 @@ public class AtendimentoDAO implements DAO<AtendimentoPO> {
 		
 	}
 
+	public List<AtendimentoPO> listaTodos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

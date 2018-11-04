@@ -5,14 +5,15 @@ import java.util.List;
 
 import br.com.grupo8.sad.model.DAO.UsuarioDAO;
 import br.com.grupo8.sad.model.PO.UsuarioPO;
+import br.com.grupo8.sad.controle.Dominio.StatusUsuario;
 
 public class UsuarioBO {
 	private UsuarioPO usuarioPO;
 	private UsuarioDAO usuarioDAO;
 	private List<String> mensagensDeErro;
 	
-	private final int CARGOS_ATIVOS = 1;
-	private final int CARGOS_EXCLUIDOS = 0;
+	private final int USUARIOS_ATIVOS = 1;
+	private final int USUARIOS_EXCLUIDOS = 0;
 	
 	public UsuarioBO(){
 		this.mensagensDeErro = new ArrayList<>();
@@ -40,7 +41,7 @@ public class UsuarioBO {
 	
 	public List<UsuarioPO> listar(Integer pagina, Integer qtdRegistros){
 		pagina = pagina*qtdRegistros-qtdRegistros;
-		return getUsuarioDAO().listar(pagina,qtdRegistros, getFiltro(CARGOS_ATIVOS));
+		return getUsuarioDAO().listar(pagina,qtdRegistros, getFiltro(USUARIOS_ATIVOS));
 	}
 	
 	public List<UsuarioPO> listarTodos(){
@@ -82,9 +83,9 @@ public class UsuarioBO {
 	private String getFiltro(int codigo){
 		String filtro = "";
 		switch (codigo) {
-		case CARGOS_ATIVOS: filtro = "WHERE c.dataExclusao IS NULL ORDER BY c.nome ASC";	
+		case USUARIOS_ATIVOS: filtro = "WHERE u.dataExclusao IS NULL ORDER BY u.nome ASC";	
 			break;
-		case CARGOS_EXCLUIDOS: filtro = "WHERE c.dataExclusao IS NOT NULL ORDER BY c.nome ASC";
+		case USUARIOS_EXCLUIDOS: filtro = "WHERE u.dataExclusao IS NOT NULL ORDER BY u.nome ASC";
 			break;
 		}
 		return filtro;
@@ -95,6 +96,21 @@ public class UsuarioBO {
 	}
 	public List<String> getMensagemErro(){
 		return this.mensagensDeErro;
+	}
+
+	public UsuarioPO capturarUsuarioValido(){
+		UsuarioPO usuarioCapturado = getUsuarioDAO().capturarPorId(getUsuarioPO());
+		if(usuarioCapturado != null && usuarioCapturado.getStatus().charValue() == StatusUsuario.ATIVO.getCodigo()){
+			if(!getUsuarioPO().getLogin().equals(usuarioCapturado.getLogin())){
+				usuarioCapturado = null;
+			}
+		}
+		return usuarioCapturado;
+	}
+
+	public boolean isUsuarioJaExiste() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }

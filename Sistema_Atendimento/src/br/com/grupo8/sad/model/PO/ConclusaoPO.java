@@ -22,6 +22,10 @@ public class ConclusaoPO implements Serializable{
     @Temporal(TemporalType.TIMESTAMP)
 	private Calendar dataConclusao;
 	
+	@OneToOne
+	@JoinColumn(name="atendimento_chave", referencedColumnName="chave", nullable= false)
+	private AtendimentoPO atendimento;
+	
 	@ManyToOne
 	@JoinColumn(name="usuario_chave", referencedColumnName="chave", nullable= false)
 	private UsuarioPO usuario;
@@ -40,5 +44,13 @@ public class ConclusaoPO implements Serializable{
 
 	public void setUsuario(UsuarioPO usuario) {
 		this.usuario = usuario;
+	}
+
+	public AtendimentoPO getAtendimento() {
+		return atendimento;
+	}
+
+	public void setAtendimento(AtendimentoPO atendimento) {
+		this.atendimento = atendimento;
 	}
 }
