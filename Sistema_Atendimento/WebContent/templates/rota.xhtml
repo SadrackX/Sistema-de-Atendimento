@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+<ui:composition>
+	<div class=" modal-content">
+		<div class="row">
+	
+			<!--<div class="row">
+				<form class="col s12">
+					 <div class="input-field col s12 l6">
+						<input id="txtEnderecoPartida" placeholder="Endereço de origem..."
+							name="txtEnderecoPartida" type="text" class="validate"
+							disabled="disabled" /> <label for="txtEnderecoPartida">Origem</label>
+						<span class="helper-text"
+							data-error="Por favor verifique o endereço de partida"></span>
+					</div>
+					<div class="input-field col s12 l6">
+						<input id="txtEndereco" name="txtEndereco" type="text"
+							class="validate" /> <label for="txtEndereco">Destino</label> <span
+							class="helper-text"
+							data-error="Por favor verifique o endereço de destino"></span>
+					</div>
+					<div class="col s12">
+						<button class="btn waves-effect waves-light" id="btnEndereco"
+							type="button" name="action">Enviar</button>
+					</div>
+				</form>
+			</div> -->
+			<div id="rota"></div>
+			<div class="col s12">
+				<button class="btn waves-effect waves-light" id="btnEndereco"
+					type="button" name="action">Abrir a navegação</button>
+			</div>
+<!-- 			<div id="trajeto-texto"></div> -->
+			<script
+				src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA9zp1luXQxptPvNDSiGPrKyxdyqEUpNuQ"
+				type="text/javascript" />
+
+		</div>
+	</div>
+</ui:composition>
+
+</html>

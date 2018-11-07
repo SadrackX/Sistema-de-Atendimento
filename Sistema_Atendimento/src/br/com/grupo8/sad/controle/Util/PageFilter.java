@@ -36,7 +36,7 @@ public class PageFilter implements Filter{
              }
          }
          
-         if(sess.getAttribute("currentPage") != null && sess.getAttribute("currentPage").equals("/reserva.do") && sess.getAttribute("usuario") == null){
+         if(sess.getAttribute("currentPage") != null && sess.getAttribute("currentPage").equals("/index.do") && sess.getAttribute("usuario") == null){
         	 RequestDispatcher dispacher = request.getRequestDispatcher("login.do");
              dispacher.forward(request, response);
          }

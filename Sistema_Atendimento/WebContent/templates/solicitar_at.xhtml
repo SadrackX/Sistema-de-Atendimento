@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<h3 class="light header center">Agendar Atendimento</h3>
+<div class="row">
+	<form class="col s12">
+		<div class="input-field col s12 l6">
+			<input onkeypress="return soLetras(event)" minlength="10"
+				maxlength="255" id="nome" type="text" class="validate" /> <label
+				for="nome">Nome</label> <span class="helper-text"
+				data-error="Por favor verificar o nome" data-success=""></span>
+		</div>
+		<div class="input-field col s12 l6">
+			<input onkeypress="return soLetrasNumeros(event)" minlength="10"
+				maxlength="255" id="endereco" type="text" class="validate" /> <label
+				for="endereco">Endereço</label> <span class="helper-text"
+				data-error="Por favor verifique o endereço" data-success=""></span>
+		</div>
+		<div class="input-field col s12">
+			<input type="text" class="datepicker validate" id="data"
+				maxlength="10" minlength="10" /> <label for="data">Data</label> <span
+				class="helper-text" data-error="Por favor verifique a data"
+				data-success=""></span>
+		</div>
+		<div class="input-field col s12">
+			<textarea id="textarea1" maxlength="500" minlength="20"
+				class="materialize-textarea validate"></textarea>
+			<label for="textarea1">Descrição</label> <span class="helper-text"
+				data-error="Por favor verifique a descrição" data-success=""></span>
+		</div>
+		<div class="col">
+			<button class="btn waves-effect waves-light" type="submit"
+				name="action">
+				Enviar <i class="material-icons right">send</i>
+			</button>
+		</div>
+	</form>
+</div>
+</html>

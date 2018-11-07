@@ -21,6 +21,7 @@ public class UsuarioPO implements Serializable {
 	private String senha;
 	private String email;
 	private String telefone;
+	private EnderecoPO endereco;
 	
 	private Character status;
 	
@@ -34,7 +35,6 @@ public class UsuarioPO implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar dataExclusao;
 	
-	@Column(name="tipo_user")
 	private Character tipo_user;
 	
 	public Integer getChave() {
@@ -83,6 +83,14 @@ public class UsuarioPO implements Serializable {
 		this.telefone = telefone;
 	}
 	
+	public EnderecoPO getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(EnderecoPO endereco) {
+		this.endereco = endereco;
+	}
+
 	public Character getStatus() {
 		return status;
 	}
@@ -94,6 +102,14 @@ public class UsuarioPO implements Serializable {
 		return tipo_user;
 	}
 	
+	public Character getTipo_user() {
+		return tipo_user;
+	}
+
+	public void setTipo_user(Character tipo_user) {
+		this.tipo_user = tipo_user;
+	}
+
 	public Calendar getDataCriacao() {
 		return dataCriacao;
 	}

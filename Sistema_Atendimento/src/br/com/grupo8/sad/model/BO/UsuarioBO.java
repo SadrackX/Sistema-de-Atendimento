@@ -1,6 +1,7 @@
 package br.com.grupo8.sad.model.BO;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import br.com.grupo8.sad.model.DAO.UsuarioDAO;
@@ -10,13 +11,13 @@ import br.com.grupo8.sad.controle.Dominio.StatusUsuario;
 public class UsuarioBO {
 	private UsuarioPO usuarioPO;
 	private UsuarioDAO usuarioDAO;
-	private List<String> mensagensDeErro;
+	private List<String> mensagensErro;
 	
 	private final int USUARIOS_ATIVOS = 1;
 	private final int USUARIOS_EXCLUIDOS = 0;
 	
 	public UsuarioBO(){
-		this.mensagensDeErro = new ArrayList<>();
+		this.mensagensErro = new ArrayList<>();
 	}
 	
 	public UsuarioPO capturar(){
@@ -31,21 +32,22 @@ public class UsuarioBO {
 		}
 	}
 	public boolean atualizar(){
-		getUsuarioDAO().atualizar(getUsuarioPO());
-		return true;
+		return getUsuarioDAO().atualizar(getUsuarioPO());
 	}
 	public boolean excluir(){
-		getUsuarioDAO().excluir(getUsuarioPO());
-		return true;
+		UsuarioPO usuario = getUsuarioDAO().capturarPorId(usuarioPO);
+		if(usuario !=null){
+			usuario.setDataExclusao(Calendar.getInstance());
+			usuario.setStatus(StatusUsuario.EXCLUIDO.getCodigo());
+			return getUsuarioDAO().excluir(usuario);
+		}else{
+			return false;
+		}
 	}
 	
 	public List<UsuarioPO> listar(Integer pagina, Integer qtdRegistros){
 		pagina = pagina*qtdRegistros-qtdRegistros;
 		return getUsuarioDAO().listar(pagina,qtdRegistros, getFiltro(USUARIOS_ATIVOS));
-	}
-	
-	public List<UsuarioPO> listarTodos(){
-		return getUsuarioDAO().listaTodos();
 	}
 	
 	public UsuarioPO getUsuarioPO() {
@@ -54,9 +56,11 @@ public class UsuarioBO {
 		}
 		return usuarioPO;
 	}
+	
 	public void setUsuarioPO(UsuarioPO usuarioPO) {
 		this.usuarioPO = usuarioPO;
 	}
+	
 	private UsuarioDAO getUsuarioDAO() {
 		if(this.usuarioDAO == null){
 			this.usuarioDAO = new UsuarioDAO();
@@ -92,10 +96,12 @@ public class UsuarioBO {
 	}
 	
 	private void setMensagemErro(String mensagem){
-		this.mensagensDeErro.add(mensagem);
+		this.mensagensErro.add(mensagem);
 	}
 	public List<String> getMensagemErro(){
-		return this.mensagensDeErro;
+		this.mensagensErro = new ArrayList<>();
+		this.mensagensErro.add("error");
+		return this.mensagensErro;
 	}
 
 	public UsuarioPO capturarUsuarioValido(){
@@ -109,8 +115,7 @@ public class UsuarioBO {
 	}
 
 	public boolean isUsuarioJaExiste() {
-		// TODO Auto-generated method stub
-		return false;
+		return ((UsuarioDAO) getUsuarioDAO()).isUsuarioJaExiste(getUsuarioPO());
 	}
 	
 }

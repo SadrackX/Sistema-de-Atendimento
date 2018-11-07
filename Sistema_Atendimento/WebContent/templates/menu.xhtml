@@ -1,0 +1,37 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition>
+	
+<!-- 		<input type="hidden" id="usuarioDaSessao" value=''/> -->
+	<nav class="teal lighten-2">
+		<div class="container">
+			<div class="nav-wrapper">
+			
+				<a href="index.do" title="Inicio" class="brand-logo">SAD</a>
+				
+				<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+							
+				<ul class="right hide-on-med-and-down">
+					<ui:insert>
+						<ui:include src="/templates/menu_itens.xhtml" />
+					</ui:insert>
+				</ul>
+		
+				<!-- <ul id="nav-mobile" class="side-nav">
+					<ui:insert>
+						<ui:include src="/templates/menu_itens_m.xhtml" />
+					</ui:insert>
+				</ul> -->
+		
+			</div>
+		</div>
+	</nav>
+</ui:composition>
+
+</html>
