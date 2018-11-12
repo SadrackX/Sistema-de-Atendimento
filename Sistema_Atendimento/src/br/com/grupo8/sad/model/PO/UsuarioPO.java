@@ -17,6 +17,7 @@ public class UsuarioPO implements Serializable {
 	private Integer chave;
 	
 	private String nome;
+	private String sobrenome;
 	private String login;
 	private String senha;
 	private String email;
@@ -48,6 +49,14 @@ public class UsuarioPO implements Serializable {
 		this.nome = nome.toUpperCase();
 	}
 	
+	public String getSobrenome() {
+		return sobrenome;
+	}
+
+	public void setSobrenome(String sobrenome) {
+		this.sobrenome = sobrenome.toUpperCase();
+	}
+
 	public String getLogin() {
 		return login;
 	}
@@ -69,7 +78,7 @@ public class UsuarioPO implements Serializable {
 	
 
 	public void setEmail(String email) {
-		this.email = email;
+		this.email = email.toUpperCase();
 	}
 
 	public String getTelefone() {
@@ -100,7 +109,7 @@ public class UsuarioPO implements Serializable {
 	}
 
 	public void setRua(String rua) {
-		this.rua = rua;
+		this.rua = rua.toUpperCase();
 	}
 
 	public String getBairro() {
@@ -108,7 +117,7 @@ public class UsuarioPO implements Serializable {
 	}
 
 	public void setBairro(String bairro) {
-		this.bairro = bairro;
+		this.bairro = bairro.toUpperCase();
 	}
 
 	public String getCidade() {
@@ -116,7 +125,7 @@ public class UsuarioPO implements Serializable {
 	}
 
 	public void setCidade(String cidade) {
-		this.cidade = cidade;
+		this.cidade = cidade.toUpperCase();
 	}
 
 	public String getCep() {

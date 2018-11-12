@@ -48,7 +48,7 @@ function capturarDadosDoForm(){
 	var senha = $("#senha").val();
 	var usuario
 	if(isDadosValidos(nome,sobrenome,telefone, tipo, login,email,senha, rua, bairro, cidade, cep)){
-	   usuario = {"nome":nome+" "+sobrenome, "email":email, "telefone":telefone, "tipo":tipo, "login":login, "senha":senha, "status":'A', "rua":rua, "bairro":bairro, "cidade":cidade, "cep":cep};
+	   usuario = {"nome":nome, "sobrenome":sobrenome, "email":email, "telefone":telefone, "tipo":tipo, "login":login, "senha":senha, "status":'A', "rua":rua, "bairro":bairro, "cidade":cidade, "cep":cep};
 	}else{
 		usuario = null;
 	}
@@ -170,7 +170,7 @@ function preencherTabelaUsuarios(arrayDeUsuarios){
 
 function getLinhaUsuario(usuario){
 	linha = "<tr>";
-	linha +="<td>"+usuario.nome+"</td>";
+	linha +="<td>"+usuario.nome+" "+usuario.sobrenome+"</td>";
 	linha +="<td>"+usuario.telefone+"</td>";
 	linha +="<td>"+usuario.cep +"</td>";
 	linha +="<td>"+(usuario.email == null ? "" : usuario.email)+"</td>";
@@ -244,3 +244,42 @@ function limparCamposFormCadastro(){
 	$("#cidade").val("");
 	$("#cep").val("");
 }
+
+//Consulta CEP
+
+$(document).ready(function() {
+    function limpa_formulário_cep() {
+        $("#rua").val("");
+        $("#bairro").val("");
+        $("#cidade").val("");
+    }
+    $("#cep").blur(function() {
+        var cep = $(this).val().replace(/\D/g, '');
+        if (cep != "") {
+            var validacep = /^[0-9]{8}$/;
+            if(validacep.test(cep)) {
+                $("#rua").val("...");
+                $("#bairro").val("...");
+                $("#cidade").val("...");
+                $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
+                    if (!("erro" in dados)) {
+                        $("#rua").val(dados.logradouro);
+                        $("#bairro").val(dados.bairro);
+                        $("#cidade").val(dados.localidade);
+                    }
+                    else {
+                        limpa_formulário_cep();
+                        alert("CEP não encontrado.");
+                    }
+                });
+            }
+            else {
+                limpa_formulário_cep();
+                alert("Formato de CEP inválido.");
+            }
+        }
+        else {
+            limpa_formulário_cep();
+        }
+    });
+});
