@@ -11,7 +11,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import br.com.grupo8.sad.controle.Util.SecurityUtil;
 import br.com.grupo8.sad.model.BO.UsuarioBO;
 import br.com.grupo8.sad.model.PO.UsuarioPO;
 
@@ -27,13 +26,9 @@ public class UsuarioWS {
 	@Path("/cadastrar/")
 	public List<String> create(final UsuarioPO usuario) {
 		List<String> retorno = new ArrayList<>();
-		getUsuarioBO().setUsuarioPO(usuario);
-		getUsuarioBO().getUsuarioPO().setSenha(SecurityUtil.getHash(getUsuarioBO().getUsuarioPO().getSenha()));		
-		if(getUsuarioBO().cadastrar()){
-			retorno.add("sucess");
-		}else{
-			retorno = getUsuarioBO().getMensagemErro();
-		}
+		getUsuarioBO().setUsuarioPO(usuario);	
+		getUsuarioBO().cadastrar();
+	    retorno.add("sucess");
 		return retorno;
 	}
 

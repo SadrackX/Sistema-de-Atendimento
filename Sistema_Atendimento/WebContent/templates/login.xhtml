@@ -1,9 +1,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:composite="http://java.sun.com/jsf/composite"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition>
 	<form id="formularioDeLogin" name="formularioDeLogin" method="POST">
@@ -33,27 +33,35 @@
 		  		</div>
 		  		
 	  		</div> -->
-	  		
-	  		
-	  		<!-- LOGIN E SENHA -->
-	  		
+
+
+			<!-- LOGIN E SENHA -->
+
 			<div class="row">
 				<div class="input-field">
-					<input placeholder="Digite seu login" name="login" id="login" type="text" class="validate" required="required"/>
-					<label for="loginOuEmail" data-error="Prenchimento deste campo é obrigatório!" data-success="OK"/>
+					<input placeholder="Digite seu login" name="login" id="login"
+						type="text" class="validate" required="required" /> <label
+						for="loginOuEmail"
+						data-error="Prenchimento deste campo é obrigatório!"
+						data-success="OK" />
 				</div>
 			</div>
 			<div class="row">
 				<div class="input-field">
-					<input placeholder="Digite sua senha" name="senha" id="senhaL" type="password" class="validate" required="required"/>
-					<label for="email" data-error="Prenchimento deste campo é obrigatório!" data-success="OK"/>
+					<input placeholder="Digite sua senha" name="senha" id="senhaL"
+						type="password" class="validate" required="required" /> <label
+						for="email" data-error="Prenchimento deste campo é obrigatório!"
+						data-success="OK" />
 				</div>
 			</div>
-			
+
 			<!-- BOTOES -->
 			<div class="modal-footer">
-				<button class="btn waves-effect waves-light" type="submit">ENTRAR<i class="material-icons right">send</i></button>
-				<button class="btn grey modal-close waves-effect waves-red" type="reset">CANCELAR</button>	
+				<button class="btn waves-effect waves-light" type="submit">
+					ENTRAR<i class="material-icons right">send</i>
+				</button>
+				<button class="btn grey modal-close waves-effect waves-red"
+					type="reset">CANCELAR</button>
 			</div>
 		</div>
 	</form>

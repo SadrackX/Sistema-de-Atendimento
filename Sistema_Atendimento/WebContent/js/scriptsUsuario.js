@@ -37,7 +37,7 @@ $("#CadastroDeUsuario").submit(function(event){
 function capturarDadosDoForm(){
 	var nome = $("#nome").val();
 	var sobrenome = $("#sobrenome").val();
-	var tipo_user = $("#tipo_user").val();
+	var tipo = $("#tipo").val();
 	var login = $("#login").val();
 	var telefone = $("#telefone").val();
 	var email = $("#email").val();
@@ -47,15 +47,15 @@ function capturarDadosDoForm(){
 	var cep = $("#cep").val();	
 	var senha = $("#senha").val();
 	var usuario
-	if(isDadosValidos(nome,sobrenome,telefone,tipo_user,login,email,senha, rua, bairro, cidade, cep)){
-	   usuario = {"nome":nome+" "+sobrenome, "email":email, "telefone":telefone, "login":login, "senha":senha, "tipo_user":tipo_user, "status":'A', "endereco":{rua:"rua", bairro:"bairro", cidade:"cidade", cep:"cep"}};
+	if(isDadosValidos(nome,sobrenome,telefone, tipo, login,email,senha, rua, bairro, cidade, cep)){
+	   usuario = {"nome":nome+" "+sobrenome, "email":email, "telefone":telefone, "tipo":tipo, "login":login, "senha":senha, "status":'A', "rua":rua, "bairro":bairro, "cidade":cidade, "cep":cep};
 	}else{
 		usuario = null;
 	}
 	return usuario;
 }
 
-function isDadosValidos(nome,sobrenome,telefone,tipo_user,login,email,senha, rua, bairro, cidade, cep){
+function isDadosValidos(nome,sobrenome,telefone, tipo, login,email,senha, rua, bairro, cidade, cep){
 	var mensagem = "";
 //	var cpfSemFormatacao;
 	var retorno = true;
@@ -66,11 +66,6 @@ function isDadosValidos(nome,sobrenome,telefone,tipo_user,login,email,senha, rua
 	}
 	if(sobrenome == null || sobrenome == "" || sobrenome.length < 4){
 		mensagem += "<li>É obrigatório preencher o campo SOBRENOME corretamente com no minimo 4 letras</li>";
-		$('#mensagemRetornoCadastro').html(mensagem);
-		retorno = false;
-	}
-	if(tipo_user == null || tipo_user == ""){
-		mensagem += "<li>É obrigatório selecionar o TIPO corretamente</li>";
 		$('#mensagemRetornoCadastro').html(mensagem);
 		retorno = false;
 	}
@@ -218,8 +213,6 @@ function limparCamposFormCadastro(){
 	$("#telefone").val("");
 	$("#email").val("");
 	$("#senha").val("");
-	$("#confirmaSenha").val("");
-	$("#tipo").val("");
 	$("#rua").val("");
 	$("#bairro").val("");
 	$("#cidade").val("");

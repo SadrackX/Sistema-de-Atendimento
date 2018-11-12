@@ -21,21 +21,17 @@ public class UsuarioPO implements Serializable {
 	private String senha;
 	private String email;
 	private String telefone;
-	private EnderecoPO endereco;
 	
+	//ENDERECO
+	private String rua;
+	private String bairro;
+	private String cidade;
+	private String cep;
+	
+	@Column(nullable=false)
+	private Integer tipo;
+	@Column(nullable=false)
 	private Character status;
-	
-	@Column(name="data_criacao", nullable= false)
-    @Temporal(TemporalType.TIMESTAMP)
-	private Calendar dataCriacao;
-	@Column(name="data_inativacao")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar dataInativacao;
-	@Column(name="data_exclusao")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar dataExclusao;
-	
-	private Character tipo_user;
 	
 	public Integer getChave() {
 		return this.chave;
@@ -70,6 +66,7 @@ public class UsuarioPO implements Serializable {
 	public String getEmail() {
 		return email;
 	}
+	
 
 	public void setEmail(String email) {
 		this.email = email;
@@ -83,12 +80,12 @@ public class UsuarioPO implements Serializable {
 		this.telefone = telefone;
 	}
 	
-	public EnderecoPO getEndereco() {
-		return endereco;
+	public Integer getTipo() {
+		return tipo;
 	}
 
-	public void setEndereco(EnderecoPO endereco) {
-		this.endereco = endereco;
+	public void setTipo(Integer tipo) {
+		this.tipo = tipo;
 	}
 
 	public Character getStatus() {
@@ -98,35 +95,38 @@ public class UsuarioPO implements Serializable {
 		this.status = status;
 	}
 
-	public Character getTipo() {
-		return tipo_user;
+	public String getRua() {
+		return rua;
 	}
+
+	public void setRua(String rua) {
+		this.rua = rua;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
 	
-	public Character getTipo_user() {
-		return tipo_user;
-	}
-
-	public void setTipo_user(Character tipo_user) {
-		this.tipo_user = tipo_user;
-	}
-
-	public Calendar getDataCriacao() {
-		return dataCriacao;
-	}
-	public void setDataCriacao(Calendar dataCriacao) {
-		this.dataCriacao = dataCriacao;
-	}
-	public Calendar getDataInativacao() {
-		return dataInativacao;
-	}
-	public void setDataInativacao(Calendar dataInativacao) {
-		this.dataInativacao = dataInativacao;
-	}
-	public Calendar getDataExclusao() {
-		return dataExclusao;
-	}
-	public void setDataExclusao(Calendar dataExclusao) {
-		this.dataExclusao = dataExclusao;
-	}
 
 }

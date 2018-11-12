@@ -11,25 +11,17 @@ import br.com.grupo8.sad.controle.Dominio.StatusUsuario;
 public class UsuarioBO {
 	private UsuarioPO usuarioPO;
 	private UsuarioDAO usuarioDAO;
-	private List<String> mensagensErro;
 	
 	private final int USUARIOS_ATIVOS = 1;
 	private final int USUARIOS_EXCLUIDOS = 0;
 	
-	public UsuarioBO(){
-		this.mensagensErro = new ArrayList<>();
-	}
 	
 	public UsuarioPO capturar(){
 		return getUsuarioDAO().capturarPorId(getUsuarioPO());
 	}
 	
 	public boolean cadastrar(){
-		if(isDadosValidosParaCadastro()){
 			return getUsuarioDAO().cadastrar(getUsuarioPO());
-		}else{
-			return false;
-		}
 	}
 	public boolean atualizar(){
 		return getUsuarioDAO().atualizar(getUsuarioPO());
@@ -37,7 +29,6 @@ public class UsuarioBO {
 	public boolean excluir(){
 		UsuarioPO usuario = getUsuarioDAO().capturarPorId(usuarioPO);
 		if(usuario !=null){
-			usuario.setDataExclusao(Calendar.getInstance());
 			usuario.setStatus(StatusUsuario.EXCLUIDO.getCodigo());
 			return getUsuarioDAO().excluir(usuario);
 		}else{
@@ -68,21 +59,6 @@ public class UsuarioBO {
 		return usuarioDAO;
 	}
 	
-	private boolean isDadosValidosParaCadastro(){
-		if(getUsuarioPO().getNome() == null || getUsuarioPO().getNome().isEmpty()){
-			setMensagemErro("O nome do usuario deve ser preenchido.<br/>");
-		}
-		if(getUsuarioPO().getNome().length() < 5){
-			setMensagemErro("O nome do usuario deve conter no mínimo 5 caracteres.<br/>");
-		}
-		
-		if(getMensagemErro().isEmpty()){
-			return true;
-		}else{
-			return false;
-		}
-	}
-	
 	
 	private String getFiltro(int codigo){
 		String filtro = "";
@@ -93,15 +69,6 @@ public class UsuarioBO {
 			break;
 		}
 		return filtro;
-	}
-	
-	private void setMensagemErro(String mensagem){
-		this.mensagensErro.add(mensagem);
-	}
-	public List<String> getMensagemErro(){
-		this.mensagensErro = new ArrayList<>();
-		this.mensagensErro.add("error");
-		return this.mensagensErro;
 	}
 
 	public UsuarioPO capturarUsuarioValido(){

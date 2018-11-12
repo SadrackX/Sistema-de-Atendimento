@@ -29,87 +29,97 @@
 				method="POST">
 				<div class="input-field col s6">
 					<input id="nome" maxlength="255" minlength="3"
-						onkeypress="return soLetras(event)" type="text" class="validate" value="nameExemple" disabled="disabled" />
-					<label for="nome">Nome</label> <span class="helper-text"
+						onkeypress="return soLetras(event)" type="text" class="validate"
+						value="nameExemple" disabled="disabled" /> <label for="nome">Nome</label>
+					<span class="helper-text"
 						data-error="Por favor verifique o nome digitado." data-success=""></span>
 				</div>
 				<div class="input-field col s6">
 					<input id="sobrenome" maxlength="255" minlength="3"
-						onkeypress="return soLetras(event)" type="text" class="validate" value="lastnameExemple" disabled="disabled"/>
-					<label for="sobrenome">Sobrenome</label> <span class="helper-text"
+						onkeypress="return soLetras(event)" type="text" class="validate"
+						value="lastnameExemple" disabled="disabled" /> <label
+						for="sobrenome">Sobrenome</label> <span class="helper-text"
 						data-error="Por favor verifique o sobrenome digitado."
 						data-success=""></span>
 				</div>
 
 				<div class="input-field col s12">
-					<input id="email" maxlength="255" type="email" class="validate" value="exemple@email.com" disabled="disabled" />
-					<label for="email">Email</label> <span class="helper-text"
+					<input id="email" maxlength="255" type="email" class="validate"
+						value="exemple@email.com" disabled="disabled" /> <label
+						for="email">Email</label> <span class="helper-text"
 						data-error="Por favor verifique o email digitado." data-success=""></span>
 				</div>
 
 				<div class="input-field col s12 l6">
 					<input id="telefone" type="text" class="validate" maxlength="13"
-						minlength="13" data-mask="(00)0000-0000" value="(00)0000-0000" disabled="disabled"/> <label for="telefone">Telefone</label>
-					<span class="helper-text"
+						minlength="13" data-mask="(00)0000-0000" value="(00)0000-0000"
+						disabled="disabled" /> <label for="telefone">Telefone</label> <span
+						class="helper-text"
 						data-error="Por favor verifique o telefone digitado."
 						data-success=""></span>
 				</div>
 				<div class="input-field col s12 l6">
 					<input id="rua" onkeypress="return soLetrasNumeros(event)"
-						type="text" maxlength="255" minlength="1" class="validate" value="Street" disabled="disabled"/> <label
-						for="rua">Rua</label> <span class="helper-text"
+						type="text" maxlength="255" minlength="1" class="validate"
+						value="Street" disabled="disabled" /> <label for="rua">Rua</label>
+					<span class="helper-text"
 						data-error="Por favor verifique a Rua digitada." data-success=""></span>
 				</div>
 				<div class="input-field col s12 l6">
 					<input id="bairro" onkeypress="return soLetrasNumeros(event)"
-						type="text" maxlength="255" minlength="1" class="validate" value="District" disabled="disabled"/> <label
-						for="bairro" >Bairro</label> <span class="helper-text"
+						type="text" maxlength="255" minlength="1" class="validate"
+						value="District" disabled="disabled" /> <label for="bairro">Bairro</label>
+					<span class="helper-text"
 						data-error="Por favor verifique o Bairro digitado."
 						data-success=""></span>
 				</div>
 				<div class="input-field col s12 l6">
 					<input id="cidade" onkeypress="return soLetrasNumeros(event)"
-						type="text" maxlength="255" minlength="1" class="validate" value="CityExemple" disabled="disabled"/> <label
-						for="cidade" >Cidade</label> <span class="helper-text"
+						type="text" maxlength="255" minlength="1" class="validate"
+						value="CityExemple" disabled="disabled" /> <label for="cidade">Cidade</label>
+					<span class="helper-text"
 						data-error="Por favor verifique a Cidade digitada."
 						data-success=""></span>
 				</div>
 				<div class="input-field col s12 l6">
 					<input id="cep" maxlength="9" minlength="9" data-mask="00000-000"
-						type="text" class="validate" value="999999-999" disabled="disabled"/> <label for="cep">CEP</label> <span
+						type="text" class="validate" value="999999-999"
+						disabled="disabled" /> <label for="cep">CEP</label> <span
 						class="helper-text"
 						data-error="Por favor verifique o CEP digitado." data-success=""></span>
 				</div>
 				<div class="input-field col s6">
 					<input id="login" maxlength="20" minlength="4"
 						onkeypress="return soLetrasNumeros(event)" type="text"
-						class="validate" value="LoginExemple" disabled="disabled" /> <label for="login">Login</label> <span
-						class="helper-text"
+						class="validate" value="LoginExemple" disabled="disabled" /> <label
+						for="login">Login</label> <span class="helper-text"
 						data-error="Por favor verifique o login digitado." data-success=""></span>
 				</div>
 			</form>
-			
+
 			<h3 class="light header center">Atendimentos Abertos</h3>
-				<table class="responsive-table">
-					<thead>
-						<tr>
-							<th>Nome</th>
-							<th>Endereço</th>
-							<th>Descrição</th>
-							<th>Ação</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>JOAO T. SOARES</td>
-							<td>KSD 09 N. 394</td>
-							<td>Previa descrição do problema</td>
-							<th><a data-target="modal-mapa" class="modal-trigger waves-effect waves-light red btn">Solicitar Cancelamento</a></th>
-						</tr>
-					</tbody>
-				</table>
+			<table class="responsive-table">
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Endereço</th>
+						<th>Descrição</th>
+						<th>Ação</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>JOAO T. SOARES</td>
+						<td>KSD 09 N. 394</td>
+						<td>Previa descrição do problema</td>
+						<th><a data-target="modal-mapa"
+							class="modal-trigger waves-effect waves-light red btn">Solicitar
+								Cancelamento</a></th>
+					</tr>
+				</tbody>
+			</table>
 		</div>
-		
+
 	</div>
 
 
