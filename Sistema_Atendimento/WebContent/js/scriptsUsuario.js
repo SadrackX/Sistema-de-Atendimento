@@ -8,7 +8,7 @@ var urlUsuarios = "ws/usuariows/listarUsuarios/";
 function cadastrarUsuario(){
 	$('#tituloFomunlarioUsuario').html("Formulário de cadastro de usuario");
 	$("#hide-alterar").show();
-    $("#cadastrarUsuario").modal('open');
+    $("#cadastro").modal('open');
     $('#mensagemRetornoCadastro').addClass("hiddendiv");
 }
 
@@ -138,7 +138,7 @@ $("#confirmarExclusaoUsuario").submit(function(event){
 
 function carregarUsuarios(pagina){
 	$("#barraCarregando").removeClass("hiddendiv");
-	qtdRegistrosUsuarios = parseInt($("#qtdRegistrosUsuarios").val());
+    qtdRegistrosUsuarios = parseInt($("#qtdRegistrosUsuarios").val());
 	$.ajax({
 		url: "ws/usuariows/listar/"+pagina+"/"+qtdRegistrosUsuarios,
         type: 'GET',
@@ -160,7 +160,7 @@ function carregarUsuarios(pagina){
 	listarOpPaginas(idDivPaginacaoUsuario,paginaAtualUsuarios,qtdRegistrosUsuarios,qtdRegistrosUsuariosObtidos,"carregarUsuarios");
 }
 
-function preencherTabelaUsuarios(arrayDeUsuario){
+function preencherTabelaUsuarios(arrayDeUsuarios){
 	var html = "";
 	for( i = 0; i < arrayDeUsuarios.length; i++){
 		html += getLinhaUsuario(arrayDeUsuarios[i]);
@@ -171,11 +171,37 @@ function preencherTabelaUsuarios(arrayDeUsuario){
 function getLinhaUsuario(usuario){
 	linha = "<tr>";
 	linha +="<td>"+usuario.nome+"</td>";
-	linha +="<td>"+usuario.tipo == "C" ? "Cliente" : "Funcionario"+"</td>";
+	linha +="<td>"+usuario.telefone+"</td>";
+	linha +="<td>"+usuario.cep +"</td>";
 	linha +="<td>"+(usuario.email == null ? "" : usuario.email)+"</td>";
+	linha +="<td>"+getAcoesUsuario(usuario)+"</td>";
 	linha +="</tr>";
 	return linha;
 }
+
+function getAcoesUsuario(usuario){
+	var html = getBtnInfoUsuario(usuario);
+	html += getBtnEditarUsuario(usuario);
+	html += getBtnExcluirUsuario(usuario);
+	return html;
+}
+
+function getBtnInfoUsuario(usuario){
+	var html = "<a href='#' onclick='abrirInformacoesUsuario("+JSON.stringify(usuario)+")' title='Mais informações'><i class='material-icons'>info</i></a> ";
+	return html;
+}
+
+function getBtnEditarUsuario(usuario){
+	var html = "<a href='#' onclick='limparCamposFormCadastro() , editarFuncionario("+JSON.stringify(usuario)+")' title='Editar'><i class='material-icons' aria-hidden='true'>mode_edit</i></a> ";
+	return html;
+}
+
+function getBtnExcluirUsuario(usuario){
+	var html = '<a href="#"	onclick="excluirUsuario('+usuario.chave+')" title="Excluir"><i class="material-icons" aria-hidden="true">delete</i></a>';
+	return html;
+}
+
+
 
 /*VALIDAÇÕES E TRATAMENTOS*/
 
@@ -193,7 +219,7 @@ function tratarRetornoServidor(data){
 		$('#mensagemRetornoCadastro').addClass("green");
 		$('#mensagemRetornoCadastro').removeClass("hiddendiv");
 		setTimeout(function(){
-			$("#cadastrarFuncionario").modal('close');
+			$("#cadastro").modal('close');
 			limparCamposFormCadastro();
 			$('#mensagemRetornoCadastro').addClass("hiddendiv");
 			carregarUsuarios(1);

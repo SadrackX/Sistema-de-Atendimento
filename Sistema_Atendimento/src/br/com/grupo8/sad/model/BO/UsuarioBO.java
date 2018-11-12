@@ -63,9 +63,9 @@ public class UsuarioBO {
 	private String getFiltro(int codigo){
 		String filtro = "";
 		switch (codigo) {
-		case USUARIOS_ATIVOS: filtro = "WHERE u.dataExclusao IS NULL ORDER BY u.nome ASC";	
+		case USUARIOS_ATIVOS: filtro = "WHERE u.status = 'A' ORDER BY u.nome ASC";	
 			break;
-		case USUARIOS_EXCLUIDOS: filtro = "WHERE u.dataExclusao IS NOT NULL ORDER BY u.nome ASC";
+		case USUARIOS_EXCLUIDOS: filtro = "WHERE u.status = 'E' ORDER BY u.nome ASC";
 			break;
 		}
 		return filtro;
