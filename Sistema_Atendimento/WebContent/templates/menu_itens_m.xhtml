@@ -1,66 +1,36 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <ui:composition>
-	<c:if test="#{!usuarioBean.usuarioLogado}">
-		<li><a href="index.do"><i class="fa fa-home"
-				aria-hidden="true"></i> INICIO</a></li>
-		<li class="divider"></li>
-	</c:if>
-	<li><a href="promocoes.do"><i class="fa fa-tags"
-			aria-hidden="true"></i> PROMOÇÕES</a></li>
-	<li class="divider"></li>
-	<li><a href="reserva.do"><i class="fa fa-pencil-square-o"
-			aria-hidden="true"></i> RESERVE SUA MESA</a></li>
-	<li class="divider"></li>
-	<c:if test="#{!usuarioBean.usuarioLogado}">
-		<li><a data-target="modal1"><i class="fa fa-sign-in"
-				aria-hidden="true"></i> ENTRAR</a></li>
-		<li class="divider"></li>
-	</c:if>
-	<c:if test="#{usuarioBean.funcionario}">
-		<li><a class="dropdown-button" href="#!"
-			data-activates="dropdownGerenciar-m"><i class="fa fa-cogs"
-				aria-hidden="true"></i> GERENCIAR</a>
-			<ul id="dropdownGerenciar-m" class="dropdown-content">
-				<li><a href="gerenciar_clientes.do"><i class="fa fa-users"
-						aria-hidden="true"></i> CLIENTES</a></li>
+	<ul id="mobile-demo" class="sidenav">
+		<c:if test="#{!usuarioBean.usuarioLogado}">
+			<li><a data-target="login-modal" class="center-align" href="#!">ENTRAR</a></li>
+		</c:if>
+		
+		<c:if test="#{usuarioBean.usuarioLogado}">
+			<c:if test="#{usuarioBean.funcionario}">
+				<li><a class="dropdown-trigger" data-target="dropdownGerenciar-M" href="#!">GERENCIAR</a>
+					<ul id="dropdownGerenciar-M" class="dropdown-content">
+						<li><a href="atendimentos.do"> ATENDIMENTOS</a></li>
+						<li class="divider"></li>
+						<li><a href="admin.do">USUARIOS</a></li>
+					</ul></li>
 				<li class="divider"></li>
-				<li><a href="gerenciar_funcionarios.do"><i
-						class="fa fa-address-card-o" aria-hidden="true"></i> FUNCIONÁRIOS</a></li>
-				<li class="divider"></li>
-				<li><a href="gerenciar_parametros.do"><i
-						class="fa fa-building" aria-hidden="true"></i> HORÁRIO DE FUNC.</a></li>
-				<li class="divider"></li>
-				<li><a href="gerenciar_mesas.do"><i
-						class="fa fa-pencil-square-o" aria-hidden="true"></i> MESAS</a></li>
-				<li class="divider"></li>
-				<li><a href="gerenciar_promocoes.do"><i class="fa fa-tags"
-						aria-hidden="true"></i> PROMOÇÕES</a></li>
-			</ul></li>
-		<li class="divider"></li>
-		<li><a href="relatorios.do"><i class="fa fa-bar-chart"
-				aria-hidden="true"></i> RELATÓRIOS</a></li>
-		<li class="divider"></li>
-	</c:if>
-	<c:if test="#{usuarioBean.usuarioLogado}">
-		<li><a class="dropdown-button"
-			data-activates="dropdown-usuario-m" href="#"><i
-				class="fa fa-user-circle" aria-hidden="true"></i>
-			<h:outputText value=" #{usuarioBean.nome}" /></a>
-			<ul id="dropdown-usuario-m" class="dropdown-content">
-				<li><a href="perfil.do"><i class="fa fa-id-card-o"
-						aria-hidden="true"></i> Perfil</a></li>
-				<li class="divider"></li>
-				<li><a href="sair.do"><i class="fa fa-sign-out"
-						aria-hidden="true"></i> Sair</a></li>
-			</ul></li>
-	</c:if>
+			</c:if>
+			
+			<li><a class="dropdown-trigger" data-target="dropdownUsuario-M"><h:outputText value=" #{usuarioBean.nome}" /></a>
+				<ul id="dropdownUsuario-M" class="dropdown-content">
+					<li><a href="cliente.do"><i class="fa fa-users" aria-hidden="true"></i> PERFIL</a></li>
+					<li><a href="sair.do"><i class="fa fa-users" aria-hidden="true"></i> SAIR</a></li>
+				</ul>
+			</li>
+		</c:if>
+	</ul>
 </ui:composition>
 
 </html>

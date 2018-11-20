@@ -30,7 +30,7 @@ public class UsuarioPO implements Serializable {
 	private String cep;
 	
 	@Column(nullable=false)
-	private Integer tipo;
+	private char tipo;
 	@Column(nullable=false)
 	private Character status;
 	
@@ -89,11 +89,11 @@ public class UsuarioPO implements Serializable {
 		this.telefone = telefone;
 	}
 	
-	public Integer getTipo() {
+	public char getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(Integer tipo) {
+	public void setTipo(char tipo) {
 		this.tipo = tipo;
 	}
 

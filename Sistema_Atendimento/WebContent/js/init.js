@@ -72,4 +72,4 @@ function soLetrasNumeros(e) {
     return (re.test(chr) || evt < 20); // com evt < 20 permitimos <ENTER>,<TAB>,<BACKSPACE>
 }
 
-
+$('.dropdown-trigger').dropdown();

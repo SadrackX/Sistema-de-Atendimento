@@ -2,7 +2,7 @@ package br.com.grupo8.sad.controle.Dominio;
 
 public enum TipoUsuario {
 	CLIENTE('C',"CLIENTE"),
-	FUNCIONARIO('F',"FUNCION¡RIO");
+	FUNCIONARIO('F',"FUNCION√ÅRIO");
 	
 	private char codigo;
 	private String descricao;
@@ -16,7 +16,7 @@ public enum TipoUsuario {
 		return this.descricao;
 	}
 	public static String getDescricao(char codigo){
-		String retorno = "N√O DEFINIDO";
+		String retorno = "N√ÉO DEFINIDO";
 		if(TipoUsuario.CLIENTE.getCodigo() == codigo){
 			retorno = TipoUsuario.CLIENTE.getDescricao();
 		}else if(TipoUsuario.FUNCIONARIO.getCodigo() == codigo){

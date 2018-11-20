@@ -25,63 +25,66 @@ public class Autenticar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UsuarioBO usuarioBO;
 	private UsuarioPO usuarioCapturado;
-    private HttpSession sessao;
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Autenticar() {
-        super();
-    }
+	private HttpSession sessao;
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public Autenticar() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter retorno = response.getWriter();
 		getUsuarioBO().setUsuarioPO(JsonUtil.converterJsonEmUsuario(request));
-		getUsuarioBO().getUsuarioPO().setSenha(SecurityUtil.getHash(getUsuarioBO().getUsuarioPO().getSenha()));
 		System.out.println(getUsuarioBO().getUsuarioPO().getSenha());
 		setUsuarioCapturado(getUsuarioBO().capturarUsuarioValido());
-		if(getUsuarioCapturado() != null){
+
+		if (getUsuarioCapturado() != null) {
 			setSessao(request.getSession());
-			if(getUsuarioCapturado() != null){
-				if(getUsuarioCapturado().getSenha().equals(getUsuarioBO().getUsuarioPO().getSenha())){
+			if (getUsuarioCapturado() != null) {
+				if (getUsuarioCapturado().getSenha().equals(getUsuarioBO().getUsuarioPO().getSenha())) {
 					getSessao().setAttribute("usuario", getUsuarioCapturado());
 					retorno.println("{\"loginValido\":1,\"senhaValida\":1}");
-				}else{
-					if(getSessao().getAttribute("qtdTentativas") == null){
-						getSessao().setAttribute("qtdTentativas", getUsuarioCapturado());
-						retorno.println("{\"loginValido\":1,\"senhaValida\":0,\"loginInativou\":0}");
-					}
+
+				} else {
+					retorno.println("{\"loginValido\":1,\"senhaValida\":0}");
 				}
-			}else{
+
+			} else {
 				retorno.println("{\"loginValido\":0,\"senhaValida\":0}");
 			}
+			
 		}else{
 			retorno.println("{\"loginValido\":0,\"senhaValida\":0}");
 		}
 	}
-	
-	private UsuarioBO getUsuarioBO(){
-		if(this.usuarioBO == null){
+
+	private UsuarioBO getUsuarioBO() {
+		if (this.usuarioBO == null) {
 			this.usuarioBO = new UsuarioBO();
 		}
 		return this.usuarioBO;
 	}
-	
-	private UsuarioPO getUsuarioCapturado(){
+
+	private UsuarioPO getUsuarioCapturado() {
 		return this.usuarioCapturado;
 	}
-	
-	private void setUsuarioCapturado(UsuarioPO usuarioPO){
+
+	private void setUsuarioCapturado(UsuarioPO usuarioPO) {
 		this.usuarioCapturado = usuarioPO;
 	}
-	
-	private void setSessao(HttpSession session){
+
+	private void setSessao(HttpSession session) {
 		this.sessao = session;
 	}
-	private HttpSession getSessao(){
+
+	private HttpSession getSessao() {
 		return this.sessao;
 	}
 }

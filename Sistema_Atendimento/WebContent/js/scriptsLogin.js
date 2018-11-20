@@ -3,7 +3,7 @@ var SENHA_INCORRETA = "Senha Incorreta";
 
 $('#formularioDeLogin').submit(function (event) {
 	$("#barraCarregando").removeClass("hiddendiv");
-	var form = {"login":$("#login").val(),"senha":$("#senhaL").val()};
+	var form = {"login":$("#login").val(),"senha":$("#senha").val()};
 	var formData = JSON.stringify(form);
     $.ajax({
         url: "autenticar.do",
@@ -31,5 +31,5 @@ $('#formularioDeLogin').submit(function (event) {
 });
 
 function entrar(){
-    location.href='cliente.xhtml';
+    location.href='index.do';
 }

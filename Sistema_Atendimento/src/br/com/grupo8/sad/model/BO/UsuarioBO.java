@@ -12,8 +12,8 @@ public class UsuarioBO {
 	private UsuarioPO usuarioPO;
 	private UsuarioDAO usuarioDAO;
 	
-	private final int USUARIOS_ATIVOS = 1;
-	private final int USUARIOS_EXCLUIDOS = 0;
+	private final char USUARIOS_ATIVOS = 'A';
+	private final char USUARIOS_EXCLUIDOS = 'E';
 	
 	
 	public UsuarioPO capturar(){

@@ -8,30 +8,32 @@
 
 <ui:composition>
 
-	<!-- 		<input type="hidden" id="usuarioDaSessao" value=''/> -->
+	<c:if test="#{usuarioBean.usuarioLogado}">
+		<input type="hidden" id="usuarioDaSessao" value='#{usuarioBean.usuarioDaSessao}'/>
+	</c:if>
+
 	<nav class="teal lighten-2">
 		<div class="container">
 			<div class="nav-wrapper">
-
-				<a href="index.do" title="Inicio" class="brand-logo">SAD</a> <a
-					href="#" data-target="mobile-demo" class="sidenav-trigger"><i
-					class="material-icons">menu</i></a>
-
-				<ul class="right hide-on-med-and-down">
-					<ui:insert>
-						<ui:include src="/templates/menu_itens.xhtml" />
-					</ui:insert>
-				</ul>
-
-				<!-- <ul id="nav-mobile" class="side-nav">
-					<ui:insert>
-						<ui:include src="/templates/menu_itens_m.xhtml" />
-					</ui:insert>
-				</ul> -->
-
+				<a href="index.do" title="Inicio" class="brand-logo">SAD</a> <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+				
+				<ui:insert>
+					<ui:include src="/templates/menu_itens.xhtml" />
+				</ui:insert>
+				
+				<ui:insert>
+					<ui:include src="/templates/menu_itens_m.xhtml" />
+				</ui:insert>
 			</div>
 		</div>
 	</nav>
+	
+	<!-- Modal de login -->
+	<!-- <div id="login-modal" class="modal z-depth-4">
+		<ui:insert>
+			<ui:include src="/templates/login_modal.xhtml" />
+		</ui:insert>
+	</div> -->
 </ui:composition>
 
 </html>

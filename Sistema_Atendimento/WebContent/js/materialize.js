@@ -2218,7 +2218,7 @@ $jscomp.polyfill = function (e, r, p, m) {
     autoFocus: true,
     constrainWidth: true,
     container: null,
-    coverTrigger: true,
+    coverTrigger: false,
     closeOnClick: true,
     hover: false,
     inDuration: 150,

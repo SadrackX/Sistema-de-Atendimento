@@ -37,12 +37,12 @@ public class UsuarioDAO implements DAO<UsuarioPO> {
 			StringBuilder query = new StringBuilder();
 			query.append("SELECT u ")
 				 .append("FROM usuario u ")
-				 .append("WHERE u.chave = :chave");
+				 .append("WHERE u.login = :login");
 			TypedQuery<UsuarioPO> typedQuery = getManager().createQuery(query.toString(),UsuarioPO.class);
-				typedQuery.setParameter("chave", entidade.getChave().intValue());
+				typedQuery.setParameter("login", entidade.getLogin());
 				return (UsuarioPO) typedQuery.getSingleResult();
 		}catch (Exception e) {
-			System.out.println("\nOcorreu um erro ao capturar o cliente pela chave. Causa:\n");
+			System.out.println("\nOcorreu um erro ao capturar o cliente pelo login. Causa:\n");
 			e.printStackTrace();
 			return null;
 		}finally {
