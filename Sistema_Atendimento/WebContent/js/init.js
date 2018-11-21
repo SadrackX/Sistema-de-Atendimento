@@ -20,7 +20,7 @@ $(document).ready(function() {
         selectMonths: true,
         selectYears: 15,
     },
-    format: 'dd/mm/yy',
+    format: 'dd/mm/yyyy',
     container: 'body',
     minDate: new Date(),
 	});

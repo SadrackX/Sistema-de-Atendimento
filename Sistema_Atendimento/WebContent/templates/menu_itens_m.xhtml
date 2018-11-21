@@ -9,24 +9,29 @@
 <ui:composition>
 	<ul id="mobile-demo" class="sidenav">
 		<c:if test="#{!usuarioBean.usuarioLogado}">
-			<li><a data-target="login-modal" class="center-align" href="#!">ENTRAR</a></li>
+			<li><a data-target="login-modal" class="center-align" href="#!"><i class="material-icons left">vpn_key</i>ENTRAR</a></li>
 		</c:if>
 		
 		<c:if test="#{usuarioBean.usuarioLogado}">
 			<c:if test="#{usuarioBean.funcionario}">
-				<li><a class="dropdown-trigger" data-target="dropdownGerenciar-M" href="#!">GERENCIAR</a>
+				<li><a class="dropdown-trigger" data-target="dropdownGerenciar-M" href="#!"><i class="material-icons left">settings</i>GERENCIAR</a>
 					<ul id="dropdownGerenciar-M" class="dropdown-content">
-						<li><a href="atendimentos.do"> ATENDIMENTOS</a></li>
+						<li><a href="atendimentos.do"><i class="material-icons left" style="width: 10px">assignment</i>ATENDIMENTOS</a></li>
 						<li class="divider"></li>
-						<li><a href="admin.do">USUARIOS</a></li>
+						<li><a href="admin.do"><i class="material-icons left">assignment_ind</i>USUARIOS</a></li>
 					</ul></li>
 				<li class="divider"></li>
 			</c:if>
 			
-			<li><a class="dropdown-trigger" data-target="dropdownUsuario-M"><h:outputText value=" #{usuarioBean.nome}" /></a>
+			<c:if test="#{!usuarioBean.funcionario}">
+				<li><a data-target="modal-s-atendimento" class="modal-trigger center-align"><i class="material-icons left">date_range</i>SOLICITAR ATENDIMENTO</a></li>
+				<li class="divider"></li>
+			</c:if>
+			
+			<li><a class="dropdown-trigger" data-target="dropdownUsuario-M"><i class="material-icons left">person</i><h:outputText value="#{usuarioBean.nome}" /></a>
 				<ul id="dropdownUsuario-M" class="dropdown-content">
-					<li><a href="cliente.do"><i class="fa fa-users" aria-hidden="true"></i> PERFIL</a></li>
-					<li><a href="sair.do"><i class="fa fa-users" aria-hidden="true"></i> SAIR</a></li>
+					<li><a href="cliente.do"><i class="material-icons left">perm_identity</i> PERFIL</a></li>
+					<li><a href="sair.do"><i class="material-icons left">close</i>SAIR</a></li>
 				</ul>
 			</li>
 		</c:if>

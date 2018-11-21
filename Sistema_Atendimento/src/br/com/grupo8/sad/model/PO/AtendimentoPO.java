@@ -28,6 +28,14 @@ public class AtendimentoPO implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="usuario_chave", referencedColumnName="chave", nullable= false)
 	private UsuarioPO usuario;
+	
+	public Integer getChave() {
+		return this.chave;
+	}
+
+	public void setChave(Integer chave) {
+		this.chave = chave;
+	}   
 
 	public String getDescricao() {
 		return descricao;
@@ -43,6 +51,14 @@ public class AtendimentoPO implements Serializable{
 
 	public void setUsuario(UsuarioPO usuario) {
 		this.usuario = usuario;
+	}
+
+	public Calendar getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(Calendar dataCriacao) {
+		this.dataCriacao = dataCriacao;
 	}
 
 }

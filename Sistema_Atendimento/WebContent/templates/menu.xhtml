@@ -34,6 +34,13 @@
 			<ui:include src="/templates/login_modal.xhtml" />
 		</ui:insert>
 	</div> -->
+	<c:if test="#{usuarioBean.usuarioLogado}">
+		<div id="modal-s-atendimento" class="modal z-depth-4">
+			<ui:insert>
+				<ui:include src="/templates/solicitar_at.xhtml" />
+			</ui:insert>
+		</div>
+	</c:if>
 </ui:composition>
 
 </html>

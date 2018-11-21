@@ -1,0 +1,48 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+	<h3 class="light header center">Atendimentos Abertos</h3>
+	<table class="">
+		<thead>
+			<tr class="row">
+				<th class='col s2 l2'>Nome</th>
+				<th class='col s2 l2'>CEP</th>
+				<th class='col s5 l5'>Descrição</th>
+				<th class='col s1 l1'>Ação</th>
+			</tr>
+		</thead>
+		<tbody id="tabelaAtendimentos"/>
+		<tfoot>
+			<tr>
+				<th colspan="4">
+					<div class="row">
+						<div class="col l3">
+							<div class="input-field">
+								<select id="qtdRegistrosAtendimentos"
+									name="qtdRegistrosAtendimentos"
+									onselect="carregarAtendimentos(paginaAtualAtendimentos)">
+									<option value="10" selected="selected">10</option>
+									<option value="20">20</option>
+									<option value="30">30</option>
+									<option value="40">40</option>
+									<option value="50">50</option>
+								</select> <label for="qtdRegistrosAtendimentos">Registros por
+									página</label>
+							</div>
+						</div>
+						<div class="col l9 center">
+							<ul class="pagination" id="OpPaginasAtendimento"></ul>
+						</div>
+					</div>
+				</th>
+			</tr>
+		</tfoot>
+	</table>
+</ui:composition>
+
+</html>

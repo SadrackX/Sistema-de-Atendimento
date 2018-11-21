@@ -8,34 +8,33 @@
 
 <h3 class="light header center">Agendar Atendimento</h3>
 <div class="row">
-	<form class="col s12">
-		<div class="input-field col s12 l6">
-			<input onkeypress="return soLetras(event)" minlength="10"
-				maxlength="255" id="nome" type="text" class="validate" /> <label
-				for="nome">Nome</label> <span class="helper-text"
-				data-error="Por favor verificar o nome" data-success=""></span>
+	<form id="agendarAtendimentoForm" class="col s12" method="POST" name="agendarAtendimentoForm">
+		<div class="input-field col s12 l12">
+			<input disabled="disabled" value="#{usuarioBean.nome}" id="nome_a" type="text"/> 
+			<label for="nome_a">Nome</label>
 		</div>
-		<div class="input-field col s12 l6">
-			<input onkeypress="return soLetrasNumeros(event)" minlength="10"
-				maxlength="255" id="endereco" type="text" class="validate" /> <label
-				for="endereco">Endereço</label> <span class="helper-text"
-				data-error="Por favor verifique o endereço" data-success=""></span>
+		<div class="input-field col s12 l12">
+			<input disabled="disabled" value="#{usuarioBean.usuario.rua}, #{usuarioBean.usuario.bairro}, #{usuarioBean.usuario.cidade}, #{usuarioBean.usuario.cep}" id="endereco_a" type="text" class="validate" /> 
+			<label for="endereco_a">Endereço</label> 
+			<span class="helper-text" data-error="Por favor verifique o endereço" />
 		</div>
 		<div class="input-field col s12">
-			<input type="text" class="datepicker validate" id="data"
-				maxlength="10" minlength="10" /> <label for="data">Data</label> <span
+			<input type="text" class="datepicker validate" id="dataCriacao_a" autocomplete="off" /> <label for="dataCriacao_a">Data</label> <span
 				class="helper-text" data-error="Por favor verifique a data"
 				data-success=""></span>
 		</div>
 		<div class="input-field col s12">
-			<textarea id="textarea1" maxlength="500" minlength="20"
+			<textarea id="descricao_a" maxlength="500" minlength="20"
 				class="materialize-textarea validate"></textarea>
-			<label for="textarea1">Descrição</label> <span class="helper-text"
+			<label for="descricao_a">Descrição</label> <span class="helper-text"
 				data-error="Por favor verifique a descrição" data-success=""></span>
 		</div>
+		<div class="col s12">
+			<div class="card-panel lighten-2 white-text center-align hiddendiv"
+				id="mensagemRetorno"/>
+		</div>
 		<div class="col">
-			<button class="btn waves-effect waves-light" type="submit"
-				name="action">
+			<button class="btn waves-effect waves-light" type="submit">
 				Enviar <i class="material-icons right">send</i>
 			</button>
 		</div>
