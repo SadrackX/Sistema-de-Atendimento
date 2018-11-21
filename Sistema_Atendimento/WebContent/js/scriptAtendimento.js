@@ -67,6 +67,7 @@ function tratarRetornoServidor(data) {
 			$("#modal-s-atendimento").modal('close');
 			limparCamposAtendimento();
 			$('#mensagemRetorno').addClass("hiddendiv");
+			location.href='cliente.do';
 		},2000);
 	}else{
 		$('#mensagemRetorno').html("Houve erro ao cadastrar!");
@@ -126,7 +127,7 @@ function getAcoesAtendimento(atendimento){
 }
 
 function getBtnInfoAtendimento(atendimento){
-	var html = " <a href='#' onclick='abrirInformacoesAtendimento("+JSON.stringify(atendimento)+")' title='Mais informações'><i class='material-icons'>info</i></a> ";
+	var html = " <a href='#' data-target='modal-mapa' class='modal-trigger' onclick='abrirInformacoesAtendimento("+JSON.stringify(atendimento.usuario.cep)+")' title='Mais informações'><i class='material-icons'>info</i></a> ";
 	return html;
 }
 
@@ -138,4 +139,9 @@ function getBtnEditarAtendimento(atendimento){
 function getBtnExcluirAtendimento(atendimento){
 	var html = ' <a href="#"	onclick="excluirAtendimento('+atendimento.chave+')" title="Excluir"><i class="material-icons" aria-hidden="true">delete</i></a>';
 	return html;
+}
+
+function abrirInformacoesAtendimento(cep){
+	$("#txtEndereco").val(cep);
+	$('#btnEndereco').trigger('click');
 }

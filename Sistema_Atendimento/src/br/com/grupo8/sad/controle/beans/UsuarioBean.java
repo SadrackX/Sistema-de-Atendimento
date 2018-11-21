@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 import br.com.grupo8.sad.controle.Dominio.TipoUsuario;
 import br.com.grupo8.sad.controle.Util.JsonUtil;
 import br.com.grupo8.sad.model.PO.UsuarioPO;
-import jdk.nashorn.internal.runtime.JSONFunctions;
 
 @ManagedBean
 public class UsuarioBean {

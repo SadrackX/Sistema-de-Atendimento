@@ -46,6 +46,10 @@
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>AdminFilter</filter-name>
+		<url-pattern>/atendimentos.do</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>AdminFilter</filter-name>
 		<url-pattern>/funcionario.do</url-pattern>
 	</filter-mapping>
 	<filter-mapping>

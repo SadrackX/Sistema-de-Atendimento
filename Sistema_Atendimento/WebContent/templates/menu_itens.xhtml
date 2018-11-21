@@ -8,9 +8,9 @@
 
 <ui:composition>
 	<ul class="right hide-on-med-and-down">
-		<c:if test="#{!usuarioBean.usuarioLogado}">
+		<!-- <c:if test="#{!usuarioBean.usuarioLogado}">
 			<li><a data-target="login-modal" class="modal-trigger center-align" href="#!"><i class="material-icons left">vpn_key</i>ENTRAR</a></li>
-		</c:if>
+		</c:if> -->
 		
 		<c:if test="#{usuarioBean.usuarioLogado}">
 			<c:if test="#{usuarioBean.funcionario}">

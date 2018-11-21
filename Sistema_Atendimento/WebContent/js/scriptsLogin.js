@@ -1,24 +1,15 @@
 var LOGIN_INVALIDO= "Login inválido.";
 var SENHA_INCORRETA = "Senha Incorreta";
 
-$('#formularioDeLogin').submit(function (event) {
-	var form = {"login":$("#login").val(),"senha":$("#senha").val()};
+$('#loginForm').submit(function (event) {
+	var form = {"login":$("#login_l").val(),"senha":$("#senha_l").val()};
 	var formData = JSON.stringify(form);
     $.ajax({
         url: "autenticar.do",
         type: 'POST',
         data: formData,
         success: function (data) {
-        	$("#retornoServidor").addClass("hiddendiv");
-            if(data.loginValido==0 && data.senhaValida==0){
-            	$("#mensagemRetorno").html(LOGIN_INVALIDO);
-            	$("#retornoServidor").removeClass("hiddendiv");
-            }else if(data.loginValido==1 && data.senhaValida==0){
-            	$("#mensagemRetorno").html(SENHA_INCORRETA);
-            	$("#retornoServidor").removeClass("hiddendiv");
-            }else if(data.loginValido==1 && data.senhaValida==1){
-            	setTimeout(entrar,1000);
-            }
+        	tratarLoginRetorno(data);
         },
         cache: false,
         contentType: false,
@@ -27,6 +18,19 @@ $('#formularioDeLogin').submit(function (event) {
     return false;
 });
 
-function entrar(){
-    location.href='index.do';
+function tratarLoginRetorno(data){
+	$("#retornoServidor_login").addClass("hiddendiv");
+    if(data.loginValido==0 && data.senhaValida==0){
+    	$("#mensagemRetorno_login").html(LOGIN_INVALIDO);
+    	$("#retornoServidor_login").removeClass("hiddendiv");
+    	M.toast({html: 'Login incorreto!!'});
+    }
+    if(data.loginValido==1 && data.senhaValida==0){
+    	$("#mensagemRetorno_login").html(SENHA_INCORRETA);
+    	$("#retornoServidor_login").removeClass("hiddendiv");
+    	M.toast({html: 'Senha incorreta!!'});    	
+    }
+    if(data.loginValido==1 && data.senhaValida==1){
+    	setTimeout(location.href='index.do',1000);
+    }
 }

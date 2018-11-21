@@ -1,7 +1,5 @@
 package br.com.grupo8.sad.model.BO;
-
-import java.util.ArrayList;
-import java.util.Calendar;
+ 
 import java.util.List;
 
 import br.com.grupo8.sad.model.DAO.UsuarioDAO;

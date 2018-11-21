@@ -2,7 +2,6 @@ package br.com.grupo8.sad.model.BO;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Calendar;
 
 import br.com.grupo8.sad.model.DAO.AtendimentoDAO;
 import br.com.grupo8.sad.model.PO.AtendimentoPO;
@@ -81,6 +80,7 @@ public class AtendimentoBO {
 		return filtro;
 	}
 	
+	@SuppressWarnings("unused")
 	private void setMensagemErro(String mensagem){
 		this.mensagensDeErro.add(mensagem);
 	}

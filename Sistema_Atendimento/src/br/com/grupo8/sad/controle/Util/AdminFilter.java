@@ -17,28 +17,30 @@ public class AdminFilter implements Filter{
           
       }
    
-      public void doFilter(ServletRequest request, ServletResponse response,
-             FilterChain chain) throws IOException, ServletException {
+      public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
    
          HttpSession sess = ((HttpServletRequest) request).getSession(true);
    
          String paginaAtual = ((HttpServletRequest) request).getServletPath();
          System.out.println("Admin log acess :"+paginaAtual);
          
-//         RequestDispatcher dispacher = request.getRequestDispatcher("login.do");
-//         dispacher.forward(request, response);
-         
          if (sess.getAttribute("currentPage") == null) {
              sess.setAttribute("lastPage", paginaAtual);
              sess.setAttribute("currentPage", paginaAtual);
          } else {
-   
              String oldCurrentPage = sess.getAttribute("currentPage").toString();
              if (!oldCurrentPage.equals(paginaAtual)) {
                sess.setAttribute("lastPage", oldCurrentPage);
                sess.setAttribute("currentPage", paginaAtual);
              }
          }
+         
+        /* if(sess.getAttribute("currentPage").equals("/admin.do") && sess.getAttribute("usuario.tipo").equals("C")){
+        	 RequestDispatcher dispacher = request.getRequestDispatcher("index.do");
+             dispacher.forward(request, response);
+         }*/
+         
+         System.out.println("test :"+sess.getAttribute("usuario"));
    
          chain.doFilter(request, response);
    

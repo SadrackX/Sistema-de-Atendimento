@@ -1,47 +1,39 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 <ui:composition>
 	<div class=" modal-content">
 		<div class="row">
 
-			<!--<div class="row">
+			<div class="hiddendiv row">
 				<form class="col s12">
 					 <div class="input-field col s12 l6">
-						<input id="txtEnderecoPartida" placeholder="Endereço de origem..."
-							name="txtEnderecoPartida" type="text" class="validate"
-							disabled="disabled" /> <label for="txtEnderecoPartida">Origem</label>
-						<span class="helper-text"
-							data-error="Por favor verifique o endereço de partida"></span>
+						<input id="txtEnderecoPartida" type="text" /> 
+						<label for="txtEnderecoPartida">Origem</label>
+						<span class="helper-text" data-error="Por favor verifique o endereço de partida" />
 					</div>
 					<div class="input-field col s12 l6">
-						<input id="txtEndereco" name="txtEndereco" type="text"
-							class="validate" /> <label for="txtEndereco">Destino</label> <span
-							class="helper-text"
-							data-error="Por favor verifique o endereço de destino"></span>
+						<input id="txtEndereco" type="text" /> 
+						<label for="txtEndereco">Destino</label> 
+						<span class="helper-text" data-error="Por favor verifique o endereço de destino" />
 					</div>
 					<div class="col s12">
 						<button class="btn waves-effect waves-light" id="btnEndereco"
 							type="button" name="action">Enviar</button>
 					</div>
 				</form>
-			</div> -->
+			</div> 
 			<div id="rota"></div>
-			<div class="col s12">
-				<button class="btn waves-effect waves-light" id="btnEndereco"
-					type="button" name="action">Abrir a navegação</button>
-			</div>
-			<!-- 			<div id="trajeto-texto"></div> -->
-			<script
-				src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA9zp1luXQxptPvNDSiGPrKyxdyqEUpNuQ"
-				type="text/javascript" />
-
+			
+			<div id="trajeto-texto"/>
 		</div>
 	</div>
+	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA9zp1luXQxptPvNDSiGPrKyxdyqEUpNuQ" type="text/javascript" />
 </ui:composition>
 
 </html>

@@ -1,9 +1,11 @@
-<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml"
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
@@ -11,8 +13,10 @@
 		<ui:include src="/templates/css_padrao.xhtml" />
 	</ui:insert>
 	<h:outputScript>
-		function alterarUrl(){history.pushState("Object" , "Sistemas de Atendimento - Página de Login" , "login.do");}
-	</h:outputScript>
+	function alterarUrl(){
+		history.pushState("Object" , "Sistemas de Reservas - Página de Login" , "login.do");
+	}
+</h:outputScript>
 </h:head>
 <h:body onload="alterarUrl()">
 	<ui:insert>
@@ -24,7 +28,7 @@
 			<div class="col z-depth-1" style="left: 50%; position: relative; transform: translateX(-50%); width: auto;">
 				<div class="col">
 					<ui:insert>
-						<ui:include src="/templates/login_modal.xhtml" />
+						<ui:include src="/templates/loginForm.xhtml" />
 					</ui:insert>
 				</div>
 			</div>
@@ -35,7 +39,6 @@
 		<ui:include src="/templates/rodape.xhtml" />
 		<ui:include src="/templates/js_padrao.xhtml" />
 	</ui:insert>
-	<script type="text/javascript" src="js/scriptsLogin.js"/>
 </h:body>
 
 </html>

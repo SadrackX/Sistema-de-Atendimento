@@ -2,7 +2,6 @@ package br.com.grupo8.sad.controle.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Calendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,14 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import br.com.grupo8.sad.controle.Dominio.StatusUsuario;
 import br.com.grupo8.sad.controle.Util.JsonUtil;
-import br.com.grupo8.sad.controle.Util.SecurityUtil;
 import br.com.grupo8.sad.model.BO.UsuarioBO;
 import br.com.grupo8.sad.model.PO.UsuarioPO;
 
 /**
- * Servlet implementation class Autenticacao
+ * Servlet implementation class Autenticar
  */
 @WebServlet("/autenticar.do")
 public class Autenticar extends HttpServlet {
@@ -42,28 +39,24 @@ public class Autenticar extends HttpServlet {
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter retorno = response.getWriter();
 		getUsuarioBO().setUsuarioPO(JsonUtil.converterJsonEmUsuario(request));
-		System.out.println(getUsuarioBO().getUsuarioPO().getSenha());
 		setUsuarioCapturado(getUsuarioBO().capturarUsuarioValido());
-
+			
 		if (getUsuarioCapturado() != null) {
 			setSessao(request.getSession());
-			if (getUsuarioCapturado() != null) {
-				if (getUsuarioCapturado().getSenha().equals(getUsuarioBO().getUsuarioPO().getSenha())) {
-					getSessao().setAttribute("usuario", getUsuarioCapturado());
-					retorno.println("{\"loginValido\":1,\"senhaValida\":1}");
-
-				} else {
-					retorno.println("{\"loginValido\":1,\"senhaValida\":0}");
-				}
+			if (getUsuarioCapturado().getSenha().equals(getUsuarioBO().getUsuarioPO().getSenha())) {
+				getSessao().setAttribute("usuario", getUsuarioCapturado());
+				retorno.println("{\"loginValido\":1,\"senhaValida\":1}");
 
 			} else {
-				retorno.println("{\"loginValido\":0,\"senhaValida\":0}");
+				retorno.println("{\"loginValido\":1,\"senhaValida\":0}");
 			}
-			
-		}else{
-			retorno.println("{\"loginValido\":0,\"senhaValida\":0}");
+
+		} else {
+				retorno.println("{\"loginValido\":0,\"senhaValida\":0}");
 		}
+		
 	}
+
 
 	private UsuarioBO getUsuarioBO() {
 		if (this.usuarioBO == null) {

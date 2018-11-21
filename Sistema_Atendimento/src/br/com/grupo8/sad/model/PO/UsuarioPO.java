@@ -2,7 +2,6 @@ package br.com.grupo8.sad.model.PO;
 
 import java.io.Serializable;
 import java.lang.String;
-import java.util.Calendar;
 
 import javax.persistence.*;
 
