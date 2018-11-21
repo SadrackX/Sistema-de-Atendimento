@@ -121,27 +121,44 @@ function getLinhaAtendimento(atendimento){
 
 function getAcoesAtendimento(atendimento){
 	var html = getBtnInfoAtendimento(atendimento);
-	html += getBtnEditarAtendimento(atendimento);
+	html += getBtnInfoCliente(atendimento);
 	html += getBtnExcluirAtendimento(atendimento);
 	return html;
 }
 
 function getBtnInfoAtendimento(atendimento){
-	var html = " <a href='#' data-target='modal-mapa' class='modal-trigger' onclick='abrirInformacoesAtendimento("+JSON.stringify(atendimento.usuario.cep)+")' title='Mais informações'><i class='material-icons'>info</i></a> ";
+	var html = " <a href='#' data-target='modal-mapa' class='modal-trigger' onclick='abrirInformacoesAtendimento("+JSON.stringify(atendimento.usuario.cep)+")' title='Mais informações'><i class='material-icons'>map</i></a> ";
 	return html;
 }
 
-function getBtnEditarAtendimento(atendimento){
-	var html = " <a href='#' onclick='editarAtendimento("+JSON.stringify(atendimento)+")' title='Editar'><i class='material-icons' aria-hidden='true'>mode_edit</i></a> ";
+function getBtnInfoCliente(atendimento){
+	var html = " <a href='#' data-target='cliente_info' class='modal-trigger' onclick='infoCliente("+JSON.stringify(atendimento)+")' title='Editar'><i class='material-icons' aria-hidden='true'>info</i></a> ";
 	return html;
 }
 
 function getBtnExcluirAtendimento(atendimento){
-	var html = ' <a href="#"	onclick="excluirAtendimento('+atendimento.chave+')" title="Excluir"><i class="material-icons" aria-hidden="true">delete</i></a>';
+	var html = ' <a href="#" onclick="excluirAtendimento('+atendimento.chave+')" title="Excluir"><i class="material-icons" aria-hidden="true">delete</i></a>';
 	return html;
 }
 
 function abrirInformacoesAtendimento(cep){
 	$("#txtEndereco").val(cep);
 	$('#btnEndereco').trigger('click');
+}
+
+function infoCliente(atendimento){
+	$("#nome_info").val(atendimento.usuario.nome);
+	$("#sobrenome_info").val(atendimento.usuario.sobrenome);
+	$("#email_info").val(atendimento.usuario.email);
+	$("#telefone_info").val(atendimento.usuario.telefone);
+	$("#rua_info").val(atendimento.usuario.rua);
+	$("#bairro_info").val(atendimento.usuario.bairro);
+	$("#cidade_info").val(atendimento.usuario.cidade);
+	$("#cep_info").val(atendimento.usuario.cep);
+	$("#login_info").val(atendimento.usuario.login);	
+	M.updateTextFields();
+}
+
+function excluirAtendimento(chave){
+	
 }

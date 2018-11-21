@@ -281,5 +281,6 @@ $(document).ready(function() {
         else {
             limpa_formulário_cep();
         }
+        M.updateTextFields();
     });
 });
