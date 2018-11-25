@@ -13,7 +13,7 @@
 	<title>Sistema de Atendimento Domiciliar</title>
 </h:head>
 
-<h:body onload="carregarUsuarios(1,'C')">
+<h:body onload="carregarUsuarios(1)">
 	<ui:insert name="navbar">
 		<ui:include src="/templates/menu.xhtml" />
 	</ui:insert>
@@ -25,11 +25,12 @@
 			<div class="row">
 				<div class="col s12">
 					<ul class="tabs">
-						<li class="tab col s3"><a onclick="carregarUsuarios(1,'C')" id="cliente-tab-btn" class="active" href="#cliente-tab">Clientes</a></li>
-						<li class="tab col s3"><a onclick="carregarUsuarios(1,'F')" id="funcionario-tab-btn" href="#funcionario-tab">Funcionarios</a></li>
+						<li class="tab col s3"><a id="cliente-tab-btn" class="active" href="#cliente-tab">Clientes</a></li>
+						<li class="tab col s3"><a id="funcionario-tab-btn" href="#funcionario-tab">Funcionarios</a></li>
 					</ul>
 				</div>
 			</div>
+			<input value="C" hidden="" id="tipo_u"/>
 			<ui:insert>
 				<ui:include src="/templates/tabelaUsuario.xhtml" />
 			</ui:insert>
@@ -71,7 +72,6 @@
 	</ui:insert>
 	
 	<script src="js/scriptsUsuario.js" />
-	<script src="js/scriptsCliente.js" />
 	<c:if test="#{!usuarioBean.funcionario}">
 		<script type="text/javascript">
 		location.href='index.do';

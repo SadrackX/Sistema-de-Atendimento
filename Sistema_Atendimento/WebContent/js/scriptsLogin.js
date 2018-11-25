@@ -10,7 +10,6 @@ $('#loginForm').submit(function (event) {
         type: 'POST',
         data: formData,
         success: function (data) {
-        	M.toast({html: 'Verificando!!', classes: 'blue'});
         	tratarLoginRetorno(data);
         },
         cache: false,
@@ -28,7 +27,9 @@ function tratarLoginRetorno(data){
     	M.toast({html: SENHA_INCORRETA , classes: 'red'});    	
     }else if(data.loginValido==1 && data.senhaValida==1){
     	M.toast({html: LOGANDO, classes: 'green'});
-    	setTimeout(location.href='index.do',2000);
+    	setTimeout(function(){
+    		location.href='index.do';
+    	},2000);
     }
 }
 

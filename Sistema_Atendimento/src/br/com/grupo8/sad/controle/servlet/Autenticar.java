@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.lang.Thread;
 
 import br.com.grupo8.sad.controle.Util.JsonUtil;
 import br.com.grupo8.sad.model.BO.UsuarioBO;
@@ -39,25 +38,22 @@ public class Autenticar extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter retorno = response.getWriter();
-		String retorno_text;
 		getUsuarioBO().setUsuarioPO(JsonUtil.converterJsonEmUsuario(request));
 		setUsuarioCapturado(getUsuarioBO().capturarUsuarioValido());
 			
 		if (getUsuarioCapturado() != null) {
 			setSessao(request.getSession());
-			try { Thread.sleep (1000); } catch (InterruptedException ex) {}
 			if (getUsuarioCapturado().getSenha().equals(getUsuarioBO().getUsuarioPO().getSenha())) {
 				getSessao().setAttribute("usuario", getUsuarioCapturado());
-				retorno_text = "{\"loginValido\":1,\"senhaValida\":1}";
+				retorno.println("{\"loginValido\":1,\"senhaValida\":1}");
 
 			} else {
-				retorno_text = "{\"loginValido\":1,\"senhaValida\":0}";
+				retorno.println("{\"loginValido\":1,\"senhaValida\":0}");
 			}
 
 		} else {
-				retorno_text = "{\"loginValido\":0,\"senhaValida\":0}";
+			retorno.println("{\"loginValido\":0,\"senhaValida\":0}");
 		}
-		retorno.println(retorno_text);
 	}
 
 

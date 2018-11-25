@@ -4,7 +4,6 @@ var qtdRegistrosUsuarios = 10;
 var qtdRegistrosUsuariosObtidos = 0;
 var urlUsuarios = "ws/usuariows/listar/";
 var urlUsuarios = "ws/usuariows/listarUsuarios/";
-var tabUsuario = 'C';
 var status = 'A';
 
 function cadastrarUsuario(){
@@ -29,6 +28,11 @@ $("#CadastroDeUsuario").submit(function(event){
 		    contentType: "application/json",
 		    processData: true
 		});
+		if ($('#form_type').val()=="cadastro"){
+			M.toast({html: 'Usuario cadastrado!', classes: 'green'});
+		}else{
+			M.toast({html: 'Usuario atualizado!', classes: 'blue'});
+		}
 	}else{
 		$('#mensagemRetornoCadastro').addClass("red");
 		$('#mensagemRetornoCadastro').removeClass("hiddendiv");
@@ -136,6 +140,11 @@ function tratarRetornoServidor(data){
 			$("#cadastro").modal('close');
 			limparCamposFormCadastro();
 			$('#mensagemRetornoCadastro').addClass("hiddendiv");
+			if ($('#test1').val() == "1"){
+				$('#cliente-tab-btn').trigger('click');
+			}else{
+				$('#funcionario-tab-btn').trigger('click');
+			}
 		},2000);
 	}else{
 		$('#mensagemRetornoCadastro').html("Houve erro ao cadastrar!");
@@ -201,11 +210,11 @@ $(document).ready(function() {
 
 // TABELA USUARIO
 
-function carregarUsuarios(pagina,tipo){
+function carregarUsuarios(pagina){
 	$("#barraCarregando").removeClass("hiddendiv");
     qtdRegistrosUsuarios = parseInt($("#qtdRegistrosUsuarios").val());
 	$.ajax({
-		url: "ws/usuariows/listar/"+pagina+"/"+qtdRegistrosUsuarios+"/"+tipo,
+		url: "ws/usuariows/listar/"+pagina+"/"+qtdRegistrosUsuarios+"/"+$("#tipo_u").val(),
         type: 'GET',
         success: function (data) {
         	qtdRegistrosUsuariosObtidos = data.length;
@@ -295,11 +304,25 @@ $("#confirmarExclusaoUsuario").submit(function(event){
         data: "",
         contentType: "application/json"
 	});
+	M.toast({html: 'Usuario excluido!', classes: 'green'});
 	setTimeout(function(){
 		$("#confirmaExclusao").modal('close');
-		$('#tabelaUsuarios').load(self)
+		if ($('#test1').val() == "1"){
+			$('#cliente-tab-btn').trigger('click');
+		}else{
+			$('#funcionario-tab-btn').trigger('click');
+		}
 	},2000);
 	return false;
+});
+
+$('#cliente-tab-btn').click(function(event){
+	$('#tipo_u').val("C");
+	carregarUsuarios(1);
+});
+$('#funcionario-tab-btn').click(function(event){
+	$('#tipo_u').val("F");
+	carregarUsuarios(1);
 });
 
 function editarUsuario(usuario){
@@ -308,6 +331,7 @@ function editarUsuario(usuario){
 	$("#chave").val(usuario.chave);
 	$("#nome").val(usuario.nome);
 	$("#sobrenome").val(usuario.sobrenome);
+	$("#tipo").val(usuario.tipo);
 	$("#email").val(usuario.email);
 	$("#telefone").val(usuario.telefone);
 	$("#rua").val(usuario.rua);
@@ -315,8 +339,11 @@ function editarUsuario(usuario){
 	$("#cidade").val(usuario.cidade);
 	$("#cep").val(usuario.cep);
 	$("#login").val(usuario.login);
+	$("#senha").val(usuario.senha);
 	$("#login-div").addClass("hiddendiv");
 	M.updateTextFields();
+	$('#tipo').find('option[value="'+usuario.tipo+'"]').prop('selected', true);
+	$("#tipo").formSelect();
 }
 
 
