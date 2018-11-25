@@ -6,33 +6,32 @@
 	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
-<ui:composition>
-	<div class=" modal-content">
-		<div class="row">
-			<div class="hiddendiv row">
-				<form class="col s12">
-					 <div class="input-field col s12 l6">
-						<input id="txtEnderecoPartida" type="text" /> 
-						<label for="txtEnderecoPartida">Origem</label>
-						<span class="helper-text" data-error="Por favor verifique o endereço de partida" />
-					</div>
-					<div class="input-field col s12 l6">
-						<input id="txtEndereco" type="text" /> 
-						<label for="txtEndereco">Destino</label> 
-						<span class="helper-text" data-error="Por favor verifique o endereço de destino" />
-					</div>
-					<div class="col s12">
-						<button class="btn waves-effect waves-light" id="btnEndereco"
-							type="button" name="action">Enviar</button>
-					</div>
-				</form>
-			</div> 
-			<div id="rota"></div>
-			
-			<div id="trajeto-texto"/>
+	<ui:composition>
+		<div class=" modal-content">
+			<div class="row">
+				<div class="hiddendiv row">
+					<form class="col s12">
+						 <div class="input-field col s12 l6">
+							<input id="txtEnderecoPartida" type="text" /> 
+							<label for="txtEnderecoPartida">Origem</label>
+							<span class="helper-text" data-error="Por favor verifique o endereço de partida" />
+						</div>
+						<div class="input-field col s12 l6">
+							<input id="txtEndereco" type="text" /> 
+							<label for="txtEndereco">Destino</label> 
+							<span class="helper-text" data-error="Por favor verifique o endereço de destino" />
+						</div>
+						<div class="col s12">
+							<button class="btn waves-effect waves-light" id="btnEndereco"
+								type="button" name="action">Enviar</button>
+						</div>
+					</form>
+				</div> 
+				<div id="rota"></div>
+				
+				<div id="trajeto-texto"/>
+			</div>
 		</div>
-	</div>
-	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA9zp1luXQxptPvNDSiGPrKyxdyqEUpNuQ" type="text/javascript" />
-</ui:composition>
-
+		<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA9zp1luXQxptPvNDSiGPrKyxdyqEUpNuQ" type="text/javascript" />
+	</ui:composition>
 </html>

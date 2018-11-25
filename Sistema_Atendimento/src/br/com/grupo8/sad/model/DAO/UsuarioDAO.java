@@ -15,8 +15,8 @@ public class UsuarioDAO implements DAO<UsuarioPO> {
 
 	@Override
 	public boolean cadastrar(UsuarioPO entidade) {
-		getManager().getTransaction().begin();
 		try{
+			getManager().getTransaction().begin();
 			getManager().persist(entidade);
 			getManager().getTransaction().commit();
 			return true;
@@ -52,18 +52,9 @@ public class UsuarioDAO implements DAO<UsuarioPO> {
 
 	@Override
 	public boolean atualizar(UsuarioPO entidade) {
-		StringBuilder query = new StringBuilder();
-		query.append("SELECT u ")
-			 .append("FROM UsuarioPO u")
-			 .append("WHERE u.nome = :nome");
-		TypedQuery<UsuarioPO> typedQuery = getManager().createQuery(query.toString(),UsuarioPO.class);
-			typedQuery.setParameter("nome", entidade.getNome());
-			UsuarioPO usuario = (UsuarioPO)typedQuery.getSingleResult();
-			getManager().getTransaction().begin();
 		try{
-			if(usuario != null && usuario.getNome().equals(entidade.getNome())){
-				getManager().merge(entidade);
-			}
+			getManager().getTransaction().begin();
+			getManager().merge(entidade);
 			getManager().getTransaction().commit();
 			return true;
 		}catch (Exception e) {
@@ -73,7 +64,7 @@ public class UsuarioDAO implements DAO<UsuarioPO> {
 			return false;
 		}finally {
 			fecharManager();
-		}
+		}	
 	}
 
 	@Override
@@ -136,6 +127,24 @@ public class UsuarioDAO implements DAO<UsuarioPO> {
 		}finally {
 			fecharManager();
 		}	
+	}
+	
+	public UsuarioPO capturarPorChave(UsuarioPO entidade) {
+		try{
+			StringBuilder query = new StringBuilder();
+			query.append("SELECT u ")
+				 .append("FROM usuario u ")
+				 .append("WHERE u.chave = :chave");
+			TypedQuery<UsuarioPO> typedQuery = getManager().createQuery(query.toString(),UsuarioPO.class);
+				typedQuery.setParameter("chave", entidade.getChave());
+				return (UsuarioPO) typedQuery.getSingleResult();
+		}catch (Exception e) {
+			System.out.println("\nOcorreu um erro ao capturar o cliente pela chave. Causa:\n");
+			e.printStackTrace();
+			return null;
+		}finally {
+			fecharManager();
+		}
 	}
 	
 	@Override

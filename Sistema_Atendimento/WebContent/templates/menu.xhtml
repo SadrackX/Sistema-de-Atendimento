@@ -1,46 +1,38 @@
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
-
-<ui:composition>
-
-	<c:if test="#{usuarioBean.usuarioLogado}">
-		<input type="hidden" id="usuarioDaSessao" value='#{usuarioBean.usuarioDaSessao}'/>
-	</c:if>
-
-	<nav class="teal lighten-2">
-		<div class="container">
-			<div class="nav-wrapper">
-				<a href="index.do" title="Inicio" class="brand-logo">SAD</a> <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-				
+	<ui:composition>
+		<c:if test="#{usuarioBean.usuarioLogado}">
+			<input type="hidden" id="usuarioDaSessao" value='#{usuarioBean.usuarioDaSessao}'/>
+		</c:if>
+	
+		<nav class="teal lighten-2">
+			<div class="container">
+				<div class="nav-wrapper">
+					<a href="index.do" title="Inicio" class="brand-logo">SAD</a> 
+					<c:if test="#{usuarioBean.usuarioLogado}"><a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a></c:if>
+					<ui:insert>
+						<ui:include src="/templates/menu_itens.xhtml" />
+					</ui:insert>
+					
+					<ui:insert>
+						<ui:include src="/templates/menu_itens_m.xhtml" />
+					</ui:insert>
+				</div>
+			</div>
+		</nav>
+		
+		<c:if test="#{usuarioBean.usuarioLogado}">
+			<div id="modal-s-atendimento" class="modal z-depth-4">
 				<ui:insert>
-					<ui:include src="/templates/menu_itens.xhtml" />
-				</ui:insert>
-				
-				<ui:insert>
-					<ui:include src="/templates/menu_itens_m.xhtml" />
+					<ui:include src="/templates/solicitar_at.xhtml" />
 				</ui:insert>
 			</div>
-		</div>
-	</nav>
-	
-	<!-- Modal de login -->
-	<!-- <div id="login-modal" class="modal z-depth-4">
-		<ui:insert>
-			<ui:include src="/templates/loginForm.xhtml" />
-		</ui:insert>
-	</div> -->
-	<c:if test="#{usuarioBean.usuarioLogado}">
-		<div id="modal-s-atendimento" class="modal z-depth-4">
-			<ui:insert>
-				<ui:include src="/templates/solicitar_at.xhtml" />
-			</ui:insert>
-		</div>
-	</c:if>
-</ui:composition>
-
+		</c:if>
+	</ui:composition>
 </html>

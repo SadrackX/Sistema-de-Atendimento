@@ -6,79 +6,62 @@
 	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
-
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<h:head>
 	<ui:insert>
 		<ui:include src="/templates/css_padrao.xhtml" />
 	</ui:insert>
 	<title>Sistema de Atendimento Domiciliar</title>
-</head>
+</h:head>
 
-<body onload="carregarUsuarios(1)">
-	<!-- Header -->
+<h:body onload="carregarUsuarios(1,'C')">
 	<ui:insert name="navbar">
 		<ui:include src="/templates/menu.xhtml" />
 	</ui:insert>
 
-
 	<div class="section">
 		<div class="container">
-			<a data-target="cadastro"
-				class="modal-trigger waves-effect waves-light btn">Cadastrar</a>
-			<div class="">
-				<h3 class="light header center">Clientes</h3>
-				<table class="responsive-table">
-					<thead>
-						<tr>
-							<th>Nome</th>
-							<th>Telefone</th>
-							<th>CEP</th>
-							<th>Email</th>
-							<th>Ações</th>
-						</tr>
-					</thead>
-					<tbody id="tabelaUsuarios"/>
-					<tfoot>
-						<tr>
-							<th colspan="4">
-								<div class="row">
-									<div class="col l3">
-										<div class="input-field">
-											<select id="qtdRegistrosUsuarios"
-												name="qtdRegistrosUsuarios"
-												onselect="carregarUsuarios(paginaAtualUsuarios)">
-												<option value="10" selected="selected">10</option>
-												<option value="20">20</option>
-												<option value="30">30</option>
-												<option value="40">40</option>
-												<option value="50">50</option>
-											</select> <label for="qtdRegistrosUsuarios">Registros por
-												página</label>
-										</div>
-									</div>
-									<div class="col l9 center">
-										<ul class="pagination" id="OpPaginasUsuario"></ul>
-									</div>
-								</div>
-							</th>
-						</tr>
-					</tfoot>
-				</table>
+			<a onclick="cadastrarUsuario()" data-target="cadastro" class="modal-trigger waves-effect waves-light btn">Cadastrar</a>
+			<br/>
+			<div class="row">
+				<div class="col s12">
+					<ul class="tabs">
+						<li class="tab col s3"><a onclick="carregarUsuarios(1,'C')" id="cliente-tab-btn" class="active" href="#cliente-tab">Clientes</a></li>
+						<li class="tab col s3"><a onclick="carregarUsuarios(1,'F')" id="funcionario-tab-btn" href="#funcionario-tab">Funcionarios</a></li>
+					</ul>
+				</div>
 			</div>
-		</div>
-	</div>
-
-	<div id="cadastro" class="modal z-depth-4">
-	<br/>
-		<h3 class="header center light">Cadastrar Usuários</h3>
-		<div class="row">
 			<ui:insert>
-				<ui:include src="/templates/formCadastro.xhtml" />
+				<ui:include src="/templates/tabelaUsuario.xhtml" />
 			</ui:insert>
-		</div>
+ 		</div>		
+	</div>
+	
+	<!-- Confirmar exclusão -->
+	
+	<div class="modal lighten-2 center" id="confirmaExclusao">
+		<form class="container" id="confirmarExclusaoUsuario">
+			<h4 id="nomeEx"/>
+			<br/>
+			<input id="chave_usuario" class="hiddendiv" /> 
+			<div class="">
+				<button class="btn waves-effect waves-light" type="submit">CONFIRMAR</button>
+				<button class="btn grey modal-close waves-effect waves-red" type="reset">CANCELAR</button>
+			</div>
+			<br/>
+		</form>
+	</div>
+	
+	<!-- Form Cadastro -->
+	<div id="cadastro" class="modal row z-depth-4">
+		<ui:insert>
+			<ui:include src="/templates/formCadastro.xhtml" />
+		</ui:insert>
+	</div>
+	
+	<div id="user_info" class="modal z-depth-4">
+		<ui:insert>
+			<ui:include src="/templates/infoCliente.xhtml" />
+		</ui:insert>
 	</div>
 
 	<!-- Footer -->
@@ -86,13 +69,14 @@
 		<ui:include src="/templates/rodape.xhtml" />
 		<ui:include src="/templates/js_padrao.xhtml" />
 	</ui:insert>
-	<script src="js/scriptsUsuario.js" />
 	
+	<script src="js/scriptsUsuario.js" />
+	<script src="js/scriptsCliente.js" />
 	<c:if test="#{!usuarioBean.funcionario}">
 		<script type="text/javascript">
 		location.href='index.do';
 		</script>
 	</c:if>
-</body>
+</h:body>
 
 </html>

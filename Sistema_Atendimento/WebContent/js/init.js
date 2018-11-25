@@ -1,5 +1,10 @@
-$(document).ready(function() { $('.sidenav').sidenav(); });
-$(document).ready(function() { $('select').formSelect(); });
+$(document).ready(function() {$('.sidenav').sidenav();});
+$(document).ready(function() {$('select').formSelect();});
+$(document).ready(function() {$('ul.tabs').tabs();});
+$(document).ready(function() {$('.modal').modal();});
+$(document).ready(function() {$('.tabs').tabs();});
+
+$('.dropdown-trigger').dropdown();
 
 $(document).ready(function() { 
 	$('.datepicker').datepicker({
@@ -26,15 +31,6 @@ $(document).ready(function() {
 	});
 });
 
-//inicia tabs da janela
-$(document).ready(function () {$('ul.tabs').tabs();});
-
-//inicia janelas modais
-$(document).ready(function () {$('.modal').modal();});
-
-$( document ).ready(function(){$(".button-collapse").sideNav();});
-
-
 //Scroll up
 $(document).ready(function(){
 	$(window).scroll(function(){
@@ -51,25 +47,6 @@ $(document).ready(function(){
 });
 
 
-function soLetras(e) {
-    if (document.all) {
-        var evt = event.keyCode;
-    } else {
-        var evt = e.charCode;
-    }
-    var chr = String.fromCharCode(evt);
-    var re = /[A-Za-z\sáàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ]/; // permite apenas de A-Z e de a-z e acentuação
-    return (re.test(chr) || evt < 20); // com evt < 20 permitimos <ENTER>,<TAB>,<BACKSPACE>
-}
-function soLetrasNumeros(e) {
-    if (document.all) {
-        var evt = event.keyCode;
-    } else {
-        var evt = e.charCode;
-    }
-    var chr = String.fromCharCode(evt);
-    var re = /[A-Za-z0-9\sáàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ]/; // permite apenas de A-Z e de a-z e acentuação
-    return (re.test(chr) || evt < 20); // com evt < 20 permitimos <ENTER>,<TAB>,<BACKSPACE>
-}
 
-$('.dropdown-trigger').dropdown();
+
+

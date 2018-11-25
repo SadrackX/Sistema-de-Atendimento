@@ -1,49 +1,35 @@
-<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:composite="http://java.sun.com/jsf/composite"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
-
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 <ui:composition>
-<div class="">
-	<form id="loginForm" name="loginForm" method="POST">
+<form id="loginForm" name="loginForm" method="POST">
+	<!-- LOGIN E SENHA -->
+	<div class="row">
+		<div class="input-field">
+			<input placeholder="Digite seu login" name="login_l" id="login_l" type="text" class="validate center" required="required" /> 
+			<label for="login" data-error="Prenchimento deste campo é obrigatório!" />
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="input-field">
+			<input placeholder="Digite sua senha" name="senha_l" id="senha_l" type="password" class="validate center" required="required" /> 
+			<label for="senha" data-error="Prenchimento deste campo é obrigatório!" />
+		</div>
+	</div>
+	
+	<div class="divider"/>
+	<br/>
 
-		<!-- LOGIN E SENHA -->
-
-		<div class="row">
-			<div class="input-field">
-				<input placeholder="Digite seu login" name="login_l" id="login_l" type="text" class="validate center" required="required" /> 
-				<label for="login" data-error="Prenchimento deste campo é obrigatório!" />
-			</div>
-		</div>
-		
-		<div class="row">
-			<div class="input-field">
-				<input placeholder="Digite sua senha" name="senha_l" id="senha_l" type="password" class="validate center" required="required" /> 
-				<label for="senha" data-error="Prenchimento deste campo é obrigatório!" />
-			</div>
-		</div>
-		
-		<div class="divider"/>
-		<br/>
-		
-		<div class="row">
-			<div class="col s1"></div>
-			<div class="col s10 hiddendiv" id="retornoServidor_login">
-				<div style="border-radius: 5px" class="red lighten-2 white-text center-align" id="mensagemRetorno_login"/>
-			</div>
-			<div class="col s1"></div>
-		</div>
-
-		<!-- BOTOES -->
-		<div class="row modal-footer center">
-			<button class="btn waves-effect waves-light" type="submit">ENTRAR<i class="material-icons right">send</i></button>
-			<button class="btn grey modal-close waves-effect waves-red" type="reset">CANCELAR</button>
-		</div>
-	</form>
-</div>
+	<!-- BOTOES -->
+	<div class="row center">
+		<button class="btn waves-effect waves-light" type="submit">ENTRAR<i class="material-icons right">send</i></button>
+		<button class="btn grey modal-close waves-effect waves-red" type="reset">CANCELAR</button>
+	</div>
+</form>
 </ui:composition>
 
 </html>

@@ -1,15 +1,17 @@
-var idDivPaginacaofuncioanrio = "#OpPaginasUsuario";
+var idDivPaginacaoUsuario = "#OpPaginasUsuario";
 var paginaAtualUsuarios=1;
 var qtdRegistrosUsuarios = 10;
 var qtdRegistrosUsuariosObtidos = 0;
 var urlUsuarios = "ws/usuariows/listar/";
 var urlUsuarios = "ws/usuariows/listarUsuarios/";
+var tabUsuario = 'C';
+var status = 'A';
 
 function cadastrarUsuario(){
-	$('#tituloFomunlarioUsuario').html("Formulário de cadastro de usuario");
-	$("#hide-alterar").show();
-    $("#cadastro").modal('open');
-    $('#mensagemRetornoCadastro').addClass("hiddendiv");
+	$('#tituloFomunlarioUsuario').html("Cadastrar Usuário");
+	limparCamposFormCadastro();
+	$('#form_type').val("cadastrar");
+	$("#chave").val(null);
 }
 
 $("#CadastroDeUsuario").submit(function(event){
@@ -17,7 +19,7 @@ $("#CadastroDeUsuario").submit(function(event){
 	if(capturarDadosDoForm() != null){
 		var formData = JSON.stringify(capturarDadosDoForm());
 		$.ajax({
-			url: "ws/usuariows/cadastrar/",
+			url: "ws/usuariows/"+$('#form_type').val()+"/",
 	        type: 'POST',
 	        data: formData,
 	        success: function (data) {
@@ -32,9 +34,10 @@ $("#CadastroDeUsuario").submit(function(event){
 		$('#mensagemRetornoCadastro').removeClass("hiddendiv");
 	}
 	return false;
-});
+	});
 
 function capturarDadosDoForm(){
+	var chave = $("#chave").val();
 	var nome = $("#nome").val();
 	var sobrenome = $("#sobrenome").val();
 	var tipo = $("#tipo").val();
@@ -48,7 +51,7 @@ function capturarDadosDoForm(){
 	var senha = $("#senha").val();
 	var usuario
 	if(isDadosValidos(nome,sobrenome,telefone, tipo, login,email,senha, rua, bairro, cidade, cep)){
-	   usuario = {"nome":nome, "sobrenome":sobrenome, "email":email, "telefone":telefone, "tipo":tipo, "login":login, "senha":senha, "status":'A', "rua":rua, "bairro":bairro, "cidade":cidade, "cep":cep};
+	   usuario = {"chave":chave,"nome":nome, "sobrenome":sobrenome, "email":email, "telefone":telefone, "tipo":tipo, "login":login, "senha":senha, "status":status, "rua":rua, "bairro":bairro, "cidade":cidade, "cep":cep};
 	}else{
 		usuario = null;
 	}
@@ -74,21 +77,11 @@ function isDadosValidos(nome,sobrenome,telefone, tipo, login,email,senha, rua, b
 		$('#mensagemRetornoAlteracao').html(mensagem);
 		retorno = false;
 	}
-	if(login == null || login == "" || login.length < 4 ){
-		mensagem += "<li>É obrigatório preencher o campo LOGIN com no mínimo 4 caracteres alfanuméricos</li>";
-		$('#mensagemRetornoCadastro').html(mensagem);
-		retorno = false;
-	}
 	if(email == null || email == "" || email.length < 1){
 		mensagem += "<li>É obrigatório preencher o campo EMAIL com o seguinte formato 'exemplo@email.com'</li>";
 		$('#mensagemRetornoCadastro').html(mensagem);
 		retorno = false;
 	}	
-	if(senha == null || senha == "" || senha.length < 4){
-		mensagem += "<li>É obrigatório preenche o campo SENHA com no mínimo 8 caracteres alfanuméricos</li>";
-		$('#mensagemRetornoCadastro').html(mensagem);
-		retorno = false;
-	}
 	if(rua == null || rua == "" || rua.length < 1 ){
 		mensagem += "<li>É obrigatório preencher o campo RUA</li>";
 		$('#mensagemRetornoCadastro').html(mensagem);
@@ -109,38 +102,110 @@ function isDadosValidos(nome,sobrenome,telefone, tipo, login,email,senha, rua, b
 		$('#mensagemRetornoCadastro').html(mensagem);
 		retorno = false;
 	}
+	if($('#form_type').val()=="C"){
+		if(senha == null || senha == "" || senha.length < 4){
+			mensagem += "<li>É obrigatório preenche o campo SENHA com no mínimo 8 caracteres alfanuméricos</li>";
+			$('#mensagemRetornoCadastro').html(mensagem);
+			retorno = false;
+		}
+		if(login == null || login == "" || login.length < 4 ){
+			mensagem += "<li>É obrigatório preencher o campo LOGIN com no mínimo 4 caracteres alfanuméricos</li>";
+			$('#mensagemRetornoCadastro').html(mensagem);
+			retorno = false;
+		}
+	}
 	return retorno;
 }
 
-/*EXCLUIR USUARIO*/
+/*VALIDAÇÕES E TRATAMENTOS*/
 
-function excluirUsuario(chave){
-	$("#confirmarExclusaoDoUsuario").modal('open');
-	$("#usuarioID").val(chave);
+function validar(dom,tipo){
+	switch(tipo){
+		case'num':var regex=/[A-Za-z]|\.|\,|\;|\:|\[|\{|\]|\}|\-|\_|\=|\+|\§|\)|\(|\*|\&|\¬|\%|\¢|\$|\£|\#|\³|\@|\²|\!|\¹|\º|\ª|\°|\~|\´|\`|\>|\<|\"|\'|\\|\||\¨+/g;break;
+		case'text':var regex=/\d|\.|\,|\;|\:|\[|\{|\]|\}|\-|\_|\=|\+|\§|\)|\(|\*|\&|\¬|\%|\¢|\$|\£|\#|\³|\@|\²|\!|\¹|\º|\ª|\°|\~|\´|\`|\>|\<|\"|\'|\\|\||\¨+/g;break;
+	}
+	dom.value=dom.value.replace(regex,'');
 }
 
-$("#confirmarExclusaoUsuario").submit(function(event){
-	var chave = $("#usuarioID").val();
-	$.ajax({
-		url: "ws/usuariows/excluir/"+chave,
-        type: 'GET',
-        data: "",
-        contentType: "application/json"
-	});
-	setTimeout(function(){
-		$("#confirmarExclusaoDoUsuario").modal('close');
-		carregarUsuarios(1);
-	},2000);
-	return false;
+function tratarRetornoServidor(data){
+	if(data == "sucess"){
+		$('#mensagemRetornoCadastro').html("Cadastro realizado com sucesso!");
+		$('#mensagemRetornoCadastro').addClass("green");
+		$('#mensagemRetornoCadastro').removeClass("hiddendiv");
+		setTimeout(function(){
+			$("#cadastro").modal('close');
+			limparCamposFormCadastro();
+			$('#mensagemRetornoCadastro').addClass("hiddendiv");
+		},2000);
+	}else{
+		$('#mensagemRetornoCadastro').html("Houve erro ao cadastrar!");
+		$('#mensagemRetornoCadastro').addClass("red");
+		$('#mensagemRetornoCadastro').removeClass("hiddendiv");
+	}
+}
+
+function limparCamposFormCadastro(){
+	$("#nome").val("");
+	$("#sobrenome").val("");
+	$("#cpf").val("");
+	$("#login").val("");
+	$("#telefone").val("");
+	$("#email").val("");
+	$("#senha").val("");
+	$("#rua").val("");
+	$("#bairro").val("");
+	$("#cidade").val("");
+	$("#cep").val("");
+	$("#login-div").removeClass("hiddendiv");
+}
+
+//Consulta CEP
+
+$(document).ready(function() {
+    function limpa_formulário_cep() {
+        $("#rua").val("");
+        $("#bairro").val("");
+        $("#cidade").val("");
+    }
+    $("#cep").blur(function() {
+        var cep = $(this).val().replace(/\D/g, '');
+        if (cep != "") {
+            var validacep = /^[0-9]{8}$/;
+            if(validacep.test(cep)) {
+                $("#rua").val("...");
+                $("#bairro").val("...");
+                $("#cidade").val("...");
+                $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
+                    if (!("erro" in dados)) {
+                        $("#rua").val(dados.logradouro);
+                        $("#bairro").val(dados.bairro);
+                        $("#cidade").val(dados.localidade);
+                    }
+                    else {
+                        limpa_formulário_cep();
+                        alert("CEP não encontrado.");
+                    }
+                });
+            }
+            else {
+                limpa_formulário_cep();
+                alert("Formato de CEP inválido.");
+            }
+        }
+        else {
+            limpa_formulário_cep();
+        }
+        M.updateTextFields();
+    });
 });
 
-/*TABELA DE FUNCIONARIOS*/
+// TABELA USUARIO
 
-function carregarUsuarios(pagina){
+function carregarUsuarios(pagina,tipo){
 	$("#barraCarregando").removeClass("hiddendiv");
     qtdRegistrosUsuarios = parseInt($("#qtdRegistrosUsuarios").val());
 	$.ajax({
-		url: "ws/usuariows/listar/"+pagina+"/"+qtdRegistrosUsuarios,
+		url: "ws/usuariows/listar/"+pagina+"/"+qtdRegistrosUsuarios+"/"+tipo,
         type: 'GET',
         success: function (data) {
         	qtdRegistrosUsuariosObtidos = data.length;
@@ -187,100 +252,73 @@ function getAcoesUsuario(usuario){
 }
 
 function getBtnInfoUsuario(usuario){
-	var html = "<a href='#' onclick='abrirInformacoesUsuario("+JSON.stringify(usuario)+")' title='Mais informações'><i class='material-icons'>info</i></a> ";
+	var html = "<a href='#' class='modal-trigger' data-target='user_info' onclick='abrirInformacoesUsuario("+JSON.stringify(usuario)+")' title='Mais informações'><i class='material-icons'>info</i></a> ";
 	return html;
 }
 
 function getBtnEditarUsuario(usuario){
-	var html = "<a href='#' onclick='limparCamposFormCadastro() , editarFuncionario("+JSON.stringify(usuario)+")' title='Editar'><i class='material-icons' aria-hidden='true'>mode_edit</i></a> ";
+	var html = "<a href='#' class='modal-trigger' data-target='cadastro' onclick='limparCamposFormCadastro() , editarUsuario("+JSON.stringify(usuario)+")' title='Editar'><i class='material-icons' aria-hidden='true'>mode_edit</i></a> ";
 	return html;
 }
 
 function getBtnExcluirUsuario(usuario){
-	var html = '<a href="#"	onclick="excluirUsuario('+usuario.chave+')" title="Excluir"><i class="material-icons" aria-hidden="true">delete</i></a>';
+	var html = "<a href='#'	onclick='excluirUsuario("+JSON.stringify(usuario)+")' title='Excluir'><i class='material-icons' aria-hidden='true'>delete</i></a>";
 	return html;
 }
 
-
-
-/*VALIDAÇÕES E TRATAMENTOS*/
-
-function validar(dom,tipo){
-	switch(tipo){
-		case'num':var regex=/[A-Za-z]|\.|\,|\;|\:|\[|\{|\]|\}|\-|\_|\=|\+|\§|\)|\(|\*|\&|\¬|\%|\¢|\$|\£|\#|\³|\@|\²|\!|\¹|\º|\ª|\°|\~|\´|\`|\>|\<|\"|\'|\\|\||\¨+/g;break;
-		case'text':var regex=/\d|\.|\,|\;|\:|\[|\{|\]|\}|\-|\_|\=|\+|\§|\)|\(|\*|\&|\¬|\%|\¢|\$|\£|\#|\³|\@|\²|\!|\¹|\º|\ª|\°|\~|\´|\`|\>|\<|\"|\'|\\|\||\¨+/g;break;
-	}
-	dom.value=dom.value.replace(regex,'');
+function abrirInformacoesUsuario(usuario){
+	$("#nome_info").val(usuario.nome);
+	$("#sobrenome_info").val(usuario.sobrenome);
+	$("#email_info").val(usuario.email);
+	$("#telefone_info").val(usuario.telefone);
+	$("#rua_info").val(usuario.rua);
+	$("#bairro_info").val(usuario.bairro);
+	$("#cidade_info").val(usuario.cidade);
+	$("#cep_info").val(usuario.cep);
+	$("#login_info").val(usuario.login);	
+	M.updateTextFields();
 }
 
-function tratarRetornoServidor(data){
-	if(data == "sucess"){
-		$('#mensagemRetornoCadastro').html("Cadastro realizado com sucesso!");
-		$('#mensagemRetornoCadastro').addClass("green");
-		$('#mensagemRetornoCadastro').removeClass("hiddendiv");
-		setTimeout(function(){
-			$("#cadastro").modal('close');
-			limparCamposFormCadastro();
-			$('#mensagemRetornoCadastro').addClass("hiddendiv");
-			carregarUsuarios(1);
-		},2000);
-	}else{
-		$('#mensagemRetornoCadastro').html("Houve erro ao cadastrar!");
-		$('#mensagemRetornoCadastro').addClass("red");
-		$('#mensagemRetornoCadastro').removeClass("hiddendiv");
-	}
+/*EXCLUIR USUARIO*/
+
+function excluirUsuario(usuario){
+	$('#nomeEx').html("Deseja excluir:<br/>"+usuario.nome);
+	$("#confirmaExclusao").modal('open');
+	$("#chave_usuario").val(usuario.chave);
 }
 
-function limparCamposFormCadastro(){
-	$("#nome").val("");
-	$("#sobrenome").val("");
-	$("#cpf").val("");
-	$("#login").val("");
-	$("#telefone").val("");
-	$("#email").val("");
-	$("#senha").val("");
-	$("#rua").val("");
-	$("#bairro").val("");
-	$("#cidade").val("");
-	$("#cep").val("");
-}
-
-//Consulta CEP
-
-$(document).ready(function() {
-    function limpa_formulário_cep() {
-        $("#rua").val("");
-        $("#bairro").val("");
-        $("#cidade").val("");
-    }
-    $("#cep").blur(function() {
-        var cep = $(this).val().replace(/\D/g, '');
-        if (cep != "") {
-            var validacep = /^[0-9]{8}$/;
-            if(validacep.test(cep)) {
-                $("#rua").val("...");
-                $("#bairro").val("...");
-                $("#cidade").val("...");
-                $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
-                    if (!("erro" in dados)) {
-                        $("#rua").val(dados.logradouro);
-                        $("#bairro").val(dados.bairro);
-                        $("#cidade").val(dados.localidade);
-                    }
-                    else {
-                        limpa_formulário_cep();
-                        alert("CEP não encontrado.");
-                    }
-                });
-            }
-            else {
-                limpa_formulário_cep();
-                alert("Formato de CEP inválido.");
-            }
-        }
-        else {
-            limpa_formulário_cep();
-        }
-        M.updateTextFields();
-    });
+$("#confirmarExclusaoUsuario").submit(function(event){
+	var chave = $("#chave_usuario").val();
+	$.ajax({
+		url: "ws/usuariows/excluir/"+chave,
+        type: 'GET',
+        data: "",
+        contentType: "application/json"
+	});
+	setTimeout(function(){
+		$("#confirmaExclusao").modal('close');
+		$('#tabelaUsuarios').load(self)
+	},2000);
+	return false;
 });
+
+function editarUsuario(usuario){
+	$('#tituloFomunlarioUsuario').html("Alterar dados de Usuário");
+	$('#form_type').val("alterar");
+	$("#chave").val(usuario.chave);
+	$("#nome").val(usuario.nome);
+	$("#sobrenome").val(usuario.sobrenome);
+	$("#email").val(usuario.email);
+	$("#telefone").val(usuario.telefone);
+	$("#rua").val(usuario.rua);
+	$("#bairro").val(usuario.bairro);
+	$("#cidade").val(usuario.cidade);
+	$("#cep").val(usuario.cep);
+	$("#login").val(usuario.login);
+	$("#login-div").addClass("hiddendiv");
+	M.updateTextFields();
+}
+
+
+
+

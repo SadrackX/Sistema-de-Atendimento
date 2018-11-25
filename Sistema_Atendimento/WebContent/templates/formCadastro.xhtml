@@ -4,10 +4,14 @@
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:composite="http://java.sun.com/jsf/composite"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
-
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 <ui:composition>
-	<form class="col s12" name="CadastroDeUsuario" id="CadastroDeUsuario" method="POST">
+<br/>
+	<h3 id="tituloFomunlarioUsuario" class="header center light"/>
+	<form class="col s12" id="CadastroDeUsuario" method="POST">
+		<input id="form_type" class="hiddendiv"/>
+		<input id="chave" class="hiddendiv"/>
 		<div class="input-field col s6">
 			<input id="nome" onkeypress="return soLetras(event)" type="text" class="validate" />
 			<label for="nome">Nome</label> 
@@ -63,19 +67,19 @@
 			<label for="cidade">Cidade</label> 
 			<span class="helper-text" data-error="Por favor verifique a Cidade digitada." data-success="" />
 		</div>
-		
-		<div class="input-field col s6">
-			<input id="login" maxlength="20" onkeypress="return soLetrasNumeros(event)" type="text" class="validate" /> 
-			<label for="login">Login</label> 
-			<span class="helper-text" data-error="Por favor verifique o login digitado." data-success="" />
+		<div id="login-div">
+			<div class="input-field col s6">
+				<input id="login" maxlength="20" onkeypress="return soLetrasNumeros(event)" type="text" class="validate" /> 
+				<label for="login">Login</label> 
+				<span class="helper-text" data-error="Por favor verifique o login digitado." data-success="" />
+			</div>
+			
+			<div class="input-field col s6">
+				<input id="senha" maxlength="255" type="password" class="validate" />
+				<label for="senha">Senha</label> 
+				<span class="helper-text" data-error="Por favor verifique o email digitado." data-success="" />
+			</div>
 		</div>
-		
-		<div class="input-field col s6">
-			<input id="senha" maxlength="255" type="password" class="validate" />
-			<label for="senha">Senha</label> 
-			<span class="helper-text" data-error="Por favor verifique o email digitado." data-success="" />
-		</div>
-		
 		<div class="col s12">
 			<button class="btn waves-effect waves-light" type="submit" id="confirmarCadastro">ENVIAR</button>
 			<button class="btn grey modal-close waves-effect waves-red" type="reset">CANCELAR</button>

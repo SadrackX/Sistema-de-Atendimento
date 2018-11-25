@@ -1,4 +1,4 @@
-var idDivPaginacaoatendimento = "#OpPaginasAtendimento";
+var idDivPaginacaoAtendimento = "#OpPaginasAtendimento";
 var paginaAtualAtendimentos = 1;
 var qtdRegistrosAtendimentos = 10;
 var qtdRegistrosAtendimentosObtidos = 0;

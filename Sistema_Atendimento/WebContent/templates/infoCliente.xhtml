@@ -6,47 +6,47 @@
 	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
-<ui:composition>
-	<div class="modal-content">
-		<form class="col s12">
-			<div class="input-field col s6">
-				<input id="nome_info" type="text" disabled="disabled" /> 
-				<label for="nome_info">Nome</label>
+	<ui:composition>
+		<div class="modal-content">
+			<div class="col s12">
+				<div class="input-field col s6">
+					<input id="nome_info" type="text" disabled="disabled" /> 
+					<label for="nome_info">Nome</label>
+				</div>
+				<div class="input-field col s6">
+					<input id="sobrenome_info" type="text" disabled="disabled" /> 
+					<label for="sobrenome_info">Sobrenome</label>
+				</div>
+	
+				<div class="input-field col s12">
+					<input id="email_info" type="email" disabled="disabled" /> 
+					<label for="email_info">Email</label>
+				</div>
+				<div class="input-field col s12 l6">
+					<input id="telefone_info" type="text" data-mask="(00)0000-0000" disabled="disabled" /> 
+					<label for="telefone_info">Telefone</label>
+				</div>
+				<div class="input-field col s12 l6">
+					<input id="rua_info" type="text" disabled="disabled" /> 
+					<label for="rua_info">Rua</label>
+				</div>
+				<div class="input-field col s12 l6">
+					<input id="bairro_info" type="text" disabled="disabled" /> 
+					<label for="bairro_info">Bairro</label>
+				</div>
+				<div class="input-field col s12 l6">
+					<input id="cidade_info" type="text" disabled="disabled" /> 
+					<label for="cidade_info">Cidade</label>
+				</div>
+				<div class="input-field col s12 l6">
+					<input id="cep_info" data-mask="00000-000" type="text" disabled="disabled" /> 
+					<label for="cep_info">CEP</label> 
+				</div>
+				<div class="input-field col s6">
+					<input id="login_info" type="text" disabled="disabled" /> 
+					<label for="login_info">Login</label>
+				</div>
 			</div>
-			<div class="input-field col s6">
-				<input id="sobrenome_info" type="text" disabled="disabled" /> 
-				<label for="sobrenome_info">Sobrenome</label>
-			</div>
-
-			<div class="input-field col s12">
-				<input id="email_info" type="email" disabled="disabled" /> 
-				<label for="email_info">Email</label>
-			</div>
-			<div class="input-field col s12 l6">
-				<input id="telefone_info" type="text" data-mask="(00)0000-0000" disabled="disabled" /> 
-				<label for="telefone_info">Telefone</label>
-			</div>
-			<div class="input-field col s12 l6">
-				<input id="rua_info" type="text" disabled="disabled" /> 
-				<label for="rua_info">Rua</label>
-			</div>
-			<div class="input-field col s12 l6">
-				<input id="bairro_info" type="text" disabled="disabled" /> 
-				<label for="bairro_info">Bairro</label>
-			</div>
-			<div class="input-field col s12 l6">
-				<input id="cidade_info" type="text" disabled="disabled" /> 
-				<label for="cidade_info">Cidade</label>
-			</div>
-			<div class="input-field col s12 l6">
-				<input id="cep_info" data-mask="00000-000" type="text" disabled="disabled" /> 
-				<label for="cep_info">CEP</label> 
-			</div>
-			<div class="input-field col s6">
-				<input id="login_info" type="text" disabled="disabled" /> 
-				<label for="login_info">Login</label>
-			</div>
-		</form>
-	</div>			
-</ui:composition>
+		</div>			
+	</ui:composition>
 </html>

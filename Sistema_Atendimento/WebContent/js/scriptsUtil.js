@@ -59,6 +59,7 @@ function getSetaEsquerda(paginaAtual, acaoSeta, qtdRegistros,
 	}
 	return setaEsquerda;
 }
+
 function getSetaDireita(paginaAtual, acaoSeta, qtdRegistros,
 		qtdRegistrosObtidos) {
 	var setaDireita = "";
@@ -86,19 +87,6 @@ function getLinhaNumeroPagina(numero, acaoSeta, paginaAtual) {
 	return linha;
 }
 
-function carregarEConverterArquivo(idInputFile, idInputHidden) {
-	var file = document.getElementById(idInputFile);
-	var reader = new FileReader();
-	try {
-		reader.readAsDataURL(file.files[0]);
-		reader.onloadend = function() {
-			$("#" + idInputHidden).val(reader.result);
-		};
-	} catch (e) {
-	}
-	console.log(reader.result);
-}
-
 function validar(dom, tipo) {
 	switch (tipo) {
 	case 'num':
@@ -111,100 +99,49 @@ function validar(dom, tipo) {
 	dom.value = dom.value.replace(regex, '');
 }
 
-function converteDataStringEmDate(dataString) {
-	var dia = parseInt(dataString.substring(1, 3));
-	var mes = parseInt(dataString.substring(3, 6)) - 1;
-	var ano = parseInt(dataString.substring(6, 11));
-	return new Date(ano, mes, dia);
-}
-
-function coverterDateEmDataString(data) {
-	var dia = data.getDate();
-	if (dia.toString().length == 1)
-		dia = "0" + dia;
-	var mes = data.getMonth() + 1;
-	if (mes.toString().length == 1)
-		mes = "0" + mes;
-	var ano = data.getFullYear();
-	return dia + "/" + mes + "/" + ano;
-}
-
-function getDateTime(data, horaString) {
-	var dia = parseInt(data.substring(1, 3));
-	var mes = parseInt(data.substring(3, 6)) - 1;
-	var ano = parseInt(data.substring(6, 11));
-	var hora = parseInt(horaString.substring(1, 3));
-	var minuto = parseInt(horaString.substring(3, 6));
-	return new Date(ano, mes, dia, hora, minuto, 0, 0);
-}
-
 function getUsuarioDaSessao() {
 	var usuario = JSON.parse($("#usuarioDaSessao").val());
 	return usuario;
 }
-// Utilizar onkeyup passando a string com a #id e a variavel event
-function validaHora(idCampo, event) {
-	var horaCapturada = $(idCampo).val();
-	var hora;
-	var minuto;
-	var teclaPressionada = event.keyCode;
-	if (horaCapturada !== null && horaCapturada !== ""
-			&& horaCapturada.length > 0) {
-		if (horaCapturada.length === 2) {
-			hora = parseInt(horaCapturada.substring(0, 2));
-			if ((hora >= 0 && hora < 24) && teclaPressionada !== 8) {
-				$(idCampo).val(horaCapturada + ':');
-			} else {
-				$(idCampo).val("");
-				Materialize
-						.toast(
-								'Favor preencher a hora corretamente!'
-										+ '<br>O campo deve ser preenchido dentro do intervalo 00:00 até 23:59.',
-								4000);
-			}
-		}
-		if (horaCapturada.length > 3) {
-			hora = parseInt(horaCapturada.substring(0, 2));
-			meio = horaCapturada.substring(2, 3);
-			minuto = parseInt(horaCapturada.substring(3, 5));
-			if (meio != ":") {
-				$(idCampo).val("");
-				$(idCampo).focus();
-				Materialize
-						.toast(
-								'Favor preencher a hora corretamente!'
-										+ '<br>O campo deve ser preenchido dentro do intervalo 00:00 até 23:59.',
-								4000);
-			}
-			if (minuto.length == 1 && minuto >= 6) {
-				$(idCampo).val("");
-				$(idCampo).focus();
-				Materialize
-						.toast(
-								'Favor preencher a hora corretamente!'
-										+ '<br>O campo deve ser preenchido dentro do intervalo 00:00 até 23:59.',
-								4000);
-			}
-			if (!(hora >= 0 && hora < 24)) {
-				$(idCampo).val("");
-				$(idCampo).focus();
-				Materialize
-						.toast(
-								'Favor preencher a hora corretamente!'
-										+ '<br>O campo deve ser preenchido dentro do intervalo 00:00 até 23:59.',
-								4000);
-			}
-			if (!(minuto > 0 && minuto < 60)) {
-				$(idCampo).val("");
-				$(idCampo).focus();
-				Materialize
-						.toast(
-								'Favor preencher a hora corretamente!'
-										+ '<br>O campo deve ser preenchido dentro do intervalo 00:00 até 23:59.',
-								4000);
-			}
-		}
-	}
+
+function soLetras(e) {
+    if (document.all) {
+        var evt = event.keyCode;
+    } else {
+        var evt = e.charCode;
+    }
+    var chr = String.fromCharCode(evt);
+    var re = /[A-Za-z\sáàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ]/; // permite apenas de A-Z e de a-z e acentuação
+    return (re.test(chr) || evt < 20); // com evt < 20 permitimos <ENTER>,<TAB>,<BACKSPACE>
 }
+
+function soLetrasNumeros(e) {
+    if (document.all) {
+        var evt = event.keyCode;
+    } else {
+        var evt = e.charCode;
+    }
+    var chr = String.fromCharCode(evt);
+    var re = /[A-Za-z0-9\sáàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ]/; // permite apenas de A-Z e de a-z e acentuação
+    return (re.test(chr) || evt < 20); // com evt < 20 permitimos <ENTER>,<TAB>,<BACKSPACE>
+}
+
+$(document).unbind('keydown').bind('keydown', function (event) {
+    var doPrevent = false;
+    if (event.keyCode === 8) {
+        var d = event.srcElement || event.target;
+        if ((d.tagName.toUpperCase() === 'INPUT' && (d.type.toUpperCase() === 'TEXT' || d.type.toUpperCase() === 'PASSWORD' || d.type.toUpperCase() === 'FILE' || d.type.toUpperCase() === 'NUMBER' || d.type.toUpperCase() === 'EMAIL')) 
+             || d.tagName.toUpperCase() === 'TEXTAREA') {
+            doPrevent = false;
+        }
+        else {
+            doPrevent = true;
+        }
+    }
+
+    if (doPrevent) {
+        event.preventDefault();
+    }
+});
 
 

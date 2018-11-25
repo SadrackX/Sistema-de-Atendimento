@@ -1,5 +1,6 @@
 var LOGIN_INVALIDO= "Login inválido.";
 var SENHA_INCORRETA = "Senha Incorreta";
+var LOGANDO = "Logando!!!";
 
 $('#loginForm').submit(function (event) {
 	var form = {"login":$("#login_l").val(),"senha":$("#senha_l").val()};
@@ -9,6 +10,7 @@ $('#loginForm').submit(function (event) {
         type: 'POST',
         data: formData,
         success: function (data) {
+        	M.toast({html: 'Verificando!!', classes: 'blue'});
         	tratarLoginRetorno(data);
         },
         cache: false,
@@ -16,21 +18,17 @@ $('#loginForm').submit(function (event) {
         processData: false
     });
     return false;
+    M.Toast.dismissAll();
 });
 
 function tratarLoginRetorno(data){
-	$("#retornoServidor_login").addClass("hiddendiv");
     if(data.loginValido==0 && data.senhaValida==0){
-    	$("#mensagemRetorno_login").html(LOGIN_INVALIDO);
-    	$("#retornoServidor_login").removeClass("hiddendiv");
-    	M.toast({html: 'Login incorreto!!'});
-    }
-    if(data.loginValido==1 && data.senhaValida==0){
-    	$("#mensagemRetorno_login").html(SENHA_INCORRETA);
-    	$("#retornoServidor_login").removeClass("hiddendiv");
-    	M.toast({html: 'Senha incorreta!!'});    	
-    }
-    if(data.loginValido==1 && data.senhaValida==1){
-    	setTimeout(location.href='index.do',1000);
+    	M.toast({html: LOGIN_INVALIDO, classes: 'red'});
+    }else if(data.loginValido==1 && data.senhaValida==0){
+    	M.toast({html: SENHA_INCORRETA , classes: 'red'});    	
+    }else if(data.loginValido==1 && data.senhaValida==1){
+    	M.toast({html: LOGANDO, classes: 'green'});
+    	setTimeout(location.href='index.do',2000);
     }
 }
+

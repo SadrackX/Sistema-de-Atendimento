@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition>
+	<table class="responsive-table">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Telefone</th>
+				<th>CEP</th>
+				<th>Email</th>
+				<th>Ações</th>
+			</tr>
+		</thead>
+		<tbody id="tabelaUsuarios"/>
+		<tfoot>
+			<tr>
+				<th colspan="4">
+					<div class="row">
+						<div class="col l3">
+							<div class="input-field">
+								<select id="qtdRegistrosUsuarios"
+									name="qtdRegistrosUsuarios"
+									onselect="carregarUsuarios(paginaAtualUsuarios)">
+									<option value="10" selected="selected">10</option>
+									<option value="20">20</option>
+									<option value="30">30</option>
+									<option value="40">40</option>
+									<option value="50">50</option>
+								</select> <label for="qtdRegistrosUsuarios">Registros por
+									página</label>
+							</div>
+						</div>
+						<div class="col l9 center">
+							<ul class="pagination" id="OpPaginasUsuario"></ul>
+						</div>
+					</div>
+				</th>
+			</tr>
+		</tfoot>
+	</table>
+</ui:composition>
+
+</html>

@@ -25,7 +25,7 @@ public class UsuarioBO {
 		return getUsuarioDAO().atualizar(getUsuarioPO());
 	}
 	public boolean excluir(){
-		UsuarioPO usuario = getUsuarioDAO().capturarPorId(usuarioPO);
+		UsuarioPO usuario = getUsuarioDAO().capturarPorChave(usuarioPO);
 		if(usuario !=null){
 			usuario.setStatus(StatusUsuario.EXCLUIDO.getCodigo());
 			return getUsuarioDAO().excluir(usuario);
@@ -34,9 +34,9 @@ public class UsuarioBO {
 		}
 	}
 	
-	public List<UsuarioPO> listar(Integer pagina, Integer qtdRegistros){
+	public List<UsuarioPO> listar(Integer pagina, Integer qtdRegistros, String tipo){
 		pagina = pagina*qtdRegistros-qtdRegistros;
-		return getUsuarioDAO().listar(pagina,qtdRegistros, getFiltro(USUARIOS_ATIVOS));
+		return getUsuarioDAO().listar(pagina,qtdRegistros, getFiltro(USUARIOS_ATIVOS, tipo));
 	}
 	
 	public UsuarioPO getUsuarioPO() {
@@ -58,12 +58,12 @@ public class UsuarioBO {
 	}
 	
 	
-	private String getFiltro(int codigo){
+	private String getFiltro(int codigo, String tipo){
 		String filtro = "";
 		switch (codigo) {
-		case USUARIOS_ATIVOS: filtro = "WHERE u.status = 'A' ORDER BY u.nome ASC";	
+		case USUARIOS_ATIVOS: filtro = "WHERE u.status = 'A' AND u.tipo = '"+tipo+"' ORDER BY u.nome ASC";	
 			break;
-		case USUARIOS_EXCLUIDOS: filtro = "WHERE u.status = 'E' ORDER BY u.nome ASC";
+		case USUARIOS_EXCLUIDOS: filtro = "WHERE u.status = 'E' AND u.tipo = '"+tipo+"' ORDER BY u.nome ASC";
 			break;
 		}
 		return filtro;

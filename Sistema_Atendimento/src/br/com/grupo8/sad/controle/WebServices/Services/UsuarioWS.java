@@ -54,17 +54,16 @@ public class UsuarioWS {
 	}
 
 	@GET
-	@Path("/listar/{pagina:[0-9]*}/{registros:[0-9]*}")
-	public List<UsuarioPO> listAll(@PathParam("pagina") final int pagina,@PathParam("registros") final int qtdRegistros) {
-		return getUsuarioBO().listar(pagina,qtdRegistros);
+	@Path("/listar/{pagina:[0-9]*}/{registros:[0-9]*}/{tipo}")
+	public List<UsuarioPO> listAll(@PathParam("pagina") final int pagina,@PathParam("registros") final int qtdRegistros,@PathParam("tipo") final String tipo) {
+		return getUsuarioBO().listar(pagina,qtdRegistros,tipo);
 	}
 
 	@POST
 	@Path("/alterar/")
 	public List<String> atualizar(final UsuarioPO cliente) {
 		List<String> retorno = new ArrayList<>();
-		UsuarioPO usuarioPO = new UsuarioPO();
-		getUsuarioBO().setUsuarioPO(usuarioPO);
+		getUsuarioBO().setUsuarioPO(cliente);
 		if(getUsuarioBO().atualizar()){
 			retorno.add("sucess");
 		}else{

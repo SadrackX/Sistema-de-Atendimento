@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
@@ -5,35 +6,30 @@
 	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
-
-<ui:composition>
-	<ul class="right hide-on-med-and-down">
-		<!-- <c:if test="#{!usuarioBean.usuarioLogado}">
-			<li><a data-target="login-modal" class="modal-trigger center-align" href="#!"><i class="material-icons left">vpn_key</i>ENTRAR</a></li>
-		</c:if> -->
+	<ui:composition>
+		<ul class="right hide-on-med-and-down">		
+			<c:if test="#{usuarioBean.usuarioLogado}">
+				<c:if test="#{usuarioBean.funcionario}">
+					<li><a class="dropdown-trigger center-align" style="width: 185px"  data-target="dropdownGerenciar"><i class="material-icons left">settings</i>GERENCIAR</a>
+						<ul id="dropdownGerenciar" class="dropdown-content">
+							<li><a href="atendimentos.do"><i class="material-icons left" style="width: 10px">assignment</i>ATENDIMENTOS</a></li>
+							<li class="divider"/>
+							<li><a href="admin.do"><i class="material-icons left">assignment_ind</i>USUARIOS</a></li>
+						</ul>
+					</li>
+				</c:if>
+				
+				<c:if test="#{!usuarioBean.funcionario}">
+					<li><a data-target="modal-s-atendimento" class="modal-trigger center-align"><i class="material-icons left">date_range</i>SOLICITAR ATENDIMENTO</a></li>
+				</c:if>
 		
-		<c:if test="#{usuarioBean.usuarioLogado}">
-			<c:if test="#{usuarioBean.funcionario}">
-				<li><a class="dropdown-trigger center-align" style="width: 185px"  data-target="dropdownGerenciar"><i class="material-icons left">settings</i>GERENCIAR</a>
-					<ul id="dropdownGerenciar" class="dropdown-content">
-						<li><a href="atendimentos.do"><i class="material-icons left" style="width: 10px">assignment</i>ATENDIMENTOS</a></li>
-						<li class="divider"/>
-						<li><a href="admin.do"><i class="material-icons left">assignment_ind</i>USUARIOS</a></li>
+				<li><a class="dropdown-trigger center-align" style="width: auto;" data-target="dropdownUsuario"><i class="material-icons left">person</i><h:outputText value="#{usuarioBean.nome}" /></a>
+					<ul id="dropdownUsuario" class="dropdown-content">
+						<li><a href="cliente.do" ><i style="width: 20px;" class="material-icons left">perm_identity</i>PERFIL</a></li>
+						<li><a href="sair.do"><i class="material-icons left">close</i>SAIR</a></li>
 					</ul>
 				</li>
 			</c:if>
-			
-			<c:if test="#{!usuarioBean.funcionario}">
-				<li><a data-target="modal-s-atendimento" class="modal-trigger center-align"><i class="material-icons left">date_range</i>SOLICITAR ATENDIMENTO</a></li>
-			</c:if>
-	
-			<li><a class="dropdown-trigger center-align" style="width: auto;" data-target="dropdownUsuario"><i class="material-icons left">person</i><h:outputText value="#{usuarioBean.nome}" /></a>
-				<ul id="dropdownUsuario" class="dropdown-content">
-					<li><a href="cliente.do" ><i style="width: 20px;" class="material-icons left">perm_identity</i>PERFIL</a></li>
-					<li><a href="sair.do"><i class="material-icons left">close</i>SAIR</a></li>
-				</ul>
-			</li>
-		</c:if>
-	</ul>
-</ui:composition>
+		</ul>
+	</ui:composition>
 </html>

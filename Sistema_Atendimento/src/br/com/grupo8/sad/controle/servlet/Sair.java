@@ -24,7 +24,7 @@ public class Sair extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession sessao = request.getSession();
 		Date data = new Date();
-		System.out.println(data.getTime()+"Limpando a sessao: "+sessao.getId());
+		System.out.println(data.getTime()+" Limpando a sessao: "+sessao.getId());
 		sessao.invalidate();
 		response.sendRedirect("");
 	}

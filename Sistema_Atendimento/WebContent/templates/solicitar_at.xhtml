@@ -1,42 +1,44 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
-
-<h3 class="light header center">Agendar Atendimento</h3>
-<div class="row">
-	<form id="agendarAtendimentoForm" class="col s12" method="POST" name="agendarAtendimentoForm">
-		<div class="input-field col s12 l12">
-			<input disabled="disabled" value="#{usuarioBean.nome}" id="nome_a" type="text"/> 
-			<label for="nome_a">Nome</label>
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	<ui:composition>
+	<h3 class="light header center">Agendar Atendimento</h3>
+		<div class="row">
+			<form id="agendarAtendimentoForm" class="col s12" method="POST" name="agendarAtendimentoForm">
+				<div class="input-field col s12 l12">
+					<input disabled="disabled" value="#{usuarioBean.nome}" id="nome_a" type="text"/> 
+					<label for="nome_a">Nome</label>
+				</div>
+				<div class="input-field col s12 l12">
+					<input disabled="disabled" value="#{usuarioBean.usuario.rua}, #{usuarioBean.usuario.bairro}, #{usuarioBean.usuario.cidade}, #{usuarioBean.usuario.cep}" id="endereco_a" type="text" class="validate" /> 
+					<label for="endereco_a">Endereço</label> 
+					<span class="helper-text" data-error="Por favor verifique o endereço" />
+				</div>
+				<div class="input-field col s12">
+					<input type="text" class="datepicker validate" id="dataCriacao_a" autocomplete="off" /> <label for="dataCriacao_a">Data</label> <span
+						class="helper-text" data-error="Por favor verifique a data"
+						data-success=""></span>
+				</div>
+				<div class="input-field col s12">
+					<textarea id="descricao_a" class="materialize-textarea validate"/>
+					<label for="descricao_a">Descrição</label> <span class="helper-text"
+						data-error="Por favor verifique a descrição" data-success=""></span>
+				</div>
+				<div class="col s12">
+					<div class="card-panel lighten-2 white-text center-align hiddendiv"
+						id="mensagemRetorno"/>
+				</div>
+				<div class="col">
+					<button class="btn waves-effect waves-light" type="submit">
+						Enviar <i class="material-icons right">send</i>
+					</button>
+				</div>
+			</form>
 		</div>
-		<div class="input-field col s12 l12">
-			<input disabled="disabled" value="#{usuarioBean.usuario.rua}, #{usuarioBean.usuario.bairro}, #{usuarioBean.usuario.cidade}, #{usuarioBean.usuario.cep}" id="endereco_a" type="text" class="validate" /> 
-			<label for="endereco_a">Endereço</label> 
-			<span class="helper-text" data-error="Por favor verifique o endereço" />
-		</div>
-		<div class="input-field col s12">
-			<input type="text" class="datepicker validate" id="dataCriacao_a" autocomplete="off" /> <label for="dataCriacao_a">Data</label> <span
-				class="helper-text" data-error="Por favor verifique a data"
-				data-success=""></span>
-		</div>
-		<div class="input-field col s12">
-			<textarea id="descricao_a" class="materialize-textarea validate"/>
-			<label for="descricao_a">Descrição</label> <span class="helper-text"
-				data-error="Por favor verifique a descrição" data-success=""></span>
-		</div>
-		<div class="col s12">
-			<div class="card-panel lighten-2 white-text center-align hiddendiv"
-				id="mensagemRetorno"/>
-		</div>
-		<div class="col">
-			<button class="btn waves-effect waves-light" type="submit">
-				Enviar <i class="material-icons right">send</i>
-			</button>
-		</div>
-	</form>
-</div>
+	</ui:composition>
 </html>
