@@ -195,6 +195,7 @@ function infoCliente(atendimento){
 	$("#email_info").val(atendimento.usuario.email);
 	$("#telefone_info").val(atendimento.usuario.telefone);
 	$("#rua_info").val(atendimento.usuario.rua);
+	$("#numero_info").val(atendimento.usuario.numero);
 	$("#bairro_info").val(atendimento.usuario.bairro);
 	$("#cidade_info").val(atendimento.usuario.cidade);
 	$("#cep_info").val(atendimento.usuario.cep);

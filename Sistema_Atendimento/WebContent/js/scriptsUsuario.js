@@ -45,20 +45,21 @@ function capturarDadosDoForm(){
 	var telefone = $("#telefone").val();
 	var email = $("#email").val();
 	var rua = $("#rua").val();
+	var numero = $("#numero").val();
 	var bairro = $("#bairro").val();
 	var cidade = $("#cidade").val();
 	var cep = $("#cep").val();	
 	var senha = $("#senha").val();
 	var usuario
-	if(isDadosValidos(nome,sobrenome,telefone, tipo, login,email,senha, rua, bairro, cidade, cep)){
-	   usuario = {"chave":chave,"nome":nome, "sobrenome":sobrenome, "email":email, "telefone":telefone, "tipo":tipo, "login":login, "senha":senha, "status":status, "rua":rua, "bairro":bairro, "cidade":cidade, "cep":cep};
+	if(isDadosValidos(nome,sobrenome,telefone, tipo, login,email,senha, rua, numero, bairro, cidade, cep)){
+	   usuario = {"chave":chave,"nome":nome, "sobrenome":sobrenome, "email":email, "telefone":telefone, "tipo":tipo, "login":login, "senha":senha, "status":status, "rua":rua, "numero": numero, "bairro":bairro, "cidade":cidade, "cep":cep};
 	}else{
 		usuario = null;
 	}
 	return usuario;
 }
 
-function isDadosValidos(nome,sobrenome,telefone, tipo, login,email,senha, rua, bairro, cidade, cep){
+function isDadosValidos(nome,sobrenome,telefone, tipo, login,email,senha, rua, numero, bairro, cidade, cep){
 	var mensagem = "";
 	var retorno = true;
 	if(nome == null || nome == "" || nome.length < 4){
@@ -83,6 +84,11 @@ function isDadosValidos(nome,sobrenome,telefone, tipo, login,email,senha, rua, b
 	}	
 	if(rua == null || rua == "" || rua.length < 1 ){
 		mensagem += "<li>É obrigatório preencher o campo RUA</li>";
+		$('#mensagemRetornoCadastro').html(mensagem);
+		retorno = false;
+	}
+	if(numero == null || numero == "" || numero.length < 1 ){
+		mensagem += "<li>É obrigatório preencher o campo NUMERO</li>";
 		$('#mensagemRetornoCadastro').html(mensagem);
 		retorno = false;
 	}
@@ -200,6 +206,7 @@ function abrirInformacoesUsuario(usuario){
 	$("#email_info").val(usuario.email);
 	$("#telefone_info").val(usuario.telefone);
 	$("#rua_info").val(usuario.rua);
+	$("#numero_info").val(usuario.numero);
 	$("#bairro_info").val(usuario.bairro);
 	$("#cidade_info").val(usuario.cidade);
 	$("#cep_info").val(usuario.cep);
@@ -248,6 +255,7 @@ function editarUsuario(usuario){
 	$("#email").val(usuario.email);
 	$("#telefone").val(usuario.telefone);
 	$("#rua").val(usuario.rua);
+	$("#numero").val(usuario.numero);
 	$("#bairro").val(usuario.bairro);
 	$("#cidade").val(usuario.cidade);
 	$("#cep").val(usuario.cep);
@@ -302,6 +310,7 @@ function limparCamposFormCadastro(){
 	$("#email").val("");
 	$("#senha").val("");
 	$("#rua").val("");
+	$("#numero").val("");
 	$("#bairro").val("");
 	$("#cidade").val("");
 	$("#cep").val("");
