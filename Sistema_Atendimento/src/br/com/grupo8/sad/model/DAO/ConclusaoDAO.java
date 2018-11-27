@@ -7,7 +7,6 @@ import javax.persistence.TypedQuery;
 
 import br.com.grupo8.sad.interfaces.DAO;
 import br.com.grupo8.sad.model.PO.ConclusaoPO;
-import br.com.grupo8.sad.model.PO.UsuarioPO;
 import br.com.grupo8.sad.model.Util.PersistenceUtil;
 
 public class ConclusaoDAO implements DAO<ConclusaoPO> {
