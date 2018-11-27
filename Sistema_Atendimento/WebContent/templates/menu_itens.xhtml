@@ -10,23 +10,23 @@
 		<ul class="right hide-on-med-and-down">		
 			<c:if test="#{usuarioBean.usuarioLogado}">
 				<c:if test="#{usuarioBean.funcionario}">
-					<li><a class="dropdown-trigger center-align" style="width: 185px"  data-target="dropdownGerenciar"><i class="material-icons left">settings</i>GERENCIAR</a>
+					<li><a class="dropdown-trigger center-align" style="width: 190px;"  data-target="dropdownGerenciar"><i style="padding-right: 10px" class="fas fa-cog"/>GERENCIAR</a>
 						<ul id="dropdownGerenciar" class="dropdown-content">
-							<li><a href="atendimentos.do"><i class="material-icons left" style="width: 10px">assignment</i>ATENDIMENTOS</a></li>
+							<li><a href="atendimentos.do"><i style="width: 15px;" class="fas fa-clipboard-list"/> ATENDIMENTOS</a></li>
 							<li class="divider"/>
-							<li><a href="admin.do"><i class="material-icons left">assignment_ind</i>USUARIOS</a></li>
+							<li><a href="admin.do"><i class="fas fa-users"/>USUARIOS</a></li>
 						</ul>
 					</li>
 				</c:if>
 				
 				<c:if test="#{!usuarioBean.funcionario}">
-					<li><a data-target="modal-s-atendimento" class="modal-trigger center-align"><i class="material-icons left">date_range</i>SOLICITAR ATENDIMENTO</a></li>
+					<li><a data-target="modal-s-atendimento" class="modal-trigger center-align"><i style="padding-right: 10px" class="fas fa-calendar-plus"/>SOLICITAR ATENDIMENTO</a></li>
 				</c:if>
 		
-				<li><a class="dropdown-trigger center-align" style="width: auto;" data-target="dropdownUsuario"><i class="material-icons left">person</i><h:outputText value="#{usuarioBean.nome}" /></a>
+				<li><a class="dropdown-trigger center-align" style="width: auto;" data-target="dropdownUsuario"><i style="padding-right: 30px" class="fas fa-user"/><h:outputText value="#{usuarioBean.nome}" /></a>
 					<ul id="dropdownUsuario" class="dropdown-content">
-						<li><a href="cliente.do" ><i style="width: 20px;" class="material-icons left">perm_identity</i>PERFIL</a></li>
-						<li><a href="sair.do"><i class="material-icons left">close</i>SAIR</a></li>
+						<li><a href="cliente.do" ><i class="fas fa-user-cog"/>PERFIL</a></li>
+						<li><a href="sair.do"><i class="fas fa-times"/>SAIR</a></li>
 					</ul>
 				</li>
 			</c:if>

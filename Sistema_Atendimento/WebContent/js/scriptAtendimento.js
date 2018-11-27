@@ -144,22 +144,22 @@ function getAcoesAtendimento(atendimento){
 }
 
 function getBtnInfoAtendimento(atendimento){
-	var html = " <a href='' data-target='modal-mapa' class='modal-trigger' onclick='abrirInformacoesAtendimento("+JSON.stringify(atendimento.usuario.cep)+")' title='Mais informações'><i class='material-icons'>map</i></a> ";
+	var html = " <a style='padding: 5px' href='' data-target='modal-mapa' class='modal-trigger' onclick='abrirInformacoesAtendimento("+JSON.stringify(atendimento.usuario.cep)+")' title='Mais informações'><i class='blue-text fas fa-map-marked-alt fa-2x'/></a> ";
 	return html;
 }
 
 function getBtnInfoCliente(atendimento){
-	var html = " <a href='' data-target='cliente_info' class='modal-trigger' onclick='infoCliente("+JSON.stringify(atendimento)+")' title='Editar'><i class='material-icons' aria-hidden='true'>info</i></a> ";
+	var html = " <a style='padding: 5px' href='' data-target='cliente_info' class='modal-trigger' onclick='infoCliente("+JSON.stringify(atendimento)+")' title='Informações do cliente'><i class='blue-text fas fa-info-circle fa-2x'/></a> ";
 	return html;
 }
 
 function getBtnAtender(atendimento){
-	var html = " <a href='' data-target='atender-modal' class='modal-trigger' onclick='atender("+JSON.stringify(atendimento)+")' title='Atender'><i class='material-icons' aria-hidden='true'>delete</i></a>";
+	var html = " <a style='padding: 5px' href='' data-target='atender-modal' class='modal-trigger' onclick='atender("+JSON.stringify(atendimento)+")' title='Atender'><i class='green-text fas fa-clipboard-check fa-2x'/></a>";
 	return html;
 }
 
 function getBtnMotivo(atendimento){
-	var html = " <a href='#!' onclick='motivoBtn("+JSON.stringify(atendimento)+")' title='Atender'><i class='material-icons' aria-hidden='true'>delete</i></a>";
+	var html = " <a style='padding: 5px' href='#!' onclick='motivoBtn("+JSON.stringify(atendimento)+")' title='Motivo'><i class='orange-text fas fa-exclamation-triangle fa-2x'/></a>";
 	return html;
 }
 

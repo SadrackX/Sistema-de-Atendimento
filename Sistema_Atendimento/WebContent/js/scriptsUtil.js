@@ -49,13 +49,13 @@ function getSetaEsquerda(paginaAtual, acaoSeta, qtdRegistros,
 		qtdRegistrosObtidos) {
 	var setaEsquerda;
 	if (paginaAtual == 1 || qtdRegistrosObtidos < qtdRegistros) {
-		setaEsquerda = '<li class="disabled"><a><i class="material-icons">chevron_left</i></a></li>';
+		setaEsquerda = '<li class="disabled"><a><i class="fas fa-chevron-left"/></a></li>';
 	} else {
 		setaEsquerda = '<li class="waves-effect waves-grey"><a href="#" onclick="'
 				+ acaoSeta
 				+ '('
 				+ (paginaAtual - 1)
-				+ ')"><i class="material-icons">chevron_left</i></a></li>';
+				+ ')"><i class="fas fa-chevron-left"/></a></li>';
 	}
 	return setaEsquerda;
 }
@@ -64,13 +64,13 @@ function getSetaDireita(paginaAtual, acaoSeta, qtdRegistros,
 		qtdRegistrosObtidos) {
 	var setaDireita = "";
 	if (qtdRegistrosObtidos < qtdRegistros) {
-		setaDireita = '<li class="disabled"><a><i class="material-icons">chevron_right</i></a></li>';
+		setaDireita = '<li class="disabled"><a><i class="fas fa-chevron-right"/></a></li>';
 	} else {
 		setaDireita = '<li class="waves-effect waves-grey"><a href="#" onclick="'
 				+ acaoSeta
 				+ '('
 				+ (paginaAtual + 1)
-				+ ')"><i class="material-icons">chevron_right</i></a></li>';
+				+ ')"><i class="fas fa-chevron-right"/></a></li>';
 	}
 	return setaDireita;
 }

@@ -15,7 +15,7 @@
 			<div class="container">
 				<div class="nav-wrapper">
 					<a href="index.do" title="Inicio" class="brand-logo">SAD</a> 
-					<c:if test="#{usuarioBean.usuarioLogado}"><a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a></c:if>
+					<c:if test="#{usuarioBean.usuarioLogado}"><a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="fas fa-bars"/></a></c:if>
 					<ui:insert>
 						<ui:include src="/templates/menu_itens.xhtml" />
 					</ui:insert>

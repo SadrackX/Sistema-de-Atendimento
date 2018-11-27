@@ -10,24 +10,24 @@
 		<ul id="mobile-demo" class="sidenav">
 			<c:if test="#{usuarioBean.usuarioLogado}">
 				<c:if test="#{usuarioBean.funcionario}">
-					<li><a class="dropdown-trigger" data-target="dropdownGerenciar-M" href="#!"><i class="material-icons left">settings</i>GERENCIAR</a>
+					<li><a class="dropdown-trigger" data-target="dropdownGerenciar-M" href="#!"><i style="padding-right: 10px" class="fas fa-cog"/>GERENCIAR</a>
 						<ul id="dropdownGerenciar-M" class="dropdown-content">
-							<li><a href="atendimentos.do"><i class="material-icons left" style="width: 10px">assignment</i>ATENDIMENTOS</a></li>
+							<li><a href="atendimentos.do"><i style="width: 15px;" class="fas fa-clipboard-list"/>ATENDIMENTOS</a></li>
 							<li class="divider"></li>
-							<li><a href="admin.do"><i class="material-icons left">assignment_ind</i>USUARIOS</a></li>
+							<li><a href="admin.do"><i class="fas fa-users"/>USUARIOS</a></li>
 						</ul></li>
 					<li class="divider"></li>
 				</c:if>
 				
 				<c:if test="#{!usuarioBean.funcionario}">
-					<li><a data-target="modal-s-atendimento" class="modal-trigger center-align"><i class="material-icons left">date_range</i>SOLICITAR ATENDIMENTO</a></li>
+					<li><a data-target="modal-s-atendimento" class="modal-trigger"><i class="fas fa-calendar-plus"/>SOLICITAR ATENDIMENTO</a></li>
 					<li class="divider"></li>
 				</c:if>
 				
-				<li><a class="dropdown-trigger" data-target="dropdownUsuario-M"><i class="material-icons left">person</i><h:outputText value="#{usuarioBean.nome}" /></a>
+				<li><a class="dropdown-trigger" data-target="dropdownUsuario-M"><i style="padding-right: 10px" class="fas fa-user"/><h:outputText value="#{usuarioBean.nome}" /></a>
 					<ul id="dropdownUsuario-M" class="dropdown-content">
-						<li><a href="cliente.do"><i class="material-icons left">perm_identity</i> PERFIL</a></li>
-						<li><a href="sair.do"><i class="material-icons left">close</i>SAIR</a></li>
+						<li><a href="cliente.do"><i class="fas fa-user-cog"/>PERFIL</a></li>
+						<li><a href="sair.do"><i class="fas fa-times"/>SAIR</a></li>
 					</ul>
 				</li>
 			</c:if>

@@ -270,17 +270,17 @@ function getAcoesUsuario(usuario){
 }
 
 function getBtnInfoUsuario(usuario){
-	var html = "<a href='#' class='modal-trigger' data-target='user_info' onclick='abrirInformacoesUsuario("+JSON.stringify(usuario)+")' title='Mais informações'><i class='material-icons'>info</i></a> ";
+	var html = "<a style='padding: 5px' href='#' class='modal-trigger' data-target='user_info' onclick='abrirInformacoesUsuario("+JSON.stringify(usuario)+")' title='Mais informações'><i class='blue-text fas fa-info-circle fa-2x'/></a> ";
 	return html;
 }
 
 function getBtnEditarUsuario(usuario){
-	var html = "<a href='#' class='modal-trigger' data-target='cadastro' onclick='limparCamposFormCadastro() , editarUsuario("+JSON.stringify(usuario)+")' title='Editar'><i class='material-icons' aria-hidden='true'>mode_edit</i></a> ";
+	var html = "<a style='padding: 5px' href='#' class='modal-trigger' data-target='cadastro' onclick='limparCamposFormCadastro() , editarUsuario("+JSON.stringify(usuario)+")' title='Editar'><i class='green-text fas fa-user-edit fa-2x'/></a> ";
 	return html;
 }
 
 function getBtnExcluirUsuario(usuario){
-	var html = "<a href='#'	onclick='excluirUsuario("+JSON.stringify(usuario)+")' title='Excluir'><i class='material-icons' aria-hidden='true'>delete</i></a>";
+	var html = "<a style='padding: 5px' href='#' onclick='excluirUsuario("+JSON.stringify(usuario)+")' title='Excluir'><i class='red-text fas fa-user-times fa-2x'/></a>";
 	return html;
 }
 
