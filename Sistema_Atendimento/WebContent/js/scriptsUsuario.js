@@ -70,12 +70,12 @@ function isDadosValidos(nome,sobrenome,telefone, tipo, login,email,senha, rua, b
 		$('#mensagemRetornoCadastro').html(mensagem);
 		retorno = false;
 	}
-	if(telefone == null || telefone == "" || telefone.length < 1){
-		mensagem += "<li>É obrigatório preencher o campo TELEFONE com 11 caracteres numéricos</li>";
+	if(telefone == null || telefone == "" || telefone.length < 10){
+		mensagem += "<li>É obrigatório preencher o campo TELEFONE corretamente</li>";
 		$('#mensagemRetornoAlteracao').html(mensagem);
 		retorno = false;
 	}
-	if(email == null || email == "" || email.length < 1){
+	if(email == null || email == "" || email.length < 10){
 		mensagem += "<li>É obrigatório preencher o campo EMAIL com o seguinte formato 'exemplo@email.com'</li>";
 		$('#mensagemRetornoCadastro').html(mensagem);
 		retorno = false;
@@ -95,19 +95,19 @@ function isDadosValidos(nome,sobrenome,telefone, tipo, login,email,senha, rua, b
 		$('#mensagemRetornoCadastro').html(mensagem);
 		retorno = false;
 	}
-	if(cep == null || cep == "" || cep.length < 1 ){
+	if(cep == null || cep == "" || cep.length < 9 ){
 		mensagem += "<li>É obrigatório preencher o campo CEP</li>";
 		$('#mensagemRetornoCadastro').html(mensagem);
 		retorno = false;
 	}
 	if($('#form_type').val()=="C"){
-		if(senha == null || senha == "" || senha.length < 4){
-			mensagem += "<li>É obrigatório preenche o campo SENHA com no mínimo 8 caracteres alfanuméricos</li>";
+		if(senha == null || senha == "" || senha.length < 5){
+			mensagem += "<li>É obrigatório preenche o campo SENHA com no mínimo 5 caracteres alfanuméricos</li>";
 			$('#mensagemRetornoCadastro').html(mensagem);
 			retorno = false;
 		}
-		if(login == null || login == "" || login.length < 4 ){
-			mensagem += "<li>É obrigatório preencher o campo LOGIN com no mínimo 4 caracteres alfanuméricos</li>";
+		if(login == null || login == "" || login.length < 5 ){
+			mensagem += "<li>É obrigatório preencher o campo LOGIN com no mínimo 5 caracteres alfanuméricos</li>";
 			$('#mensagemRetornoCadastro').html(mensagem);
 			retorno = false;
 		}

@@ -167,14 +167,16 @@ $(document).ready(function() {
                         $("#cidade").val(dados.localidade);
                     }
                     else {
+                    	M.Toast.dismissAll();
                         limpa_formulário_cep();
-                        alert("CEP não encontrado.");
+                        M.toast({html: 'CEP não encontrado.!', classes: 'red'});
                     }
                 });
             }
             else {
+            	M.Toast.dismissAll();
                 limpa_formulário_cep();
-                alert("Formato de CEP inválido.");
+                M.toast({html: 'Formato de CEP inválido.!', classes: 'red'});
             }
         }
         else {
