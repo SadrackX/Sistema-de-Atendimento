@@ -13,7 +13,7 @@
 	<title>Sistema de Atendimento Domiciliar</title>
 </h:head>
 
-<h:body>
+<h:body onload="carregarAtendimentos_pgCliente()">
 	<!-- Header -->
 	<ui:insert name="navbar">
 		<ui:include src="/templates/menu.xhtml" />
@@ -69,6 +69,28 @@
 		</div>
 	</div>
 	</main>
+	
+	<!-- Tabela de atendimentos -->
+	
+	<table class="responsive-table">
+		<thead>
+			<tr class="row">
+				<th>Nome</th>
+				<th>CEP</th>
+				<th>Descrição</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody id="tabelaAtendimentos_pgCliente"/>
+	</table>
+	
+	<!-- Descricao do atendimento -->
+	<div id="descricao_modal" class="modal z-depth-4">
+		<div class="modal-content center">
+			<textarea disabled="disabled" id="descricao_modal_txt" rows="" cols="" style="resize: none; height: 300px"/>
+			<button class="btn grey modal-close waves-effect waves-red" type="reset">VOLTAR</button>
+		</div>
+	</div>
 	
 	<!-- Footer -->
 	<ui:insert name="footer">

@@ -258,3 +258,38 @@ function limparCamposAtendimento(){
 	$("#dataCriacao_a").val("");
 }
 
+/*LISTAR ATENDIMENTO NA PAGINA DO CLIENTE*/
+
+function carregarAtendimentos_pgCliente(){
+	var usuario = getUsuarioDaSessao();
+    qtdRegistrosAtendimentos = parseInt($("#qtdRegistrosAtendimentos").val());
+	$.ajax({
+		url: "ws/atendimentows/listarbyid/"+usuario.chave,
+        type: 'GET',
+        success: function (data) {
+        	qtdRegistrosAtendimentosObtidos = data.length;
+        	if(data.length > 0){
+        		preencherTabelaAtendimentos_pgCliente(data);
+        	}else{
+        		$("#tabelaAtendimentos_pgCliente").html('<tr><td colspan="5">Não há atendimentos cadastrados.</td></td>');
+        	}
+        }
+	});}
+
+function preencherTabelaAtendimentos_pgCliente(data){
+	var html = "";
+	for( i = 0; i < data.length; i++){
+		html += getLinhaAtendimento_pgCliente(data[i]);
+	}
+	$("#tabelaAtendimentos_pgCliente").html(html);	
+}
+function getLinhaAtendimento_pgCliente(atendimento){
+	linha = "<tr>";
+	linha +="<td>"+atendimento.usuario.nome+"</td>";
+	linha +="<td>"+atendimento.usuario.cep+"</td>";
+	linha +="<td><p class='hide-on-med-and-down'>"+atendimento.descricao+"</p><a class='blue hide-on-large-only hide-on-large-only waves-effect waves-light btn' onclick='modalDescricao("+JSON.stringify(atendimento)+")' >Descrição completa</a></td>";
+    linha +="<td>"+(atendimento.status == null ? "Aberto" : "Não completado")+"</td>";
+	linha +="</tr>";
+	return linha;
+}
+
