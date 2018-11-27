@@ -7,6 +7,7 @@ var status = 'A';
 /*CADASTRAR USUARIO*/
 
 function cadastrarUsuario(){
+	$('#mensagemRetornoCadastro').addClass("hiddendiv");
 	$('#tituloFomunlarioUsuario').html("Cadastrar Usuário");
 	limparCamposFormCadastro();
 	$('#form_type').val("cadastrar");
@@ -237,6 +238,7 @@ $("#confirmarExclusaoUsuario").submit(function(event){
 /*EDITAR USUARIO*/
 
 function editarUsuario(usuario){
+	$('#mensagemRetornoCadastro').addClass("hiddendiv");
 	$('#tituloFomunlarioUsuario').html("Alterar dados de Usuário");
 	$('#form_type').val("alterar");
 	$("#chave").val(usuario.chave);
