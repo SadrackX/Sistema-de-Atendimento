@@ -7,6 +7,7 @@ import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 import br.com.grupo8.sad.controle.WebServices.Services.AtendimentoWS;
+import br.com.grupo8.sad.controle.WebServices.Services.ConclusaoWS;
 import br.com.grupo8.sad.controle.WebServices.Services.UsuarioWS;
 
 @ApplicationPath("ws")
@@ -22,5 +23,6 @@ public class ApplicationConfig extends Application{
 	private void addRestResourceClasses(Set<Class<?>> resources){
 		resources.add(UsuarioWS.class);
 		resources.add(AtendimentoWS.class);
+		resources.add(ConclusaoWS.class);
 	}
 }

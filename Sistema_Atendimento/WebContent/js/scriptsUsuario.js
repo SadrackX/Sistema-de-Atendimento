@@ -140,7 +140,7 @@ function tratarRetornoServidor(data){
 			$("#cadastro").modal('close');
 			limparCamposFormCadastro();
 			$('#mensagemRetornoCadastro').addClass("hiddendiv");
-			if ($('#test1').val() == "1"){
+			if ($('#tipo_u').val() == "C"){
 				$('#cliente-tab-btn').trigger('click');
 			}else{
 				$('#funcionario-tab-btn').trigger('click');
@@ -209,6 +209,15 @@ $(document).ready(function() {
 });
 
 // TABELA USUARIO
+
+$('#cliente-tab-btn').click(function(event){
+	$('#tipo_u').val("C");
+	carregarUsuarios(1);
+});
+$('#funcionario-tab-btn').click(function(event){
+	$('#tipo_u').val("F");
+	carregarUsuarios(1);
+});
 
 function carregarUsuarios(pagina){
 	$("#barraCarregando").removeClass("hiddendiv");
@@ -316,14 +325,7 @@ $("#confirmarExclusaoUsuario").submit(function(event){
 	return false;
 });
 
-$('#cliente-tab-btn').click(function(event){
-	$('#tipo_u').val("C");
-	carregarUsuarios(1);
-});
-$('#funcionario-tab-btn').click(function(event){
-	$('#tipo_u').val("F");
-	carregarUsuarios(1);
-});
+
 
 function editarUsuario(usuario){
 	$('#tituloFomunlarioUsuario').html("Alterar dados de Usuário");

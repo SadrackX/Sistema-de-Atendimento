@@ -11,9 +11,6 @@ public class AtendimentoBO {
 	private AtendimentoDAO atendimentoDAO;
 	private List<String> mensagensDeErro;
 	
-	private final int ATENDIMENTOS_ATIVOS = 1;
-	private final int ATENDIMENTOS_EXCLUIDOS = 0;
-	
 	public AtendimentoBO(){
 		this.mensagensDeErro = new ArrayList<>();
 	}
@@ -43,9 +40,9 @@ public class AtendimentoBO {
 		}
 	}
 	
-	public List<AtendimentoPO> listar(Integer pagina, Integer qtdRegistros){
+	public List<AtendimentoPO> listar(Integer pagina, Integer qtdRegistros, Integer tipo){
 		pagina = pagina*qtdRegistros-qtdRegistros;
-		return getAtendimentoDAO().listar(pagina,qtdRegistros, getFiltro(ATENDIMENTOS_ATIVOS));
+		return getAtendimentoDAO().listar(pagina,qtdRegistros, getFiltro(tipo));
 	}
 	
 	public List<AtendimentoPO> listarTodos(){
@@ -72,9 +69,9 @@ public class AtendimentoBO {
 	private String getFiltro(int codigo){
 		String filtro = "";
 		switch (codigo) {
-		case ATENDIMENTOS_ATIVOS: filtro = "WHERE u.status IS NULL";	
+		case 1: filtro = "WHERE u.status IS NULL";	
 			break;
-		case ATENDIMENTOS_EXCLUIDOS: filtro = "WHERE u.status IS NOT NULL";
+		case 0: filtro = "WHERE u.status = 'N'";
 			break;
 		}
 		return filtro;

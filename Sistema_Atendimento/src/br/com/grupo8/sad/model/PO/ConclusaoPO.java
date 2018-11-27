@@ -30,6 +30,14 @@ public class ConclusaoPO implements Serializable{
 	@JoinColumn(name="usuario_chave", referencedColumnName="chave", nullable= false)
 	private UsuarioPO usuario;
 
+	public Integer getChave() {
+		return chave;
+	}
+
+	public void setChave(Integer chave) {
+		this.chave = chave;
+	}
+
 	public String getMotivo() {
 		return motivo;
 	}
@@ -38,6 +46,14 @@ public class ConclusaoPO implements Serializable{
 		this.motivo = motivo;
 	}
 	
+	public Calendar getDataConclusao() {
+		return dataConclusao;
+	}
+
+	public void setDataConclusao(Calendar dataConclusao) {
+		this.dataConclusao = dataConclusao;
+	}
+
 	public UsuarioPO getUsuario() {
 		return usuario;
 	}

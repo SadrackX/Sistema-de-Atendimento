@@ -2,21 +2,49 @@ package br.com.grupo8.sad.model.DAO;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+
 import br.com.grupo8.sad.interfaces.DAO;
 import br.com.grupo8.sad.model.PO.ConclusaoPO;
+import br.com.grupo8.sad.model.PO.UsuarioPO;
+import br.com.grupo8.sad.model.Util.PersistenceUtil;
 
 public class ConclusaoDAO implements DAO<ConclusaoPO> {
+	private EntityManager manager;
 
 	@Override
 	public boolean cadastrar(ConclusaoPO entidade) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			getManager().getTransaction().begin();
+			getManager().persist(entidade);
+			getManager().getTransaction().commit();
+			return true;
+		}catch (Exception e) {
+			getManager().getTransaction().rollback();
+			return false;
+		} finally {
+			getManager().close();
+		}
 	}
 
 	@Override
 	public ConclusaoPO capturarPorId(ConclusaoPO entidade) {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+			StringBuilder query = new StringBuilder();
+			query.append("SELECT u ")
+				 .append("FROM conclusao u ")
+				 .append("WHERE u.atendimento.chave = :chave ORDER BY u.chave desc");
+			TypedQuery<ConclusaoPO> typedQuery = getManager().createQuery(query.toString(),ConclusaoPO.class);
+				typedQuery.setParameter("chave", entidade.getAtendimento().getChave());
+				return (ConclusaoPO) typedQuery.getSingleResult();
+		}catch (Exception e) {
+			System.out.println("\nOcorreu um erro ao capturar a conclusao pela chave. Causa:\n");
+			e.printStackTrace();
+			return null;
+		}finally {
+			fecharManager();
+		}
 	}
 
 	@Override
@@ -39,13 +67,18 @@ public class ConclusaoDAO implements DAO<ConclusaoPO> {
 
 	@Override
 	public void fecharManager() {
-		// TODO Auto-generated method stub
-		
+		if(this.manager.isOpen()){
+			this.manager.close();
+		}	
 	}
-
-	public List<ConclusaoPO> listaTodos() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	private EntityManager getManager(){
+		if(this.manager == null){
+			this.manager = PersistenceUtil.getEntityManager();
+		}else if(!this.manager.isOpen()){
+			this.manager = PersistenceUtil.getEntityManager();
+		}
+		return this.manager;
 	}
 
 }

@@ -42,9 +42,9 @@ public class AtendimentoWS {
 	}
 
 	@GET
-	@Path("/listar/{pagina:[0-9]*}/{registros:[0-9]*}")
-	public List<AtendimentoPO> listAll(@PathParam("pagina") final int pagina,@PathParam("registros") final int qtdRegistros) {
-		return getAtendimentoBO().listar(pagina,qtdRegistros);
+	@Path("/listar/{pagina:[0-9]*}/{registros:[0-9]*}/{tipo:[0-9]*}")
+	public List<AtendimentoPO> listAll(@PathParam("pagina") final int pagina,@PathParam("registros") final int qtdRegistros,@PathParam("tipo") final int tipo) {
+		return getAtendimentoBO().listar(pagina,qtdRegistros,tipo);
 	}
 
 	@POST

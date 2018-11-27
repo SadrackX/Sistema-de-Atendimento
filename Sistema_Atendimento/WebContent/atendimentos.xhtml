@@ -13,6 +13,7 @@
 	<title>Sistema de Atendimento Domiciliar</title>
 </h:head>
 
+
 <h:body onload="carregarAtendimentos(1)">
 	<!-- Header -->
 	<ui:insert name="navbar">
@@ -22,8 +23,18 @@
 	<!-- Main -->
 	<div class="section">
 		<div class="container row">
+			<div class="row">
+				<div class="col s12">
+					<h5 class="center blue-text">Atendimentos</h5>
+					<ul class="tabs">
+						<li class="tab col s6 teal lighten-5"><a id="at-tab-btn" class="center blue-text active" href=''>Abertos</a></li>
+						<li class="tab col s6 teal lighten-5"><a id="at-nc-tab-btn" class="center blue-text" href=''>Não concluidos</a></li>
+					</ul>
+				</div>
+			</div>
+			<input value="1" hidden="" id="tipo_a"/>
 			<ui:insert >
-				<ui:include src="/templates/atendimentos_abertos_cliente.xhtml" />
+				<ui:include src="/templates/tabelaAtendimentos.xhtml" />
 			</ui:insert>
 		</div>
 	</div>
@@ -35,9 +46,22 @@
 		</ui:insert>
 	</div>
 	
+	<div id="descricao_modal" class="modal z-depth-4">
+		<div class="modal-content center">
+			<textarea disabled="disabled" id="descricao_modal_txt" rows="" cols="" style="resize: none; height: 300px"/>
+			<button class="btn grey modal-close waves-effect waves-red" type="reset">VOLTAR</button>
+		</div>
+	</div>
+	
 	<div id="cliente_info" class="modal z-depth-4">
 		<ui:insert>
 			<ui:include src="/templates/infoCliente.xhtml" />
+		</ui:insert>
+	</div>
+	
+	<div class="atender z-depth-4">
+		<ui:insert>
+			<ui:include src="/templates/atender.xhtml" />
 		</ui:insert>
 	</div>
 	

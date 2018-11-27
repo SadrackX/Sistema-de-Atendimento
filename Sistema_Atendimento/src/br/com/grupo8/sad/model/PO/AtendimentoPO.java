@@ -21,8 +21,7 @@ public class AtendimentoPO implements Serializable{
 	private Calendar dataCriacao;
 	
 	private String descricao;
-	
-	@Column(name="status")
+	 
 	private Character status;
 	
 	@ManyToOne
@@ -51,6 +50,14 @@ public class AtendimentoPO implements Serializable{
 
 	public void setUsuario(UsuarioPO usuario) {
 		this.usuario = usuario;
+	}
+
+	public Character getStatus() {
+		return status;
+	}
+
+	public void setStatus(Character status) {
+		this.status = status;
 	}
 
 	public Calendar getDataCriacao() {

@@ -2,7 +2,7 @@ var idDivPaginacaoAtendimento = "#OpPaginasAtendimento";
 var paginaAtualAtendimentos = 1;
 var qtdRegistrosAtendimentos = 10;
 var qtdRegistrosAtendimentosObtidos = 0;
-var urlReservas = "ws/atendimentows/listar/";
+var urlAtendimentos = "ws/atendimentows/listar/";
 var urlUsuarios = "ws/atendimentows/listarAtendimentos/";
 
 $("#agendarAtendimentoForm").submit(function(event) {
@@ -79,10 +79,19 @@ function tratarRetornoServidor(data) {
 
 // TABELA DE ATENDIMENTOS CLIENTE
 
+$('#at-tab-btn').click(function(event){
+	$('#tipo_a').val("1");
+	carregarAtendimentos(1);
+});
+$('#at-nc-tab-btn').click(function(event){
+	$('#tipo_a').val("0");
+	carregarAtendimentos(1);
+});
+
 function carregarAtendimentos(pagina){
     qtdRegistrosAtendimentos = parseInt($("#qtdRegistrosAtendimentos").val());
 	$.ajax({
-		url: "ws/atendimentows/listar/"+pagina+"/"+qtdRegistrosAtendimentos,
+		url: "ws/atendimentows/listar/"+pagina+"/"+qtdRegistrosAtendimentos+"/"+$("#tipo_a").val(),
         type: 'GET',
         success: function (data) {
         	qtdRegistrosAtendimentosObtidos = data.length;
@@ -111,34 +120,68 @@ function preencherTabelaAtendimentos(arrayDeAtendimentos){
 
 function getLinhaAtendimento(atendimento){
 	linha = "<tr>";
-	linha +="<td class='col s2 l2'>"+atendimento.usuario.nome+"</td>";
-	linha +="<td class='col s2 l2'>"+atendimento.usuario.cep+"</td>";
-	linha +="<td class='col s5 l5'>"+atendimento.descricao+"</td>";
-    linha +="<td class='col s1 l1'>"+getAcoesAtendimento(atendimento)+"</td>";
+	linha +="<td>"+atendimento.usuario.nome+"</td>";
+	linha +="<td>"+atendimento.usuario.cep+"</td>";
+	linha +="<td><p class='hide-on-med-and-down'>"+atendimento.descricao+"</p><a class='blue hide-on-large-only hide-on-large-only waves-effect waves-light btn' onclick='modalDescricao("+JSON.stringify(atendimento)+")' >Descrição completa</a></td>";
+    linha +="<td>"+getAcoesAtendimento(atendimento)+"</td>";
 	linha +="</tr>";
 	return linha;
+}
+
+function modalDescricao(atendimento){
+	$("#descricao_modal_txt").val(atendimento.descricao);
+	$("#descricao_modal").modal('open');
 }
 
 function getAcoesAtendimento(atendimento){
 	var html = getBtnInfoAtendimento(atendimento);
 	html += getBtnInfoCliente(atendimento);
-	html += getBtnExcluirAtendimento(atendimento);
+	html += getBtnAtender(atendimento);
+	if (atendimento.status != null){
+	html += getBtnMotivo(atendimento);
+	}
 	return html;
 }
 
 function getBtnInfoAtendimento(atendimento){
-	var html = " <a href='#' data-target='modal-mapa' class='modal-trigger' onclick='abrirInformacoesAtendimento("+JSON.stringify(atendimento.usuario.cep)+")' title='Mais informações'><i class='material-icons'>map</i></a> ";
+	var html = " <a href='' data-target='modal-mapa' class='modal-trigger' onclick='abrirInformacoesAtendimento("+JSON.stringify(atendimento.usuario.cep)+")' title='Mais informações'><i class='material-icons'>map</i></a> ";
 	return html;
 }
 
 function getBtnInfoCliente(atendimento){
-	var html = " <a href='#' data-target='cliente_info' class='modal-trigger' onclick='infoCliente("+JSON.stringify(atendimento)+")' title='Editar'><i class='material-icons' aria-hidden='true'>info</i></a> ";
+	var html = " <a href='' data-target='cliente_info' class='modal-trigger' onclick='infoCliente("+JSON.stringify(atendimento)+")' title='Editar'><i class='material-icons' aria-hidden='true'>info</i></a> ";
 	return html;
 }
 
-function getBtnExcluirAtendimento(atendimento){
-	var html = ' <a href="#" onclick="excluirAtendimento('+atendimento.chave+')" title="Excluir"><i class="material-icons" aria-hidden="true">delete</i></a>';
+function getBtnAtender(atendimento){
+	var html = " <a href='' data-target='atender-modal' class='modal-trigger' onclick='atender("+JSON.stringify(atendimento)+")' title='Atender'><i class='material-icons' aria-hidden='true'>delete</i></a>";
 	return html;
+}
+
+function getBtnMotivo(atendimento){
+	var html = " <a href='#!' onclick='motivoBtn("+JSON.stringify(atendimento)+")' title='Atender'><i class='material-icons' aria-hidden='true'>delete</i></a>";
+	return html;
+}
+
+function motivoBtn(atendimento){
+	$.ajax({
+		url : "ws/conclusaows/capturar/"+atendimento.chave,
+		type : 'GET',
+		success : function(data) {
+			retornoMt(data);
+		},
+		cache : false,
+		contentType : "application/json",
+		processData : true
+	});
+}
+
+function retornoMt(data){
+	$("#at-ipt").addClass('hiddendiv');
+	$("#at-btn").addClass('hiddendiv');
+	$("#at-btn-M").removeClass('hiddendiv');
+	$("#atendimento-ta").val(data.motivo);
+	$("#atender-modal").modal('open');
 }
 
 function abrirInformacoesAtendimento(cep){
@@ -159,6 +202,43 @@ function infoCliente(atendimento){
 	M.updateTextFields();
 }
 
-function excluirAtendimento(chave){
-	
+var atendimento_tb;
+function atender(atendimento){
+	atendimento_tb = atendimento;	
+	$("#at-ipt").removeClass('hiddendiv');
+	$("#at-btn").removeClass('hiddendiv');
+	$("#at-btn-M").addClass('hiddendiv');
 }
+
+$("#atender").submit(function(event){
+	var formData = JSON.stringify(capturarDadosAtender());
+	$.ajax({
+		url : "ws/conclusaows/atender/",
+		type : 'POST',
+		data : formData,
+		success : function(data) {
+			$("#atender-modal").modal('close');
+			M.toast(html, "Atendimento Concluido!");
+		},
+		cache : false,
+		contentType : "application/json",
+		processData : true
+	});
+});
+
+function capturarDadosAtender(){
+	var motivo = null;
+	var usuario = getUsuarioDaSessao();
+	var dataConclusao = new Date().getTime();
+	atendimento_tb.status = "C";
+	if(!$("#atendimento-cb").is(':checked')){
+		motivo = $("#atendimento-ta").val();
+		atendimento_tb.status = "N";
+	}
+	return conclusao = {"motivo":motivo, "usuario": usuario, "atendimento": atendimento_tb, "dataConclusao": dataConclusao};
+}
+
+
+
+
+
