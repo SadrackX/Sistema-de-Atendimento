@@ -36,9 +36,11 @@ public class PageFilter implements Filter{
              }
          }
          
-         if(sess.getAttribute("currentPage") != null && sess.getAttribute("usuario") == null){
-        	 RequestDispatcher dispacher = request.getRequestDispatcher("login.do");
-             dispacher.forward(request, response);
+        if(sess.getAttribute("currentPage") != null && sess.getAttribute("usuario") == null){
+        	if(sess.getAttribute("currentPage").equals("/autenticar.do") || sess.getAttribute("currentPage").equals("/login.do")){}else{
+        		RequestDispatcher dispacher = request.getRequestDispatcher("login.do");
+                dispacher.forward(request, response);
+        	}
          }
          
    
