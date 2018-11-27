@@ -34,7 +34,7 @@ public class AdminFilter implements Filter{
              }
          }
          
-        /* if(sess.getAttribute("currentPage").equals("/admin.do") && sess.getAttribute("usuario.tipo").equals("C")){
+        /* if(sess.getAttribute("currentPage").equals("/gerenciar_usuarios.do") && sess.getAttribute("usuario.tipo").equals("C")){
         	 RequestDispatcher dispacher = request.getRequestDispatcher("index.do");
              dispacher.forward(request, response);
          }*/

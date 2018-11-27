@@ -45,6 +45,25 @@ public class AtendimentoDAO implements DAO<AtendimentoPO> {
 			fecharManager();
 		}
 	}
+	
+	public List<AtendimentoPO> capturarByIdUser(AtendimentoPO entidade) {
+		try{
+			StringBuilder query = new StringBuilder();
+			query.append("SELECT a ")
+				 .append("FROM atendimento a ")
+				 .append("WHERE a.usuario.chave = :chave ")
+				 .append("AND a.status != 'C' OR a.status IS NULL");
+			TypedQuery<AtendimentoPO> typedQuery = getManager().createQuery(query.toString(),AtendimentoPO.class);
+				typedQuery.setParameter("chave", entidade.getUsuario().getChave().intValue());
+				return (List<AtendimentoPO>) typedQuery.getResultList();
+		}catch (Exception e) {
+			System.out.println("\nOcorreu um erro ao tentar capturar os atendimentos. Causa:\n");
+			e.printStackTrace();
+			return null;
+		}finally {
+			fecharManager();
+		}
+	}
 
 	@Override
 	public boolean atualizar(AtendimentoPO entidade) {

@@ -39,7 +39,7 @@
   </filter-mapping>
   <filter-mapping>
     <filter-name>AdminFilter</filter-name>
-    <url-pattern>/admin.do</url-pattern>
+    <url-pattern>/gerenciar_usuarios.do</url-pattern>
   </filter-mapping>
   <filter-mapping>
     <filter-name>AdminFilter</filter-name>

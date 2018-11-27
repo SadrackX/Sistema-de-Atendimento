@@ -5,6 +5,14 @@ var qtdRegistrosAtendimentosObtidos = 0;
 var urlAtendimentos = "ws/atendimentows/listar/";
 var urlUsuarios = "ws/atendimentows/listarAtendimentos/";
 
+/*CADASTRAR ATENDIMENTO*/
+
+function solicitarAt(){
+	limparCamposAtendimento();
+	M.updateTextFields();
+	$("#modal-s-atendimento").modal('open');
+}
+
 $("#agendarAtendimentoForm").submit(function(event) {
 	$('#mensagemRetorno').addClass("hiddendiv");
 	if (capturarDadosDoForm() != null) {
@@ -58,26 +66,7 @@ function isDadosValidos(usuario, myDate, descricao, atendimento) {
 	return retorno;
 }
 
-function tratarRetornoServidor(data) {
-	if(data == "sucess"){
-		$('#mensagemRetorno').html("Solicitação para o Atendimento realizado com sucesso!");
-		$('#mensagemRetorno').addClass("green");
-		$('#mensagemRetorno').removeClass("hiddendiv");
-		setTimeout(function(){
-			$("#modal-s-atendimento").modal('close');
-			limparCamposAtendimento();
-			$('#mensagemRetorno').addClass("hiddendiv");
-			location.href='cliente.do';
-		},2000);
-	}else{
-		$('#mensagemRetorno').html("Houve erro ao cadastrar!");
-		$('#mensagemRetorno').addClass("red");
-		$('#mensagemRetorno').removeClass("hiddendiv");
-	}
-}
-
-
-// TABELA DE ATENDIMENTOS CLIENTE
+/*TABELA DE ATENDIMENTOS*/
 
 $('#at-tab-btn').click(function(event){
 	$('#tipo_a').val("1");
@@ -144,24 +133,26 @@ function getAcoesAtendimento(atendimento){
 }
 
 function getBtnInfoAtendimento(atendimento){
-	var html = " <a style='padding: 5px' href='' data-target='modal-mapa' class='modal-trigger' onclick='abrirInformacoesAtendimento("+JSON.stringify(atendimento.usuario.cep)+")' title='Mais informações'><i class='blue-text fas fa-map-marked-alt fa-2x'/></a> ";
+	var html = " <a style='padding: 5px' href='#' onclick='abrirInformacoesAtendimento("+JSON.stringify(atendimento.usuario.cep)+")' title='Mais informações'><i class='blue-text fas fa-map-marked-alt fa-2x'/></a> ";
 	return html;
 }
 
 function getBtnInfoCliente(atendimento){
-	var html = " <a style='padding: 5px' href='' data-target='cliente_info' class='modal-trigger' onclick='infoCliente("+JSON.stringify(atendimento)+")' title='Informações do cliente'><i class='blue-text fas fa-info-circle fa-2x'/></a> ";
+	var html = " <a style='padding: 5px' href='#' onclick='infoCliente("+JSON.stringify(atendimento)+")' title='Informações do cliente'><i class='blue-text fas fa-info-circle fa-2x'/></a> ";
 	return html;
 }
 
 function getBtnAtender(atendimento){
-	var html = " <a style='padding: 5px' href='' data-target='atender-modal' class='modal-trigger' onclick='atender("+JSON.stringify(atendimento)+")' title='Atender'><i class='green-text fas fa-clipboard-check fa-2x'/></a>";
+	var html = " <a style='padding: 5px' href='#' onclick='atender("+JSON.stringify(atendimento)+")' title='Atender'><i class='green-text fas fa-clipboard-check fa-2x'/></a>";
 	return html;
 }
 
 function getBtnMotivo(atendimento){
-	var html = " <a style='padding: 5px' href='#!' onclick='motivoBtn("+JSON.stringify(atendimento)+")' title='Motivo'><i class='orange-text fas fa-exclamation-triangle fa-2x'/></a>";
+	var html = " <a style='padding: 5px' href='#' onclick='motivoBtn("+JSON.stringify(atendimento)+")' title='Motivo'><i class='orange-text fas fa-exclamation-triangle fa-2x'/></a>";
 	return html;
 }
+
+/*MOTIVO*/
 
 function motivoBtn(atendimento){
 	$.ajax({
@@ -184,9 +175,12 @@ function retornoMt(data){
 	$("#atender-modal").modal('open');
 }
 
+/*INFO DO ATENDIMENTO & CLIENTE*/
+
 function abrirInformacoesAtendimento(cep){
 	$("#txtEndereco").val(cep);
 	$('#btnEndereco').trigger('click');
+	$("#modal-mapa").modal('open');
 }
 
 function infoCliente(atendimento){
@@ -201,7 +195,10 @@ function infoCliente(atendimento){
 	$("#cep_info").val(atendimento.usuario.cep);
 	$("#login_info").val(atendimento.usuario.login);	
 	M.updateTextFields();
+	$("#cliente_info").modal('open');
 }
+
+/*ATENDER*/
 
 var atendimento_tb;
 function atender(atendimento){
@@ -209,8 +206,8 @@ function atender(atendimento){
 	$("#at-ipt").removeClass('hiddendiv');
 	$("#at-btn").removeClass('hiddendiv');
 	$("#at-btn-M").addClass('hiddendiv');
+	$("#atender-modal").modal('open');
 }
-
 $("#atender").submit(function(event){
 	var formData = JSON.stringify(capturarDadosAtender());
 	$.ajax({
@@ -239,7 +236,25 @@ function capturarDadosAtender(){
 	return conclusao = {"motivo":motivo, "usuario": usuario, "atendimento": atendimento_tb, "dataConclusao": dataConclusao};
 }
 
+/*RETORNO E VALIDACOES*/
 
+function tratarRetornoServidor(data) {
+	if(data == "sucess"){
+		M.toast({html: 'Solicitação para o Atendimento realizado com sucesso!', classes: 'green'});
+		setTimeout(function(){
+			$("#modal-s-atendimento").modal('close');
+			limparCamposAtendimento();
+			$('#mensagemRetorno').addClass("hiddendiv");
+		},2000);
+	}else{
+		$('#mensagemRetorno').html("Não é possivel solicitar um novo atendimento<br/>enquanto estiver outro ativo!");
+		$('#mensagemRetorno').addClass("red");
+		$('#mensagemRetorno').removeClass("hiddendiv");
+	}
+}
 
-
+function limparCamposAtendimento(){
+	$("#descricao_a").val("");
+	$("#dataCriacao_a").val("");
+}
 

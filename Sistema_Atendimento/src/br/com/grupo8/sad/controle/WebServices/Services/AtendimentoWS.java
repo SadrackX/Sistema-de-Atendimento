@@ -13,6 +13,7 @@ import javax.ws.rs.Produces;
 
 import br.com.grupo8.sad.model.BO.AtendimentoBO;
 import br.com.grupo8.sad.model.PO.AtendimentoPO;
+import br.com.grupo8.sad.model.PO.UsuarioPO;
 
 @RequestScoped
 @Path("/atendimentows")
@@ -26,9 +27,12 @@ public class AtendimentoWS {
 	@Path("/cadastrar/")
 	public List<String> create(final AtendimentoPO atendimento) {
 		List<String> retorno = new ArrayList<>();
-		getAtendimentoBO().setAtendimentoPO(atendimento);	
-		getAtendimentoBO().cadastrar();
-	    retorno.add("sucess");
+		getAtendimentoBO().setAtendimentoPO(atendimento);
+		if(getAtendimentoBO().cadastrar()){
+			retorno.add("sucess");
+	    }else{
+	    	retorno.add("erro");
+	    }
 		return retorno;
 	}
 	
@@ -45,6 +49,14 @@ public class AtendimentoWS {
 	@Path("/listar/{pagina:[0-9]*}/{registros:[0-9]*}/{tipo:[0-9]*}")
 	public List<AtendimentoPO> listAll(@PathParam("pagina") final int pagina,@PathParam("registros") final int qtdRegistros,@PathParam("tipo") final int tipo) {
 		return getAtendimentoBO().listar(pagina,qtdRegistros,tipo);
+	}
+	
+	@GET
+	@Path("/listarbyid/{chave:[0-9]*}")
+	public List<AtendimentoPO> listAllByIdUser(@PathParam("chave") final int chave) {
+		getAtendimentoBO().getAtendimentoPO().setUsuario(new UsuarioPO());
+		atendimentoBO.getAtendimentoPO().getUsuario().setChave(chave);
+		return getAtendimentoBO().capturarByIdUser();
 	}
 
 	@POST

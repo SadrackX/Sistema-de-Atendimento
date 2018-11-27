@@ -14,19 +14,19 @@
 						<ul id="dropdownGerenciar-M" class="dropdown-content">
 							<li><a href="atendimentos.do"><i style="width: 15px;" class="fas fa-clipboard-list"/>ATENDIMENTOS</a></li>
 							<li class="divider"></li>
-							<li><a href="admin.do"><i class="fas fa-users"/>USUARIOS</a></li>
+							<li><a href="gerenciar_usuarios.do"><i class="fas fa-users"/>USUARIOS</a></li>
 						</ul></li>
 					<li class="divider"></li>
 				</c:if>
 				
 				<c:if test="#{!usuarioBean.funcionario}">
-					<li><a data-target="modal-s-atendimento" class="modal-trigger"><i class="fas fa-calendar-plus"/>SOLICITAR ATENDIMENTO</a></li>
+					<li><a onclick='solicitarAt()'><i class="fas fa-calendar-plus"/>SOLICITAR ATENDIMENTO</a></li>
 					<li class="divider"></li>
 				</c:if>
 				
 				<li><a class="dropdown-trigger" data-target="dropdownUsuario-M"><i style="padding-right: 10px" class="fas fa-user"/><h:outputText value="#{usuarioBean.nome}" /></a>
 					<ul id="dropdownUsuario-M" class="dropdown-content">
-						<li><a href="cliente.do"><i class="fas fa-user-cog"/>PERFIL</a></li>
+						<li><a href="dados_usuario.do"><i class="fas fa-user-cog"/>PERFIL</a></li>
 						<li><a href="#" onclick='sair()'><i class="fas fa-times"/>SAIR</a></li>
 					</ul>
 				</li>

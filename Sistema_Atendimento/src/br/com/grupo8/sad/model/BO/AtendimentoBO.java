@@ -16,7 +16,15 @@ public class AtendimentoBO {
 	}
 	
 	public boolean cadastrar(){
-		return getAtendimentoDAO().cadastrar(getAtendimentoPO());
+		if(capturarByIdUser().isEmpty()){
+			return getAtendimentoDAO().cadastrar(getAtendimentoPO());
+		}else{
+			return false;
+		}
+	}
+	
+	public List<AtendimentoPO> capturarByIdUser(){
+		return getAtendimentoDAO().capturarByIdUser(getAtendimentoPO());
 	}
 	
 	public AtendimentoPO capturar(){
