@@ -1,20 +1,26 @@
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:composite="http://java.sun.com/jsf/composite"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:head>
 	<ui:insert>
 		<ui:include src="/templates/css_padrao.xhtml" />
 	</ui:insert>
 	<h:outputScript>function alterarUrl(){history.pushState("Object" , "Página de Login" , "login.do");}</h:outputScript>
 </h:head>
+
 <h:body onload="alterarUrl()">
+	<!-- Header -->
 	<ui:insert>
 		<ui:include src="/templates/menu.xhtml" />
 	</ui:insert>
-
+	
+	<!-- Main -->
+	<main>
 	<div class="section">
 		<div class="container row">
 			<div class="col z-depth-1" style="left: 50%; position: relative; transform: translateX(-50%); width: auto;">
@@ -26,6 +32,7 @@
 			</div>
 		</div>
 	</div>
+	</main>
 	
 	<!-- Footer -->
 	<ui:insert name="footer">

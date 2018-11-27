@@ -13,7 +13,6 @@
 	<title>Sistema de Atendimento Domiciliar</title>
 </h:head>
 
-
 <h:body onload="carregarAtendimentos(1)">
 	<!-- Header -->
 	<ui:insert name="navbar">
@@ -21,6 +20,7 @@
 	</ui:insert>
 
 	<!-- Main -->
+	<main>
 	<div class="section">
 		<div class="container row">
 			<div class="row">
@@ -38,14 +38,17 @@
 			</ui:insert>
 		</div>
 	</div>
+	</main>
 
-	<!-- 	MAPA MODAL -->
+	<!-- Modal -->
+	<!-- Mapa -->
 	<div id="modal-mapa" class="modal z-depth-4">
 		<ui:insert>
 			<ui:include src="/templates/rota.xhtml" />
 		</ui:insert>
 	</div>
 	
+	<!-- Descricao do atendimento -->
 	<div id="descricao_modal" class="modal z-depth-4">
 		<div class="modal-content center">
 			<textarea disabled="disabled" id="descricao_modal_txt" rows="" cols="" style="resize: none; height: 300px"/>
@@ -53,12 +56,14 @@
 		</div>
 	</div>
 	
+	<!-- Informacao do cliente -->
 	<div id="cliente_info" class="modal z-depth-4">
 		<ui:insert>
 			<ui:include src="/templates/infoCliente.xhtml" />
 		</ui:insert>
 	</div>
 	
+	<!-- Atender -->
 	<div class="atender z-depth-4">
 		<ui:insert>
 			<ui:include src="/templates/atender.xhtml" />
@@ -79,5 +84,4 @@
 		</script>
 	</c:if>
 </h:body>
-
 </html>

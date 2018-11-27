@@ -14,10 +14,13 @@
 </h:head>
 
 <h:body onload="carregarUsuarios(1)">
+	<!-- Header -->
 	<ui:insert name="navbar">
 		<ui:include src="/templates/menu.xhtml" />
 	</ui:insert>
-
+	
+	<!-- Main -->
+	<main>
 	<div class="section">
 		<div class="container row">
 			<a onclick="cadastrarUsuario()" data-target="cadastro" class="modal-trigger waves-effect waves-light btn"><i class="fas fa-user-plus fa-2x"/></a>
@@ -36,9 +39,10 @@
 			</ui:insert>
  		</div>		
 	</div>
+	</main>
 	
+	<!-- Modal -->
 	<!-- Confirmar exclusão -->
-	
 	<div class="modal lighten-2 center" id="confirmaExclusao">
 		<form class="container" id="confirmarExclusaoUsuario">
 			<h4 id="nomeEx"/>
@@ -59,6 +63,7 @@
 		</ui:insert>
 	</div>
 	
+	<!-- Info Cliente -->
 	<div id="user_info" class="modal z-depth-4">
 		<ui:insert>
 			<ui:include src="/templates/infoCliente.xhtml" />
@@ -78,5 +83,4 @@
 		</script>
 	</c:if>
 </h:body>
-
 </html>

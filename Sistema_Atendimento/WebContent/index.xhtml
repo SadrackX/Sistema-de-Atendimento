@@ -4,7 +4,8 @@
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:composite="http://java.sun.com/jsf/composite"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:head>
 	<ui:insert>
 		<ui:include src="/templates/css_padrao.xhtml" />
@@ -13,12 +14,13 @@
 </h:head>
 
 <h:body>
+	<!-- Header -->
 	<ui:insert name="navbar">
 		<ui:include src="/templates/menu.xhtml" />
 	</ui:insert>
-
+	
 	<!-- Main -->
-
+	<main>
 	<div class="container">
 		<div class="section">
 			<div class="row center">
@@ -64,7 +66,7 @@
 			</div>
 		</div>
 	</div>
-
+	</main>
 
 	<!-- Footer -->
 	<ui:insert name="footer">
@@ -72,5 +74,4 @@
 		<ui:include src="/templates/js_padrao.xhtml" />
 	</ui:insert>
 </h:body>
-
 </html>

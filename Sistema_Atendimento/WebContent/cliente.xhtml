@@ -18,8 +18,9 @@
 	<ui:insert name="navbar">
 		<ui:include src="/templates/menu.xhtml" />
 	</ui:insert>
-
-
+	
+	<!-- Main -->
+	<main>
 	<div class="section">
 		<div class="row container">
 			<form class="col s12">
@@ -40,9 +41,13 @@
 					<input id="telefone_p" type="text" data-mask="(00)0000-0000" value="#{usuarioBean.usuario.telefone}" disabled="disabled" /> 
 					<label for="telefone_p">Telefone</label>
 				</div>
-				<div class="input-field col s12 l6">
+				<div class="input-field col s9 l4">
 					<input id="rua_p" type="text" value="#{usuarioBean.usuario.rua}" disabled="disabled" /> 
 					<label for="rua_p">Rua</label>
+				</div>
+				<div class="input-field col s3 l2">
+					<input id="numero_p" type="text" value="#{usuarioBean.usuario.numero}" disabled="disabled" /> 
+					<label for="numero_p">Numero</label>
 				</div>
 				<div class="input-field col s12 l6">
 					<input id="bairro_p" type="text" value="#{usuarioBean.usuario.bairro}" disabled="disabled" /> 
@@ -61,19 +66,14 @@
 					<label for="login_p">Login</label>
 				</div>
 			</form>
-			<!-- <c:if test="#{!usuarioBean.funcionario}">
-				<ui:insert >
-					<ui:include src="/templates/atendimentos_abertos_cliente.xhtml" />
-				</ui:insert>
-			</c:if> -->
 		</div>
 	</div>
-
+	</main>
+	
 	<!-- Footer -->
 	<ui:insert name="footer">
 		<ui:include src="/templates/rodape.xhtml" />
 		<ui:include src="/templates/js_padrao.xhtml" />
 	</ui:insert>
 </h:body>
-
 </html>
