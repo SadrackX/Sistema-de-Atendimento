@@ -2,9 +2,9 @@ var idDivPaginacaoUsuario = "#OpPaginasUsuario";
 var paginaAtualUsuarios=1;
 var qtdRegistrosUsuarios = 10;
 var qtdRegistrosUsuariosObtidos = 0;
-var urlUsuarios = "ws/usuariows/listar/";
-var urlUsuarios = "ws/usuariows/listarUsuarios/";
 var status = 'A';
+
+/*CADASTRAR USUARIO*/
 
 function cadastrarUsuario(){
 	$('#tituloFomunlarioUsuario').html("Cadastrar Usuário");
@@ -28,11 +28,6 @@ $("#CadastroDeUsuario").submit(function(event){
 		    contentType: "application/json",
 		    processData: true
 		});
-		if ($('#form_type').val()=="cadastro"){
-			M.toast({html: 'Usuario cadastrado!', classes: 'green'});
-		}else{
-			M.toast({html: 'Usuario atualizado!', classes: 'blue'});
-		}
 	}else{
 		$('#mensagemRetornoCadastro').addClass("red");
 		$('#mensagemRetornoCadastro').removeClass("hiddendiv");
@@ -64,7 +59,6 @@ function capturarDadosDoForm(){
 
 function isDadosValidos(nome,sobrenome,telefone, tipo, login,email,senha, rua, bairro, cidade, cep){
 	var mensagem = "";
-//	var cpfSemFormatacao;
 	var retorno = true;
 	if(nome == null || nome == "" || nome.length < 4){
 		mensagem += "<li>É obrigatório preencher o campo NOME corretamente com no minimo 4 letras</li>";
@@ -121,94 +115,7 @@ function isDadosValidos(nome,sobrenome,telefone, tipo, login,email,senha, rua, b
 	return retorno;
 }
 
-/*VALIDAÇÕES E TRATAMENTOS*/
-
-function validar(dom,tipo){
-	switch(tipo){
-		case'num':var regex=/[A-Za-z]|\.|\,|\;|\:|\[|\{|\]|\}|\-|\_|\=|\+|\§|\)|\(|\*|\&|\¬|\%|\¢|\$|\£|\#|\³|\@|\²|\!|\¹|\º|\ª|\°|\~|\´|\`|\>|\<|\"|\'|\\|\||\¨+/g;break;
-		case'text':var regex=/\d|\.|\,|\;|\:|\[|\{|\]|\}|\-|\_|\=|\+|\§|\)|\(|\*|\&|\¬|\%|\¢|\$|\£|\#|\³|\@|\²|\!|\¹|\º|\ª|\°|\~|\´|\`|\>|\<|\"|\'|\\|\||\¨+/g;break;
-	}
-	dom.value=dom.value.replace(regex,'');
-}
-
-function tratarRetornoServidor(data){
-	if(data == "sucess"){
-		$('#mensagemRetornoCadastro').html("Cadastro realizado com sucesso!");
-		$('#mensagemRetornoCadastro').addClass("green");
-		$('#mensagemRetornoCadastro').removeClass("hiddendiv");
-		setTimeout(function(){
-			$("#cadastro").modal('close');
-			limparCamposFormCadastro();
-			$('#mensagemRetornoCadastro').addClass("hiddendiv");
-			if ($('#tipo_u').val() == "C"){
-				$('#cliente-tab-btn').trigger('click');
-			}else{
-				$('#funcionario-tab-btn').trigger('click');
-			}
-		},2000);
-	}else{
-		$('#mensagemRetornoCadastro').html("Houve erro ao cadastrar!");
-		$('#mensagemRetornoCadastro').addClass("red");
-		$('#mensagemRetornoCadastro').removeClass("hiddendiv");
-	}
-}
-
-function limparCamposFormCadastro(){
-	$("#nome").val("");
-	$("#sobrenome").val("");
-	$("#cpf").val("");
-	$("#login").val("");
-	$("#telefone").val("");
-	$("#email").val("");
-	$("#senha").val("");
-	$("#rua").val("");
-	$("#bairro").val("");
-	$("#cidade").val("");
-	$("#cep").val("");
-	$("#login-div").removeClass("hiddendiv");
-}
-
-//Consulta CEP
-
-$(document).ready(function() {
-    function limpa_formulário_cep() {
-        $("#rua").val("");
-        $("#bairro").val("");
-        $("#cidade").val("");
-    }
-    $("#cep").blur(function() {
-        var cep = $(this).val().replace(/\D/g, '');
-        if (cep != "") {
-            var validacep = /^[0-9]{8}$/;
-            if(validacep.test(cep)) {
-                $("#rua").val("...");
-                $("#bairro").val("...");
-                $("#cidade").val("...");
-                $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
-                    if (!("erro" in dados)) {
-                        $("#rua").val(dados.logradouro);
-                        $("#bairro").val(dados.bairro);
-                        $("#cidade").val(dados.localidade);
-                    }
-                    else {
-                        limpa_formulário_cep();
-                        alert("CEP não encontrado.");
-                    }
-                });
-            }
-            else {
-                limpa_formulário_cep();
-                alert("Formato de CEP inválido.");
-            }
-        }
-        else {
-            limpa_formulário_cep();
-        }
-        M.updateTextFields();
-    });
-});
-
-// TABELA USUARIO
+/*TABELA USUARIO*/
 
 $('#cliente-tab-btn').click(function(event){
 	$('#tipo_u').val("C");
@@ -284,6 +191,8 @@ function getBtnExcluirUsuario(usuario){
 	return html;
 }
 
+/*INFORMAÇÕES USUARIO*/
+
 function abrirInformacoesUsuario(usuario){
 	$("#nome_info").val(usuario.nome);
 	$("#sobrenome_info").val(usuario.sobrenome);
@@ -325,7 +234,7 @@ $("#confirmarExclusaoUsuario").submit(function(event){
 	return false;
 });
 
-
+/*EDITAR USUARIO*/
 
 function editarUsuario(usuario){
 	$('#tituloFomunlarioUsuario').html("Alterar dados de Usuário");
@@ -346,6 +255,55 @@ function editarUsuario(usuario){
 	M.updateTextFields();
 	$('#tipo').find('option[value="'+usuario.tipo+'"]').prop('selected', true);
 	$("#tipo").formSelect();
+}
+
+/*VALIDAÇÕES E TRATAMENTOS*/
+
+function validar(dom,tipo){
+	switch(tipo){
+		case'num':var regex=/[A-Za-z]|\.|\,|\;|\:|\[|\{|\]|\}|\-|\_|\=|\+|\§|\)|\(|\*|\&|\¬|\%|\¢|\$|\£|\#|\³|\@|\²|\!|\¹|\º|\ª|\°|\~|\´|\`|\>|\<|\"|\'|\\|\||\¨+/g;break;
+		case'text':var regex=/\d|\.|\,|\;|\:|\[|\{|\]|\}|\-|\_|\=|\+|\§|\)|\(|\*|\&|\¬|\%|\¢|\$|\£|\#|\³|\@|\²|\!|\¹|\º|\ª|\°|\~|\´|\`|\>|\<|\"|\'|\\|\||\¨+/g;break;
+	}
+	dom.value=dom.value.replace(regex,'');
+}
+
+function tratarRetornoServidor(data){
+	if(data == "sucess"){		
+		if ($('#form_type').val()=="cadastrar"){
+			M.toast({html: 'Usuario cadastrado!', classes: 'green'});
+		}else{
+			M.toast({html: 'Usuario atualizado!', classes: 'blue'});
+		}
+		setTimeout(function(){
+			$("#cadastro").modal('close');
+			limparCamposFormCadastro();
+			$('#mensagemRetornoCadastro').addClass("hiddendiv");
+			if ($('#tipo_u').val() == "C"){
+				$('#cliente-tab-btn').trigger('click');
+			}else{
+				$('#funcionario-tab-btn').trigger('click');
+			}
+		},2000);
+	}else{
+		$('#mensagemRetornoCadastro').html("Houve erro ao cadastrar!");
+		$('#mensagemRetornoCadastro').addClass("red");
+		$('#mensagemRetornoCadastro').removeClass("hiddendiv");
+	}
+}
+
+function limparCamposFormCadastro(){
+	$("#nome").val("");
+	$("#sobrenome").val("");
+	$("#cpf").val("");
+	$("#login").val("");
+	$("#telefone").val("");
+	$("#email").val("");
+	$("#senha").val("");
+	$("#rua").val("");
+	$("#bairro").val("");
+	$("#cidade").val("");
+	$("#cep").val("");
+	$("#login-div").removeClass("hiddendiv");
 }
 
 
