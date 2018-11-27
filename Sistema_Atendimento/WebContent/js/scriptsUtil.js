@@ -186,4 +186,9 @@ $(document).ready(function() {
     });
 });
 
-
+function sair(){
+	M.toast({html: 'Saindo!', classes: 'red'});
+	setTimeout(function(){
+		location.href="sair.do";
+	},2000);
+}
