@@ -19,7 +19,11 @@ public class UsuarioBO {
 	}
 	
 	public boolean cadastrar(){
+		if(capturar() == null){
 			return getUsuarioDAO().cadastrar(getUsuarioPO());
+		}else{
+			return false;
+		}
 	}
 	public boolean atualizar(){
 		return getUsuarioDAO().atualizar(getUsuarioPO());

@@ -285,7 +285,7 @@ function tratarRetornoServidor(data){
 			}
 		},2000);
 	}else{
-		$('#mensagemRetornoCadastro').html("Houve erro ao cadastrar!");
+		$('#mensagemRetornoCadastro').html("Login ja existe!");
 		$('#mensagemRetornoCadastro').addClass("red");
 		$('#mensagemRetornoCadastro').removeClass("hiddendiv");
 	}

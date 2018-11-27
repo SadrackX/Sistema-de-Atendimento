@@ -27,8 +27,11 @@ public class UsuarioWS {
 	public List<String> create(final UsuarioPO usuario) {
 		List<String> retorno = new ArrayList<>();
 		getUsuarioBO().setUsuarioPO(usuario);	
-		getUsuarioBO().cadastrar();
-	    retorno.add("sucess");
+		if(getUsuarioBO().cadastrar()){
+			retorno.add("sucess");}
+		else{
+			retorno.add("erro");
+			}
 		return retorno;
 	}
 
