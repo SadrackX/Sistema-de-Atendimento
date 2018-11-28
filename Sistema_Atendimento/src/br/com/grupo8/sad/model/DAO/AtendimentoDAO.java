@@ -52,7 +52,7 @@ public class AtendimentoDAO implements DAO<AtendimentoPO> {
 			query.append("SELECT a ")
 				 .append("FROM atendimento a ")
 				 .append("WHERE a.usuario.chave = :chave ")
-				 .append("AND a.status != 'C' OR a.status IS NULL");
+				 .append("AND (a.status != 'C' OR a.status IS NULL)");
 			TypedQuery<AtendimentoPO> typedQuery = getManager().createQuery(query.toString(),AtendimentoPO.class);
 				typedQuery.setParameter("chave", entidade.getUsuario().getChave().intValue());
 				return (List<AtendimentoPO>) typedQuery.getResultList();

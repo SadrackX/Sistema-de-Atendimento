@@ -33,10 +33,11 @@ public class ConclusaoDAO implements DAO<ConclusaoPO> {
 			StringBuilder query = new StringBuilder();
 			query.append("SELECT u ")
 				 .append("FROM conclusao u ")
-				 .append("WHERE u.atendimento.chave = :chave ORDER BY u.chave desc");
+				 .append("WHERE u.atendimento.chave = :chave ")
+				 .append("ORDER BY u.chave desc");
 			TypedQuery<ConclusaoPO> typedQuery = getManager().createQuery(query.toString(),ConclusaoPO.class);
-				typedQuery.setParameter("chave", entidade.getAtendimento().getChave());
-				return (ConclusaoPO) typedQuery.getSingleResult();
+				typedQuery.setParameter("chave", entidade.getAtendimento().getChave().intValue());
+				return (ConclusaoPO) typedQuery.setMaxResults(1).getSingleResult();
 		}catch (Exception e) {
 			System.out.println("\nOcorreu um erro ao capturar a conclusao pela chave. Causa:\n");
 			e.printStackTrace();

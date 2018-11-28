@@ -133,7 +133,7 @@ function getAcoesAtendimento(atendimento){
 }
 
 function getBtnInfoAtendimento(atendimento){
-	var html = " <a style='padding: 5px' href='#' onclick='abrirInformacoesAtendimento("+JSON.stringify(atendimento.usuario.cep)+")' title='Mais informações'><i class='blue-text fas fa-map-marked-alt fa-2x'/></a> ";
+	var html = " <a style='padding: 5px' href='#' onclick='abrirInformacoesAtendimento("+JSON.stringify(atendimento)+")' title='Mais informações'><i class='blue-text fas fa-map-marked-alt fa-2x'/></a> ";
 	return html;
 }
 
@@ -161,9 +161,6 @@ function motivoBtn(atendimento){
 		success : function(data) {
 			retornoMt(data);
 		},
-		cache : false,
-		contentType : "application/json",
-		processData : true
 	});
 }
 
@@ -177,8 +174,8 @@ function retornoMt(data){
 
 /*INFO DO ATENDIMENTO & CLIENTE*/
 
-function abrirInformacoesAtendimento(cep){
-	$("#txtEndereco").val(cep);
+function abrirInformacoesAtendimento(atendimento){
+	$("#txtEndereco").val(atendimento.usuario.cep);
 	$('#btnEndereco').trigger('click');
 	$("#modal-mapa").modal('open');
 }
@@ -208,6 +205,7 @@ function atender(atendimento){
 	$("#at-btn-M").addClass('hiddendiv');
 	$("#atender-modal").modal('open');
 }
+
 $("#atender").submit(function(event){
 	var formData = JSON.stringify(capturarDadosAtender());
 	$.ajax({
