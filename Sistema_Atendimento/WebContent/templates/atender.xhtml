@@ -16,7 +16,7 @@
 		        <span>Atendimento concluido?</span>
 		      </label>
 	    	</div>
-	    	<textarea disabled="disabled" id="atendimento-ta" rows="3" style="resize: vertical"/>
+	    	<textarea onkeypress="return soLetrasNumeros(event)" disabled="disabled" id="atendimento-ta" rows="3" style="resize: vertical"/>
 	    	<label for="atendimento-ta">Motivo</label>
 	    	<div class="row center">
 				<button id="btn-submit" class="btn waves-effect waves-light" type="submit">ENVIAR</button>
