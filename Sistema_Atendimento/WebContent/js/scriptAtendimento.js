@@ -166,8 +166,7 @@ function motivoBtn(atendimento){
 
 function retornoMt(data){
 	$("#at-ipt").addClass('hiddendiv');
-	$("#at-btn").addClass('hiddendiv');
-	$("#at-btn-M").removeClass('hiddendiv');
+	$("#btn-submit").addClass('hiddendiv');
 	$("#atendimento-ta").val(data.motivo);
 	$("#atender-modal").modal('open');
 }
@@ -201,12 +200,14 @@ var atendimento_tb;
 function atender(atendimento){
 	atendimento_tb = atendimento;	
 	$("#at-ipt").removeClass('hiddendiv');
-	$("#at-btn").removeClass('hiddendiv');
-	$("#at-btn-M").addClass('hiddendiv');
+	$('#mensagemRetorno_atendimento').addClass("hiddendiv");
+	$("#btn-submit").removeClass('hiddendiv');
 	$("#atender-modal").modal('open');
 }
 
 $("#atender").submit(function(event){
+	$('#mensagemRetorno_atendimento').addClass("hiddendiv");
+	if (capturarDadosAtender() != null){
 	var formData = JSON.stringify(capturarDadosAtender());
 	$.ajax({
 		url : "ws/conclusaows/atender/",
@@ -214,14 +215,21 @@ $("#atender").submit(function(event){
 		data : formData,
 		success : function(data) {
 			$("#atender-modal").modal('close');
-			M.toast(html, "Atendimento Concluido!");
+			M.toast({html: at_situacao, classes: 'blue'});
+			carregarAtendimentos(1);
 		},
 		cache : false,
 		contentType : "application/json",
 		processData : true
 	});
+	}else{
+		$('#mensagemRetorno_atendimento').addClass("red");
+		$('#mensagemRetorno_atendimento').removeClass("hiddendiv");
+	}
+	return false;
 });
 
+var at_situacao;
 function capturarDadosAtender(){
 	var motivo = null;
 	var usuario = getUsuarioDaSessao();
@@ -230,8 +238,29 @@ function capturarDadosAtender(){
 	if(!$("#atendimento-cb").is(':checked')){
 		motivo = $("#atendimento-ta").val();
 		atendimento_tb.status = "N";
+		at_situacao = "Atendimento adiado!";
+	}else{
+		at_situacao = "Atendimento concluido!";
+		motivo = "AtendimentoConcluido";
 	}
-	return conclusao = {"motivo":motivo, "usuario": usuario, "atendimento": atendimento_tb, "dataConclusao": dataConclusao};
+	var conclusao;
+	if(validarMotivo(motivo)){
+		conclusao = {"motivo":motivo, "usuario": usuario, "atendimento": atendimento_tb, "dataConclusao": dataConclusao};
+	}else{
+		conclusao = null;
+	}
+	return conclusao;
+}
+
+function validarMotivo(motivo){
+	var mensagem = "";
+	var retorno = true;
+	if (motivo == null || motivo == "" || motivo.length < 10) {
+		mensagem += "<li>É obrigatório preencher o MOTIVO com no minimo 10 caracteres</li>";
+		retorno = false;
+	}
+	$('#mensagemRetorno_atendimento').html(mensagem);
+	return retorno;
 }
 
 /*RETORNO E VALIDACOES*/
